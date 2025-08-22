@@ -1,5 +1,5 @@
 import React from "react";
-import { Mail, MapPin, Clock, Phone, Instagram, Linkedin, Globe } from "lucide-react";
+import { Mail, MapPin, Clock, Instagram, Globe } from "lucide-react";
 import { useScrollAnimation, useStaggeredScrollAnimation } from "../hooks/useScrollAnimation";
 
 interface ContactPageProps {
@@ -11,7 +11,7 @@ const ContactPage: React.FC<ContactPageProps> = ({ setCurrentPage }) => {
   const headerAnimation = useScrollAnimation({ delay: 200 });
   const stepsAnimation = useStaggeredScrollAnimation(3, 300);
   const detailsAnimation = useScrollAnimation({ threshold: 0.3 });
-  const socialAnimation = useStaggeredScrollAnimation(2, 150);
+  // Removed unused socialAnimation to satisfy strict linting
 
   return (
     <div className="py-20 bg-gray-100">

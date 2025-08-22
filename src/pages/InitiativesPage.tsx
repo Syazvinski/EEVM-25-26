@@ -1,5 +1,4 @@
-import React, { useState, useEffect } from "react";
-import { Award, TrendingUp, Building, Globe, Calendar, Users, Target, ChevronDown, CalendarDays, Trophy, Code } from "lucide-react";
+import React from "react";
 import { useScrollAnimation, useStaggeredScrollAnimation } from "../hooks/useScrollAnimation";
 
 interface InitiativesPageProps {
@@ -7,14 +6,12 @@ interface InitiativesPageProps {
 }
 
 const InitiativesPage: React.FC<InitiativesPageProps> = ({ setCurrentPage }) => {
-  const [selectedYear, setSelectedYear] = useState<number | null>(null);
 
   // Animations
   const headerAnimation = useScrollAnimation({ delay: 200 });
   const hackatlAnimation = useScrollAnimation({ delay: 400 });
   const sponsorsAnimation = useScrollAnimation({ threshold: 0.2 });
   const eventsAnimation = useStaggeredScrollAnimation(6, 200);
-  const statsAnimation = useStaggeredScrollAnimation(3, 150);
   const igniteSectionAnimation = useScrollAnimation({ threshold: 0.3 });
   const excelleratorAnimation = useScrollAnimation({ threshold: 0.3 });
 
@@ -46,95 +43,9 @@ const InitiativesPage: React.FC<InitiativesPageProps> = ({ setCurrentPage }) => 
     { name: "TAG", logo: "/sponsors/tag_logo.png" },
   ];
 
-  const pastHackATLs = [
-    { year: "2025", theme: "AI & Innovation", logo: "/hack-logos/hack_logo_2025.png" },
-    { year: "2024", theme: "Sustainability", logo: "/hack-logos/hack_24.jpeg" },
-    { year: "2023", theme: "FinTech", logo: "/hack-logos/hack_23.jpeg" },
-    { year: "2022", theme: "HealthTech", logo: "/hack-logos/hack_22.jpeg" },
-    { year: "2021", theme: "EdTech", logo: "/hack-logos/hack_21.jpeg" },
-    { year: "2020", theme: "Social Impact", logo: "/hack-logos/hack_20.jpeg" }
-  ];
+  // Past HackATL years listed inline in the render below
 
-  const [hackStats, setHackStats] = useState({
-    hours: 0,
-    participants: 0,
-    teams: 0,
-    prizes: 0,
-  });
-
-  const [visibleCards, setVisibleCards] = useState<boolean[]>(new Array(pastHackATLs.length).fill(false));
-
-  // Animation for HackATL stats
-  useEffect(() => {
-    const targets = {
-      hours: 48,
-      participants: 200, // Assuming 200+ means target 200 for animation
-      teams: 50,       // Assuming 50+ means target 50
-      prizes: 10000,   // Assuming $10K means 10000
-    };
-
-    const initialDelay = 500; // ms before first animation starts
-    const staggerDelay = 300; // ms between each stat animation
-    const duration = 1500; // ms for each stat animation
-    const frameRate = 60;
-    const totalFrames = duration / (1000 / frameRate);
-
-    let currentStat = 0;
-    const statKeys = Object.keys(targets) as (keyof typeof targets)[];
-
-    function animateStat(statKey: keyof typeof targets) {
-      let frame = 0;
-      const timer = setInterval(() => {
-        frame++;
-        const progress = frame / totalFrames;
-        const easeOut = 1 - Math.pow(1 - progress, 3);
-        
-        setHackStats(prevStats => ({
-          ...prevStats,
-          [statKey]: Math.round(targets[statKey] * easeOut),
-        }));
-
-        if (frame >= totalFrames) {
-          setHackStats(prevStats => ({
-            ...prevStats,
-            [statKey]: targets[statKey],
-          }));
-          clearInterval(timer);
-          currentStat++;
-          if (currentStat < statKeys.length) {
-            setTimeout(() => animateStat(statKeys[currentStat]), staggerDelay);
-          }
-        }
-      }, 1000 / frameRate);
-      return timer;
-    }
-
-    const firstTimer = setTimeout(() => animateStat(statKeys[0]), initialDelay);
-    
-    // Cleanup timers on unmount
-    return () => {
-        clearTimeout(firstTimer);
-        // This cleanup is tricky for dynamically created setIntervals.
-        // A more robust solution might involve storing all interval IDs in an array.
-    };
-  }, []);
-
-  // Staggered animation for HackATL cards
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      pastHackATLs.forEach((_, index) => {
-        setTimeout(() => {
-          setVisibleCards(prev => {
-            const newVisible = [...prev];
-            newVisible[index] = true;
-            return newVisible;
-          });
-        }, index * 200); // 200ms stagger between each card
-      });
-    }, 2000); // Start after 2 seconds
-
-    return () => clearTimeout(timer);
-  }, []);
+  // Removed unused stat and card visibility animations to satisfy strict linting
 
   return (
     <div className="py-20 bg-gray-100">
@@ -203,7 +114,7 @@ const InitiativesPage: React.FC<InitiativesPageProps> = ({ setCurrentPage }) => 
                 src="/initiatives/hack_winner.JPG" 
                 alt="HackATL participants working" 
                 className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
-                style={{ objectPosition: 'center 30%' }} // Adjust image focus if needed
+                style={{ objectPosition: 'center 30%' }}
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent opacity-40"></div>
             </div>

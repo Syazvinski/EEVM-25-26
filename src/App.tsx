@@ -1,4 +1,3 @@
-import { useState } from "react";
 import EEVMWebsite from "./EEVMWebsite";
 
 function App() {

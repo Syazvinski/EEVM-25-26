@@ -1,5 +1,5 @@
 import React from "react";
-import { Calendar, ArrowRight, Clock, Users, FileText, CheckCircle } from "lucide-react";
+import { ArrowRight, Clock, Users, FileText, CheckCircle } from "lucide-react";
 import { useScrollAnimation, useStaggeredScrollAnimation } from "../hooks/useScrollAnimation";
 
 interface ApplicationsPageProps {

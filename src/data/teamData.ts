@@ -1,28 +1,5 @@
-// Mapping actual headshot filenames to team member names
-const headshotMapping: { [key: string]: string } = {
-  "james-liang": "james.jpg",
-  "sarah-hao": "amanda.jpg", // Assuming amanda.jpg is Sarah Hao
-  "fiona-tran": "stephanie.JPG", // Need to verify these mappings
-  "santiago-vasquez": "jay.jpg", // Need to verify
-  "jamie-shen": "", // No headshot available
-  "mika-dewar": "mika.jpg",
-  "shahid-karnai": "shahid.jpg", 
-  "jonathan-li": "", // No headshot available
-  "larissa-lippe": "", // No headshot available
-  "katie-vonder-haar": "", // No headshot available
-  "ruchi-tipnis": "", // No headshot available
-  "lumina-lu": "", // No headshot available
-  "richard-liu": "richard.JPG",
-  "stephannie-gallardo": "stephanie.JPG",
-  "kayleena-nguyen": "kayleena.JPG",
-  "stephan-yazvinski": "", // No headshot available
-  "gavin-poore": "gavin.jpeg",
-  "sophia-kwon": "sophia.jpeg",
-  "ariel-prevor": "ariel.JPG"
-};
-
 // Function to get headshot path or return placeholder
-const getHeadshotPath = (name: string, division?: string): string => {
+const getHeadshotPath = (name: string, _division?: string): string => {
   const basePath = "/headshots";
   switch (name) {
     // Leadership
@@ -54,7 +31,7 @@ const getHeadshotPath = (name: string, division?: string): string => {
     case "Stephan Yazvinski": // Fallthrough to default
     // Add other members who don't have specific headshots to fallthrough to default placeholder
     default:
-      // console.warn(`Headshot not found for ${name} in division ${division || 'N/A'}. Using placeholder.`);
+      // console.warn(`Headshot not found for ${name}. Using placeholder.`);
       return "/placeholder_headshot.png"; // Ensure this placeholder exists in public folder
   }
 };

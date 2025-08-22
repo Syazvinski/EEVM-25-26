@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import { Award, TrendingUp, Building, Users } from "lucide-react";
 import { useScrollAnimation, useStaggeredScrollAnimation } from "../hooks/useScrollAnimation";
 
 interface HomePageProps {

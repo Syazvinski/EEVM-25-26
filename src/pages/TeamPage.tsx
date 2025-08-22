@@ -1,6 +1,6 @@
 import React, { useState, useRef } from "react";
 import { ChevronDown, Users } from "lucide-react";
-import { Member, Unit, leadershipTeam, allDirectors, unitsData } from "../data/teamData";
+import { Member, Unit, leadershipTeam, unitsData } from "../data/teamData";
 
 interface TeamPageProps {
   setCurrentPage: (page: string) => void;
