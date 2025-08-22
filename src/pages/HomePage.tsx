@@ -81,7 +81,7 @@ const HomePage: React.FC<HomePageProps> = ({ setCurrentPage }) => {
             />
           </div>
           {/* FEEDBACK: Make "Emory Entrepreneurship & Venture Management" one line */}
-          <h1 className="text-4xl lg:text-5xl font-bold mb-6 whitespace-nowrap">
+          <h1 className="text-4xl lg:text-5xl font-bold mb-6">
             Emory Entrepreneurship & Venture Management
           </h1>
           {/* FEEDBACK: Differentiate font sizes and make "Join Emory..." marginally bigger */}

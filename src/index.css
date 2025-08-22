@@ -1,3 +1,16 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* Global responsiveness safeguards */
+html, body, #root {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+/* Ensure media never overflow their containers */
+img, video {
+  max-width: 100%;
+  height: auto;
+}
