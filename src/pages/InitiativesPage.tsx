@@ -215,7 +215,7 @@ const InitiativesPage: React.FC<InitiativesPageProps> = ({ setCurrentPage }) => 
                 <div className="flex items-center justify-center mb-6 h-40">
                   <img 
                     src="/logos/ignite_logo-h128.webp"
-                    srcSet="/logos/ignite_logo-h128.webp 1x, /logos/ignite_logo-h256.webp 2x"
+                    srcSet="/logos/ignite_logo-h128.webp 1x, /logos/ignite_logo-h256.webp 2x, /logos/ignite_logo-h384.webp 3x"
                     alt="IGNITE Logo" 
                     className="h-32 w-auto hover:scale-110 transition-transform duration-300" 
                   />
@@ -272,7 +272,7 @@ const InitiativesPage: React.FC<InitiativesPageProps> = ({ setCurrentPage }) => 
                 <div className="flex items-center justify-center mb-6 h-40">
                   <img 
                     src="/logos/excellerator-logo-h128.webp"
-                    srcSet="/logos/excellerator-logo-h128.webp 1x, /logos/excellerator-logo-h256.webp 2x"
+                    srcSet="/logos/excellerator-logo-h128.webp 1x, /logos/excellerator-logo-h256.webp 2x, /logos/excellerator-logo-h384.webp 3x"
                     alt="Excellerator Logo" 
                     className="h-32 w-auto rounded hover:scale-110 transition-transform duration-300" 
                   />

@@ -193,7 +193,7 @@ const HomePage: React.FC<HomePageProps> = ({ setCurrentPage }) => {
                   {initiative.key === 'ignite' && (
                     <img
                       src="/logos/ignite_logo-h96.webp"
-                      srcSet="/logos/ignite_logo-h96.webp 1x, /logos/ignite_logo-h192.webp 2x"
+                      srcSet="/logos/ignite_logo-h96.webp 1x, /logos/ignite_logo-h192.webp 2x, /logos/ignite_logo-h288.webp 3x"
                       alt={initiative.alt}
                       className="h-24 w-auto hover:scale-110 transition-transform duration-300"
                     />
@@ -201,7 +201,7 @@ const HomePage: React.FC<HomePageProps> = ({ setCurrentPage }) => {
                   {initiative.key === 'excellerator' && (
                     <img
                       src="/logos/excellerator-logo-h96.webp"
-                      srcSet="/logos/excellerator-logo-h96.webp 1x, /logos/excellerator-logo-h192.webp 2x"
+                      srcSet="/logos/excellerator-logo-h96.webp 1x, /logos/excellerator-logo-h192.webp 2x, /logos/excellerator-logo-h288.webp 3x"
                       alt={initiative.alt}
                       className="h-24 w-auto hover:scale-110 transition-transform duration-300"
                     />
