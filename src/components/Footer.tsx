@@ -42,9 +42,15 @@ const Footer: React.FC<FooterProps> = ({ setCurrentPage }) => {
               >
                 <Instagram size={16} className="text-white" />
               </a>
-              <div className="w-8 h-8 bg-gray-800 rounded-full flex items-center justify-center">
+              <a
+                href="https://www.linkedin.com/company/emory-entrepreneurship-&-venture-management/posts/?feedView=all"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="EEVM LinkedIn"
+                className="w-8 h-8 bg-gray-800 rounded-full flex items-center justify-center"
+              >
                 <Linkedin size={16} className="text-white" />
-              </div>
+              </a>
               <div className="w-8 h-8 bg-gray-800 rounded-full flex items-center justify-center">
                 <Mail size={16} className="text-white" />
               </div>
