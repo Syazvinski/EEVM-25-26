@@ -57,13 +57,19 @@ const HomePage: React.FC<HomePageProps> = ({ setCurrentPage }) => {
     <div>
       {/* Hero Section with background image placeholder */}
       <section 
-        className="relative bg-gradient-to-r from-[#3CB5C4] to-[#01FDC0] text-white py-24"
-        style={{
-          backgroundImage: "url('/homepage/eevm_group.webp')",
-          backgroundSize: "cover",
-          backgroundPosition: "center 80%",
-        }}
+        className="relative bg-gradient-to-r from-[#3CB5C4] to-[#01FDC0] text-white py-24 overflow-hidden"
       >
+        {/* Responsive hero image as background */}
+        <img
+          src="/homepage/eevm_group-w1280.webp"
+          srcSet="/homepage/eevm_group-w960.webp 960w, /homepage/eevm_group-w1280.webp 1280w, /homepage/eevm_group-w1920.webp 1920w, /homepage/eevm_group-w2560.webp 2560w, /homepage/eevm_group.webp 5242w"
+          sizes="100vw"
+          alt="EEVM group"
+          className="absolute inset-0 w-full h-full object-cover"
+          style={{ objectPosition: 'center 80%' }}
+          loading="eager"
+          decoding="async"
+        />
         <div className="absolute inset-0 bg-black opacity-20"></div>
         
         <div 
