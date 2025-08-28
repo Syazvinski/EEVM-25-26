@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import HomePage from "./pages/HomePage";
@@ -10,6 +10,22 @@ import ContactPage from "./pages/ContactPage";
 
 const EEVMWebsite: React.FC = () => {
   const [currentPage, setCurrentPage] = useState<string>("home");
+
+  // Fire a lightweight analytics event when the internal page changes (SPA state)
+  useEffect(() => {
+    try {
+      const w = window as any;
+      if (w && w.va) {
+        if (typeof w.va.track === 'function') {
+          w.va.track('page', { page: currentPage });
+        } else if (typeof w.va === 'function') {
+          w.va('page', { page: currentPage });
+        }
+      }
+    } catch {
+      // no-op
+    }
+  }, [currentPage]);
 
   const renderPage = () => {
     switch (currentPage) {
