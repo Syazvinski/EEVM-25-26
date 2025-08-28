@@ -78,12 +78,13 @@ const ApplicationsPage: React.FC<ApplicationsPageProps> = ({ setCurrentPage }) =
               We're looking for passionate students to join our team and drive innovation in the entrepreneurship ecosystem.
             </p>
             <a 
-              href="#application-form"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="bg-[#3CB5C4] text-white px-8 py-4 rounded-lg font-semibold text-lg hover:bg-[#01FDC0] hover:scale-105 transition-all duration-300 inline-flex items-center"
+              href="#"
+              aria-disabled="true"
+              onClick={(e) => e.preventDefault()}
+              className="bg-gray-300 text-gray-600 cursor-not-allowed px-8 py-4 rounded-lg font-semibold text-lg inline-flex items-center"
+              title="Available when applications open"
             >
-              Start Your Application <ArrowRight size={20} className="ml-2" />
+              Available when applications open <ArrowRight size={20} className="ml-2" />
             </a>
           </div>
         </div>
