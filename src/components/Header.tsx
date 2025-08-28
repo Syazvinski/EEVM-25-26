@@ -33,7 +33,8 @@ const Header: React.FC<HeaderProps> = ({ currentPage, setCurrentPage }) => {
             onClick={() => handleNavigation('home')}
           >
             <img 
-              src="/logos/eevm_full.webp" 
+              src="/logos/eevm_full-h48.webp"
+              srcSet="/logos/eevm_full-h48.webp 1x, /logos/eevm_full-h96.webp 2x"
               alt="EEVM Logo" 
               className="h-12 w-auto transition-transform duration-300 group-hover:scale-110"
             />

@@ -75,7 +75,8 @@ const HomePage: React.FC<HomePageProps> = ({ setCurrentPage }) => {
           <div className="bg-white bg-opacity-10 rounded-lg p-2 inline-block mb-6">
             {/* EEVM Partial Logo */}
             <img 
-              src="/logos/eevm_partial.webp" 
+              src="/logos/eevm_partial-h64.webp"
+              srcSet="/logos/eevm_partial-h64.webp 1x, /logos/eevm_partial-h128.webp 2x"
               alt="EEVM Logo" 
               className="h-16 w-auto mx-auto"
             />
@@ -153,19 +154,19 @@ const HomePage: React.FC<HomePageProps> = ({ setCurrentPage }) => {
           <div ref={initiativesAnimation.elementRef} className="grid lg:grid-cols-3 gap-12">
             {[
               {
-                logo: "/hack-logos/hack_logo_2025.webp",
+                key: 'hackatl',
                 alt: "HackATL Logo",
                 title: "HackATL",
                 description: "A 48h hackathon and pitching competition that allows students to develop their ideas into running startups in collaboration with like-minded students across the nation."
               },
               {
-                logo: "/logos/ignite_logo.webp",
+                key: 'ignite',
                 alt: "IGNITE Logo", 
                 title: "IGNITE",
                 description: "An entrepreneurship educational program & community that provides Emory students the knowledge, tools, and relationships to explore the entrepreneurial world."
               },
               {
-                logo: "/logos/excellerator-logo.webp",
+                key: 'excellerator',
                 alt: "Excellerator Logo",
                 title: "Excellerator", 
                 description: "A startup incubator to help take student-led early stage startups off the ground with support on Customer Discovery, MVP development, Pitching, and more."
@@ -180,8 +181,31 @@ const HomePage: React.FC<HomePageProps> = ({ setCurrentPage }) => {
                 }`}
               >
                 <div className="h-28 mx-auto mb-6 flex items-center justify-center">
-                  {/* Initiative Logo - Natural display without circle background */}
-                  <img src={initiative.logo} alt={initiative.alt} className="h-24 w-auto hover:scale-110 transition-transform duration-300" />
+                  {/* Initiative Logo with responsive sources */}
+                  {initiative.key === 'hackatl' && (
+                    <img
+                      src="/hack-logos/hack_logo_2025-h96.webp"
+                      srcSet="/hack-logos/hack_logo_2025-h96.webp 1x, /hack-logos/hack_logo_2025-h192.webp 2x"
+                      alt={initiative.alt}
+                      className="h-24 w-auto hover:scale-110 transition-transform duration-300"
+                    />
+                  )}
+                  {initiative.key === 'ignite' && (
+                    <img
+                      src="/logos/ignite_logo-h96.webp"
+                      srcSet="/logos/ignite_logo-h96.webp 1x, /logos/ignite_logo-h192.webp 2x"
+                      alt={initiative.alt}
+                      className="h-24 w-auto hover:scale-110 transition-transform duration-300"
+                    />
+                  )}
+                  {initiative.key === 'excellerator' && (
+                    <img
+                      src="/logos/excellerator-logo-h96.webp"
+                      srcSet="/logos/excellerator-logo-h96.webp 1x, /logos/excellerator-logo-h192.webp 2x"
+                      alt={initiative.alt}
+                      className="h-24 w-auto hover:scale-110 transition-transform duration-300"
+                    />
+                  )}
                 </div>
                 <h3 className="text-2xl font-bold text-gray-900 mb-4">{initiative.title}</h3>
                 <p className="text-gray-600 leading-relaxed mb-6">

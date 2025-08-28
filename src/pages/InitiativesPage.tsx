@@ -76,7 +76,12 @@ const InitiativesPage: React.FC<InitiativesPageProps> = ({ setCurrentPage }) => 
               {/* Left Column: Description */}
               <div className="lg:col-span-2 pr-8">
                 <div className="flex items-center mb-6">
-                  <img src="/hack-logos/hack_logo_2025.webp" alt="HackATL Logo" className="h-20 w-auto mr-6 hover:scale-110 transition-transform duration-300" />
+                  <img 
+                    src="/hack-logos/hack_logo_2025-h80.webp"
+                    srcSet="/hack-logos/hack_logo_2025-h80.webp 1x, /hack-logos/hack_logo_2025-h160.webp 2x"
+                    alt="HackATL Logo" 
+                    className="h-20 w-auto mr-6 hover:scale-110 transition-transform duration-300" 
+                  />
                   <h2 className="text-5xl font-bold text-gray-900">HackATL</h2>
                 </div>
                 <p className="text-xl text-gray-700 mb-8 leading-relaxed">
@@ -208,7 +213,12 @@ const InitiativesPage: React.FC<InitiativesPageProps> = ({ setCurrentPage }) => 
             <div className="grid lg:grid-cols-2 gap-8 items-center">
               <div>
                 <div className="flex items-center justify-center mb-6 h-40">
-                  <img src="/logos/ignite_logo.webp" alt="IGNITE Logo" className="h-32 w-auto hover:scale-110 transition-transform duration-300" />
+                  <img 
+                    src="/logos/ignite_logo-h128.webp"
+                    srcSet="/logos/ignite_logo-h128.webp 1x, /logos/ignite_logo-h256.webp 2x"
+                    alt="IGNITE Logo" 
+                    className="h-32 w-auto hover:scale-110 transition-transform duration-300" 
+                  />
                 </div>
               </div>
               <div className="bg-[#3CB5C4] p-8 rounded-lg text-white text-center hover:scale-105 transition-transform duration-300">
@@ -260,7 +270,12 @@ const InitiativesPage: React.FC<InitiativesPageProps> = ({ setCurrentPage }) => 
               </div>
               <div className="order-1 lg:order-2">
                 <div className="flex items-center justify-center mb-6 h-40">
-                  <img src="/logos/excellerator-logo.webp" alt="Excellerator Logo" className="h-32 w-auto rounded hover:scale-110 transition-transform duration-300" />
+                  <img 
+                    src="/logos/excellerator-logo-h128.webp"
+                    srcSet="/logos/excellerator-logo-h128.webp 1x, /logos/excellerator-logo-h256.webp 2x"
+                    alt="Excellerator Logo" 
+                    className="h-32 w-auto rounded hover:scale-110 transition-transform duration-300" 
+                  />
                 </div>
               </div>
             </div>

@@ -22,7 +22,8 @@ const Footer: React.FC<FooterProps> = ({ setCurrentPage }) => {
           <div className="col-span-2">
             <div className="flex items-center mb-4">
               <img 
-                src="/logos/eevm_full.webp" 
+                src="/logos/eevm_full-h40.webp"
+                srcSet="/logos/eevm_full-h40.webp 1x, /logos/eevm_full-h80.webp 2x"
                 alt="EEVM Logo" 
                 className="h-10 w-auto brightness-0 invert"
               />
