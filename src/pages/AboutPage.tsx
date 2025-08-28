@@ -90,7 +90,7 @@ const AboutPage: React.FC<AboutPageProps> = ({ setCurrentPage }) => {
             }`}
           >
             <img 
-              src="/about/mission.JPG" 
+              src="/about/mission.webp" 
               alt="EEVM Team Mission" 
               className="w-full h-full object-cover hover:scale-105 transition-transform duration-300" 
               style={{ objectPosition: 'center 70%', minHeight: '400px' }}

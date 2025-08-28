@@ -3,23 +3,23 @@ const getHeadshotPath = (name: string, _division?: string): string => {
   const basePath = "/headshots";
   switch (name) {
     // Leadership
-    case "James Liang": return `${basePath}/Leadership/James Liang Co-President.jpg`;
-    case "Sarah Hao": return `${basePath}/Leadership/Sarah Hao Co-President.png`;
-    case "Fiona Tran": return `${basePath}/Leadership/Fiona Tran Executive Vice President.JPG`;
+    case "James Liang": return `${basePath}/Leadership/James Liang Co-President.webp`;
+    case "Sarah Hao": return `${basePath}/Leadership/Sarah Hao Co-President.webp`;
+    case "Fiona Tran": return `${basePath}/Leadership/Fiona Tran Executive Vice President.webp`;
 
     // Directors
-    case "Santiago Vasquez": return `${basePath}/HackATL/Santiago Vazquez Director of HackATL.png`;
-    case "Jamie Shen": return `${basePath}/HackATL/Jamie Shen Director of HackATL.jpeg`;
-    case "Mika Dewar": return `${basePath}/Ignite/Mika Dewar Director of Ignite.jpeg`;
-    case "Shahid Karnai": return `${basePath}/Ignite/Shahid Karnai Director of Ignite.jpeg`;
-    case "Larissa Lippe": return `${basePath}/Excellerator /Larissa Lippe Director of Excellerator.jpg`;
+    case "Santiago Vasquez": return `${basePath}/HackATL/Santiago Vazquez Director of HackATL.webp`;
+    case "Jamie Shen": return `${basePath}/HackATL/Jamie Shen Director of HackATL.webp`;
+    case "Mika Dewar": return `${basePath}/Ignite/Mika Dewar Director of Ignite.webp`;
+    case "Shahid Karnai": return `${basePath}/Ignite/Shahid Karnai Director of Ignite.webp`;
+    case "Larissa Lippe": return `${basePath}/Excellerator /Larissa Lippe Director of Excellerator.webp`;
     case "Katie Vonder Haar": 
-      return `${basePath}/Corporate/Katherine Vondar Haar Director of Corporate Sponsorships.jpeg`;
-    case "Ruchi Tipnis": return `${basePath}/Marketing & Design/Ruchi Tipnis Director of Marketing & Design.jpeg`;
-    case "Lumina Lu": return `${basePath}/Marketing & Design/Lumina Lu Director of Marketing & Design.jpeg`;
-    case "Richard Liu": return `${basePath}/Finance/Richard Liu Director of Finance.jpeg`;
-    case "Stephannie Gallardo": return `${basePath}/Operations/Stephannie Gallardo Director of Operations.jpeg`;
-    case "Kayleena Nguyen": return `${basePath}/Operations/Kayleena Nguyen Director of Operations.JPG`;
+      return `${basePath}/Corporate/Katherine Vondar Haar Director of Corporate Sponsorships.webp`;
+    case "Ruchi Tipnis": return `${basePath}/Marketing & Design/Ruchi Tipnis Director of Marketing & Design.webp`;
+    case "Lumina Lu": return `${basePath}/Marketing & Design/Lumina Lu Director of Marketing & Design.webp`;
+    case "Richard Liu": return `${basePath}/Finance/Richard Liu Director of Finance.webp`;
+    case "Stephannie Gallardo": return `${basePath}/Operations/Stephannie Gallardo Director of Operations.webp`;
+    case "Kayleena Nguyen": return `${basePath}/Operations/Kayleena Nguyen Director of Operations.webp`;
 
     // Associates - Add cases for associates if they have headshots
     // case "Gavin Poore": return `${basePath}/Operations/gavin_poore.jpeg`; // Assuming filename

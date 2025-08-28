@@ -59,7 +59,7 @@ const HomePage: React.FC<HomePageProps> = ({ setCurrentPage }) => {
       <section 
         className="relative bg-gradient-to-r from-[#3CB5C4] to-[#01FDC0] text-white py-24"
         style={{
-          backgroundImage: "url('/homepage/eevm_group.jpg')",
+          backgroundImage: "url('/homepage/eevm_group.webp')",
           backgroundSize: "cover",
           backgroundPosition: "center 80%",
         }}
@@ -75,7 +75,7 @@ const HomePage: React.FC<HomePageProps> = ({ setCurrentPage }) => {
           <div className="bg-white bg-opacity-10 rounded-lg p-2 inline-block mb-6">
             {/* EEVM Partial Logo */}
             <img 
-              src="/logos/eevm_partial.png" 
+              src="/logos/eevm_partial.webp" 
               alt="EEVM Logo" 
               className="h-16 w-auto mx-auto"
             />
@@ -153,19 +153,19 @@ const HomePage: React.FC<HomePageProps> = ({ setCurrentPage }) => {
           <div ref={initiativesAnimation.elementRef} className="grid lg:grid-cols-3 gap-12">
             {[
               {
-                logo: "/hack-logos/hack_logo_2025.png",
+                logo: "/hack-logos/hack_logo_2025.webp",
                 alt: "HackATL Logo",
                 title: "HackATL",
                 description: "A 48h hackathon and pitching competition that allows students to develop their ideas into running startups in collaboration with like-minded students across the nation."
               },
               {
-                logo: "/logos/ignite_logo.png",
+                logo: "/logos/ignite_logo.webp",
                 alt: "IGNITE Logo", 
                 title: "IGNITE",
                 description: "An entrepreneurship educational program & community that provides Emory students the knowledge, tools, and relationships to explore the entrepreneurial world."
               },
               {
-                logo: "/logos/excellerator-logo.png",
+                logo: "/logos/excellerator-logo.webp",
                 alt: "Excellerator Logo",
                 title: "Excellerator", 
                 description: "A startup incubator to help take student-led early stage startups off the ground with support on Customer Discovery, MVP development, Pitching, and more."

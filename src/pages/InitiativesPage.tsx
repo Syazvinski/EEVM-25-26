@@ -17,30 +17,30 @@ const InitiativesPage: React.FC<InitiativesPageProps> = ({ setCurrentPage }) => 
 
   // Dynamic sponsors list from the sponsors folder
   const sponsors = [
-    { name: "Accenture", logo: "/sponsors/accenture_logo.png" },
-    { name: "AWS", logo: "/sponsors/aws_logo.png" },
-    { name: "BECU", logo: "/sponsors/becu_logo.png" },
-    { name: "City of Atlanta", logo: "/sponsors/city_of_atlanta_logo.jpeg" },
-    { name: "Coca Cola", logo: "/sponsors/coca_cola_logo.png" },
-    { name: "Emory CEI", logo: "/sponsors/emory_cei_logo.jpeg" },
-    { name: "Georgia Pacific", logo: "/sponsors/georgia_pacific_logo.png" },
-    { name: "GitHub", logo: "/sponsors/github_logo.png" },
-    { name: "Goizueta Business School", logo: "/sponsors/goizueta_business_school_logo.png" },
-    { name: "Goizueta CEI", logo: "/sponsors/goizueta_cei_logo.jpeg" },
-    { name: "Google", logo: "/sponsors/google_logo.png" },
-    { name: "Home Depot", logo: "/sponsors/home_depot_logo.png" },
-    { name: "IBM", logo: "/sponsors/ibm_logo.png" },
-    { name: "Insomnia Cookies", logo: "/sponsors/insomnia_cookies_logo.png" },
-    { name: "Invesco", logo: "/sponsors/invesco_logo.png" },
-    { name: "Lyft", logo: "/sponsors/lyft_logo.png" },
-    { name: "Meta", logo: "/sponsors/meta_logo.png" },
-    { name: "Microsoft", logo: "/sponsors/microsoft_logo.jpeg" },
-    { name: "Porsche", logo: "/sponsors/porsche_logo.jpeg" },
-    { name: "ProductATL", logo: "/sponsors/productatl_logo.png" },
-    { name: "Red Bull", logo: "/sponsors/red_bull_logo.png" },
-    { name: "Stripe", logo: "/sponsors/stripe_logo.png" },
-    { name: "Synovus", logo: "/sponsors/synovus_logo.png" },
-    { name: "TAG", logo: "/sponsors/tag_logo.png" },
+    { name: "Accenture", logo: "/sponsors/accenture_logo.webp" },
+    { name: "AWS", logo: "/sponsors/aws_logo.webp" },
+    { name: "BECU", logo: "/sponsors/becu_logo.webp" },
+    { name: "City of Atlanta", logo: "/sponsors/city_of_atlanta_logo.webp" },
+    { name: "Coca Cola", logo: "/sponsors/coca_cola_logo.webp" },
+    { name: "Emory CEI", logo: "/sponsors/emory_cei_logo.webp" },
+    { name: "Georgia Pacific", logo: "/sponsors/georgia_pacific_logo.webp" },
+    { name: "GitHub", logo: "/sponsors/github_logo.webp" },
+    { name: "Goizueta Business School", logo: "/sponsors/goizueta_business_school_logo.webp" },
+    { name: "Goizueta CEI", logo: "/sponsors/goizueta_cei_logo.webp" },
+    { name: "Google", logo: "/sponsors/google_logo.webp" },
+    { name: "Home Depot", logo: "/sponsors/home_depot_logo.webp" },
+    { name: "IBM", logo: "/sponsors/ibm_logo.webp" },
+    { name: "Insomnia Cookies", logo: "/sponsors/insomnia_cookies_logo.webp" },
+    { name: "Invesco", logo: "/sponsors/invesco_logo.webp" },
+    { name: "Lyft", logo: "/sponsors/lyft_logo.webp" },
+    { name: "Meta", logo: "/sponsors/meta_logo.webp" },
+    { name: "Microsoft", logo: "/sponsors/microsoft_logo.webp" },
+    { name: "Porsche", logo: "/sponsors/porsche_logo.webp" },
+    { name: "ProductATL", logo: "/sponsors/productatl_logo.webp" },
+    { name: "Red Bull", logo: "/sponsors/red_bull_logo.webp" },
+    { name: "Stripe", logo: "/sponsors/stripe_logo.webp" },
+    { name: "Synovus", logo: "/sponsors/synovus_logo.webp" },
+    { name: "TAG", logo: "/sponsors/tag_logo.webp" },
   ];
 
   // Past HackATL years listed inline in the render below
@@ -76,7 +76,7 @@ const InitiativesPage: React.FC<InitiativesPageProps> = ({ setCurrentPage }) => 
               {/* Left Column: Description */}
               <div className="lg:col-span-2 pr-8">
                 <div className="flex items-center mb-6">
-                  <img src="/hack-logos/hack_logo_2025.png" alt="HackATL Logo" className="h-20 w-auto mr-6 hover:scale-110 transition-transform duration-300" />
+                  <img src="/hack-logos/hack_logo_2025.webp" alt="HackATL Logo" className="h-20 w-auto mr-6 hover:scale-110 transition-transform duration-300" />
                   <h2 className="text-5xl font-bold text-gray-900">HackATL</h2>
                 </div>
                 <p className="text-xl text-gray-700 mb-8 leading-relaxed">
@@ -111,7 +111,7 @@ const InitiativesPage: React.FC<InitiativesPageProps> = ({ setCurrentPage }) => 
             {/* Bottom Row: Image */}
             <div className="mt-12 relative overflow-hidden rounded-lg shadow-lg" style={{height: '400px'}}>
               <img 
-                src="/initiatives/hack_winner.JPG" 
+                src="/initiatives/hack_winner.webp" 
                 alt="HackATL participants working" 
                 className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
                 style={{ objectPosition: 'center 30%' }}
@@ -167,12 +167,12 @@ const InitiativesPage: React.FC<InitiativesPageProps> = ({ setCurrentPage }) => 
           
           <div ref={eventsAnimation.elementRef} className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
             {[
-              { year: "2025", theme: "AI & Innovation", logo: "/hack-logos/hack_logo_2025.png", description: "Exploring artificial intelligence and emerging technologies to solve real-world problems." },
-              { year: "2024", theme: "Sustainability", logo: "/hack-logos/hack_24.jpeg", description: "Developing solutions for environmental challenges and sustainable business practices." },
-              { year: "2023", theme: "FinTech", logo: "/hack-logos/hack_23.jpeg", description: "Innovation in financial technology and digital payment solutions." },
-              { year: "2022", theme: "HealthTech", logo: "/hack-logos/hack_22.jpeg", description: "Healthcare technology solutions to improve patient outcomes and accessibility." },
-              { year: "2021", theme: "EdTech", logo: "/hack-logos/hack_21.jpeg", description: "Educational technology innovations for remote and hybrid learning environments." },
-              { year: "2020", theme: "Social Impact", logo: "/hack-logos/hack_20.jpeg", description: "Technology solutions addressing social issues and community challenges." }
+              { year: "2025", theme: "AI & Innovation", logo: "/hack-logos/hack_logo_2025.webp", description: "Exploring artificial intelligence and emerging technologies to solve real-world problems." },
+              { year: "2024", theme: "Sustainability", logo: "/hack-logos/hack_24.webp", description: "Developing solutions for environmental challenges and sustainable business practices." },
+              { year: "2023", theme: "FinTech", logo: "/hack-logos/hack_23.webp", description: "Innovation in financial technology and digital payment solutions." },
+              { year: "2022", theme: "HealthTech", logo: "/hack-logos/hack_22.webp", description: "Healthcare technology solutions to improve patient outcomes and accessibility." },
+              { year: "2021", theme: "EdTech", logo: "/hack-logos/hack_21.webp", description: "Educational technology innovations for remote and hybrid learning environments." },
+              { year: "2020", theme: "Social Impact", logo: "/hack-logos/hack_20.webp", description: "Technology solutions addressing social issues and community challenges." }
             ].map((event, index) => (
               <div 
                 key={event.year}
@@ -208,7 +208,7 @@ const InitiativesPage: React.FC<InitiativesPageProps> = ({ setCurrentPage }) => 
             <div className="grid lg:grid-cols-2 gap-8 items-center">
               <div>
                 <div className="flex items-center justify-center mb-6 h-40">
-                  <img src="/logos/ignite_logo.png" alt="IGNITE Logo" className="h-32 w-auto hover:scale-110 transition-transform duration-300" />
+                  <img src="/logos/ignite_logo.webp" alt="IGNITE Logo" className="h-32 w-auto hover:scale-110 transition-transform duration-300" />
                 </div>
               </div>
               <div className="bg-[#3CB5C4] p-8 rounded-lg text-white text-center hover:scale-105 transition-transform duration-300">
@@ -260,7 +260,7 @@ const InitiativesPage: React.FC<InitiativesPageProps> = ({ setCurrentPage }) => 
               </div>
               <div className="order-1 lg:order-2">
                 <div className="flex items-center justify-center mb-6 h-40">
-                  <img src="/logos/excellerator-logo.png" alt="Excellerator Logo" className="h-32 w-auto rounded hover:scale-110 transition-transform duration-300" />
+                  <img src="/logos/excellerator-logo.webp" alt="Excellerator Logo" className="h-32 w-auto rounded hover:scale-110 transition-transform duration-300" />
                 </div>
               </div>
             </div>
