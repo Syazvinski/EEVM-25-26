@@ -65,12 +65,12 @@ const ApplicationsPage: React.FC<ApplicationsPageProps> = ({ setCurrentPage }) =
             heroAnimation.isVisible ? 'opacity-100 scale-100' : 'opacity-0 scale-95'
           }`}
           style={{
-            backgroundImage: "url('/applications/applications_banner.jpg')",
+            backgroundImage: "url('/applications/ready_mark.webp')",
             backgroundSize: "cover",
             backgroundPosition: "center",
           }}
         >
-          <div className="absolute inset-0 bg-black opacity-40 hover:opacity-30 transition-opacity duration-300"></div>
+          <div className="absolute inset-0 bg-gray-800 opacity-40 hover:opacity-30 transition-opacity duration-300"></div>
           
           <div className="relative h-full flex flex-col justify-center items-center text-center text-white px-4">
             <h2 className="text-4xl font-bold mb-6">Ready to Make Your Mark?</h2>
