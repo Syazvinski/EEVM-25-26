@@ -78,7 +78,7 @@ const InitiativesPage: React.FC<InitiativesPageProps> = ({ setCurrentPage }) => 
                 <div className="flex items-center mb-6">
                   <img 
                     src="/hack-logos/hack_logo_2025-h80.webp"
-                    srcSet="/hack-logos/hack_logo_2025-h80.webp 1x, /hack-logos/hack_logo_2025-h160.webp 2x"
+                    srcSet="/hack-logos/hack_logo_2025-h80.webp 1x, /hack-logos/hack_logo_2025-h160.webp 2x, /hack-logos/hack_logo_2025-h240.webp 3x"
                     alt="HackATL Logo" 
                     className="h-20 w-auto mr-6 hover:scale-110 transition-transform duration-300" 
                   />

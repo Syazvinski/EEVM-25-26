@@ -185,7 +185,7 @@ const HomePage: React.FC<HomePageProps> = ({ setCurrentPage }) => {
                   {initiative.key === 'hackatl' && (
                     <img
                       src="/hack-logos/hack_logo_2025-h96.webp"
-                      srcSet="/hack-logos/hack_logo_2025-h96.webp 1x, /hack-logos/hack_logo_2025-h192.webp 2x"
+                      srcSet="/hack-logos/hack_logo_2025-h96.webp 1x, /hack-logos/hack_logo_2025-h192.webp 2x, /hack-logos/hack_logo_2025-h288.webp 3x"
                       alt={initiative.alt}
                       className="h-24 w-auto hover:scale-110 transition-transform duration-300"
                     />
