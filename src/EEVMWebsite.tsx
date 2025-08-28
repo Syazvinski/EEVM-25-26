@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import HomePage from "./pages/HomePage";
@@ -11,8 +11,10 @@ import ContactPage from "./pages/ContactPage";
 const EEVMWebsite: React.FC = () => {
   const [currentPage, setCurrentPage] = useState<string>("home");
 
-  // Track SPA "page" changes with Vercel Analytics if available
+  // Track SPA "page" changes with Vercel Analytics if available (skip initial to avoid double-counting with component)
+  const didMount = useRef(false);
   useEffect(() => {
+    if (!didMount.current) { didMount.current = true; return; }
     try {
       const w = window as any;
       const va = w && (w.va?.track ? (args: any, data?: any) => w.va.track(args, data) : w.va);
