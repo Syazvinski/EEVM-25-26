@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import HomePage from "./pages/HomePage";
@@ -10,6 +10,19 @@ import ContactPage from "./pages/ContactPage";
 
 const EEVMWebsite: React.FC = () => {
   const [currentPage, setCurrentPage] = useState<string>("home");
+
+  // Track SPA "page" changes with Vercel Analytics if available
+  useEffect(() => {
+    try {
+      const w = window as any;
+      const va = w && (w.va?.track ? (args: any, data?: any) => w.va.track(args, data) : w.va);
+      if (typeof va === 'function') {
+        va('page', { page: currentPage });
+      }
+    } catch {
+      // ignore if analytics script is blocked or not loaded
+    }
+  }, [currentPage]);
 
   const renderPage = () => {
     switch (currentPage) {
