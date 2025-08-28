@@ -33,9 +33,15 @@ const Footer: React.FC<FooterProps> = ({ setCurrentPage }) => {
               explore the venture ecosystem.
             </p>
             <div className="flex space-x-4">
-              <div className="w-8 h-8 bg-gray-800 rounded-full flex items-center justify-center">
+              <a
+                href="https://www.instagram.com/emoryevm/"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="EEVM Instagram"
+                className="w-8 h-8 bg-gray-800 rounded-full flex items-center justify-center"
+              >
                 <Instagram size={16} className="text-white" />
-              </div>
+              </a>
               <div className="w-8 h-8 bg-gray-800 rounded-full flex items-center justify-center">
                 <Linkedin size={16} className="text-white" />
               </div>

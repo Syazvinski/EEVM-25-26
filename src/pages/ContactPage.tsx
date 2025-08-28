@@ -51,7 +51,7 @@ const ContactPage: React.FC<ContactPageProps> = ({ setCurrentPage }) => {
                 description: "Follow our social media for updates on events and application deadlines",
                 icon: <Instagram size={32} className="text-white" />,
                 action: "Follow Us",
-                link: "https://instagram.com/eevm"
+                link: "https://www.instagram.com/emoryevm/"
               },
               {
                 number: "3",
