@@ -13,6 +13,41 @@ const ApplicationsPage: React.FC<ApplicationsPageProps> = ({ setCurrentPage }) =
   const qualificationsAnimation = useStaggeredScrollAnimation(2, 400);
   const ctaAnimation = useScrollAnimation({ threshold: 0.3 });
 
+  // Countdown to application close (Sep 14, 11:59 PM ET)
+  const [timeLeft, setTimeLeft] = React.useState({
+    days: 0,
+    hours: 0,
+    minutes: 0,
+    seconds: 0,
+    over: false,
+  });
+
+  React.useEffect(() => {
+    const now = new Date();
+    const year = now.getFullYear();
+    // Sep is month index 8; 11:59 PM ET is 03:59 UTC next day during DST (UTC-4)
+    const target = new Date(Date.UTC(year, 8, 15, 3, 59, 0));
+
+    const tick = () => {
+      const diff = target.getTime() - Date.now();
+      if (diff <= 0) {
+        setTimeLeft({ days: 0, hours: 0, minutes: 0, seconds: 0, over: true });
+        return;
+      }
+      const d = Math.floor(diff / (1000 * 60 * 60 * 24));
+      const h = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const m = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+      const s = Math.floor((diff % (1000 * 60)) / 1000);
+      setTimeLeft({ days: d, hours: h, minutes: m, seconds: s, over: false });
+    };
+
+    tick();
+    const id = setInterval(tick, 1000);
+    return () => clearInterval(id);
+  }, []);
+
+  const pad = (n: number) => String(n).padStart(2, "0");
+
   const timelineSteps = [
     {
       date: "Sep 3",
@@ -88,6 +123,20 @@ const ApplicationsPage: React.FC<ApplicationsPageProps> = ({ setCurrentPage }) =
           >
             Apply Now <ArrowRight size={20} className="ml-2" />
           </a>
+          <div className="mt-4">
+            <div className="inline-flex items-center gap-2 bg-white border border-gray-200 rounded-lg px-4 py-2 shadow-sm">
+              {timeLeft.over ? (
+                <span className="text-gray-700 font-medium">Applications are closed</span>
+              ) : (
+                <>
+                  <span className="text-gray-700">Closes in</span>
+                  <span className="font-mono font-semibold text-gray-900">
+                    {pad(timeLeft.days)}d {pad(timeLeft.hours)}h {pad(timeLeft.minutes)}m {pad(timeLeft.seconds)}s
+                  </span>
+                </>
+              )}
+            </div>
+          </div>
         </div>
 
         {/* Application Timeline */}
