@@ -82,7 +82,6 @@ export const unitsData: Unit[] = [
     description: "Atlanta's premier 48-hour hackathon and pitching competition where students transform innovative ideas into running startups alongside like-minded entrepreneurs from across the nation.",
     directors: allDirectors.filter(d => d.title.includes("HackATL")),
     associates: [
-      { name: "Malia Wakesho-Ajwang", title: "Associate", email: "malia.wakesho-ajwang@emory.edu", imagePath: getHeadshotPath("Malia Wakesho-Ajwang", "HackATL"), isLeadership: false },
       { name: "Chris Treston", title: "Associate", email: "", imagePath: getHeadshotPath("Chris Treston", "HackATL"), isLeadership: false },
       { name: "Sierra Benjamin", title: "Associate", email: "sierra.benjamin@gmail.com", imagePath: getHeadshotPath("Sierra Benjamin", "HackATL"), isLeadership: false },
     ]
@@ -141,7 +140,6 @@ export const unitsData: Unit[] = [
       { name: "Sarang Arun", title: "Associate", email: "", imagePath: getHeadshotPath("Sarang Arun", "Marketing & Design"), isLeadership: false },
       { name: "Sophia Kwon", title: "Associate", email: "sophia.kwon@emory.edu", imagePath: getHeadshotPath("Sophia Kwon", "Marketing & Design"), isLeadership: false },
       { name: "Lauren Won", title: "Associate", email: "lmwon@emory.edu", imagePath: getHeadshotPath("Lauren Won", "Marketing & Design"), isLeadership: false },
-      { name: "Hailey Kong", title: "Associate", email: "", imagePath: getHeadshotPath("Hailey Kong", "Marketing & Design"), isLeadership: false },
     ]
   },
   {
@@ -150,7 +148,6 @@ export const unitsData: Unit[] = [
     skills: ["Web development (HTML, CSS, JavaScript)", "Programming languages (Python, React, etc.)", "Database management", "UI/UX design principles"],
     directors: allDirectors.filter(d => d.title.includes("Tech")),
     associates: [
-      { name: "Malia Aubery-Zaria Wakesho-Ajwang", title: "Associate", email: "malia.wakesho-ajwang@emory.edu", imagePath: getHeadshotPath("Malia Aubery-Zaria Wakesho-Ajwang", "Tech"), isLeadership: false }, 
       { name: "Andy Blumberg", title: "Associate", email: "andy.blumberg@emory.edu", imagePath: getHeadshotPath("Andy Blumberg", "Tech"), isLeadership: false },
       { name: "Alex Lautin", title: "Associate", email: "alexander.lautin@emory.edu", imagePath: getHeadshotPath("Alex Lautin", "Tech"), isLeadership: false },
       { name: "Alex Lee", title: "Associate", email: "alexander.lee@emory.edu", imagePath: getHeadshotPath("Alex Lee", "Tech"), isLeadership: false },
