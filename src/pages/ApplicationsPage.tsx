@@ -9,7 +9,6 @@ interface ApplicationsPageProps {
 const ApplicationsPage: React.FC<ApplicationsPageProps> = ({ setCurrentPage }) => {
   // Animations
   const headerAnimation = useScrollAnimation({ delay: 200 });
-  const heroAnimation = useScrollAnimation({ delay: 400 });
   const timelineAnimation = useStaggeredScrollAnimation(9, 300);
   const qualificationsAnimation = useStaggeredScrollAnimation(2, 400);
   const ctaAnimation = useScrollAnimation({ threshold: 0.3 });
@@ -78,36 +77,17 @@ const ApplicationsPage: React.FC<ApplicationsPageProps> = ({ setCurrentPage }) =
             Join our Executive Board and make a meaningful impact on the entrepreneurship community at Emory
           </p>
         </div>
-
-        {/* Hero Section */}
-        <div 
-          ref={heroAnimation.elementRef}
-          className={`h-96 rounded-lg mb-16 relative overflow-hidden transition-all duration-700 hover:scale-105 ${
-            heroAnimation.isVisible ? 'opacity-100 scale-100' : 'opacity-0 scale-95'
-          }`}
-          style={{
-            backgroundImage: "url('/applications/ready_mark.webp')",
-            backgroundSize: "cover",
-            backgroundPosition: "center",
-          }}
-        >
-          <div className="absolute inset-0 bg-gray-800 opacity-40 hover:opacity-30 transition-opacity duration-300"></div>
-          
-          <div className="relative h-full flex flex-col justify-center items-center text-center text-white px-4">
-            <h2 className="text-4xl font-bold mb-6">Ready to Make Your Mark?</h2>
-            <p className="text-xl mb-8 max-w-2xl">
-              We're looking for passionate students to join our team and drive innovation in the entrepreneurship ecosystem.
-            </p>
-            <a 
-              href="https://forms.gle/PDm3MW6sGr8YcWZKA"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="bg-[#3CB5C4] text-white px-8 py-4 rounded-lg font-semibold text-lg inline-flex items-center hover:bg-[#01FDC0] hover:scale-105 transition-all duration-300"
-              title="Apply via Google Form"
-            >
-              Apply Now <ArrowRight size={20} className="ml-2" />
-            </a>
-          </div>
+        {/* Apply Button */}
+        <div className="mb-16 text-center">
+          <a 
+            href="https://forms.gle/PDm3MW6sGr8YcWZKA"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="bg-[#3CB5C4] text-white px-8 py-4 rounded-lg font-semibold text-lg inline-flex items-center hover:bg-[#01FDC0] hover:scale-105 transition-all duration-300"
+            title="Apply via Google Form"
+          >
+            Apply Now <ArrowRight size={20} className="ml-2" />
+          </a>
         </div>
 
         {/* Application Timeline */}
