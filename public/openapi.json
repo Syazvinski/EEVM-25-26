@@ -1,0 +1,189 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "EEVM Auth Utility API",
+    "version": "1.0.0",
+    "description": "API for generating user-specific login links and standardized 401 responses that instruct bots to fetch a login link."
+  },
+  "servers": [
+    { "url": "https://<your-vercel-domain>", "description": "Vercel deployment hosting /api/login-link" }
+  ],
+  "paths": {
+    "/api/login-link": {
+      "get": {
+        "summary": "Get a user-specific login link",
+        "operationId": "getLoginLink",
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "query",
+            "required": false,
+            "schema": { "type": "string" },
+            "description": "Preferred user identifier. Provide either userId or email."
+          },
+          {
+            "name": "email",
+            "in": "query",
+            "required": false,
+            "schema": { "type": "string", "format": "email" },
+            "description": "Alternative identifier if userId unavailable."
+          },
+          {
+            "name": "redirect",
+            "in": "query",
+            "required": false,
+            "schema": { "type": "string" },
+            "description": "Optional path or URL to redirect the user to after login."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Login link created",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/LoginLinkResponse" },
+                "examples": {
+                  "basic": {
+                    "value": {
+                      "link": "https://accounts.example.com/login?userId=1234&redirect=/dashboard",
+                      "expiresIn": 300,
+                      "message": "Provide this link to the user to complete login."
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": { "$ref": "#/components/responses/BadRequest" },
+          "500": { "$ref": "#/components/responses/InternalError" }
+        }
+      },
+      "post": {
+        "summary": "Create a user-specific login link",
+        "operationId": "postLoginLink",
+        "requestBody": {
+          "required": false,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/LoginLinkRequest" },
+              "examples": {
+                "userId": {
+                  "value": { "userId": "1234", "redirect": "/dashboard" }
+                },
+                "email": {
+                  "value": { "email": "user@example.com", "redirect": "/" }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": { "$ref": "#/paths/~1api~1login-link/get/responses/200" },
+          "400": { "$ref": "#/components/responses/BadRequest" },
+          "500": { "$ref": "#/components/responses/InternalError" }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "LoginLinkRequest": {
+        "type": "object",
+        "properties": {
+          "userId": { "type": "string", "description": "Preferred user identifier" },
+          "email": { "type": "string", "format": "email", "description": "Alternative identifier" },
+          "redirect": { "type": "string", "description": "Path or URL to redirect after login" }
+        },
+        "additionalProperties": false
+      },
+      "LoginLinkResponse": {
+        "type": "object",
+        "required": ["link"],
+        "properties": {
+          "link": { "type": "string", "format": "uri" },
+          "expiresIn": { "type": "integer", "minimum": 0 },
+          "message": { "type": "string" }
+        },
+        "additionalProperties": true
+      },
+      "ApiError": {
+        "type": "object",
+        "properties": {
+          "error": { "type": "string" },
+          "message": { "type": "string" }
+        },
+        "additionalProperties": true
+      },
+      "UnauthorizedWithBot": {
+        "type": "object",
+        "properties": {
+          "error": { "type": "string", "enum": ["unauthorized"] },
+          "message": { "type": "string", "default": "Authentication required." },
+          "bot_instructions": { "type": "string", "default": "Call the login-link endpoint to obtain the user-specific login URL." },
+          "endpoint": { "type": "string", "default": "/api/login-link" },
+          "method": { "type": "string", "enum": ["GET", "POST"], "default": "GET" },
+          "params": {
+            "type": "object",
+            "properties": {
+              "userId": { "type": ["string", "null"] },
+              "email": { "type": ["string", "null"], "format": "email" },
+              "redirect": { "type": ["string", "null"], "default": "/" }
+            },
+            "additionalProperties": false
+          }
+        },
+        "required": ["error", "endpoint", "method"],
+        "additionalProperties": false,
+        "examples": [
+          {
+            "error": "unauthorized",
+            "message": "Authentication required.",
+            "bot_instructions": "Call the login-link endpoint to obtain the user-specific login URL.",
+            "endpoint": "/api/login-link",
+            "method": "GET",
+            "params": { "userId": "1234", "redirect": "/" }
+          }
+        ]
+      }
+    },
+    "responses": {
+      "BadRequest": {
+        "description": "Missing or invalid parameters",
+        "content": {
+          "application/json": {
+            "schema": { "$ref": "#/components/schemas/ApiError" },
+            "examples": {
+              "missing": {
+                "value": {
+                  "error": "bad_request",
+                  "message": "Missing required parameter: userId or email.",
+                  "example": {
+                    "get": "/api/login-link?userId=1234&redirect=/dashboard",
+                    "post": { "url": "/api/login-link", "body": { "userId": "1234", "redirect": "/dashboard" } }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "UnauthorizedWithBot": {
+        "description": "401 response contract instructing bots to fetch a login link",
+        "content": {
+          "application/json": {
+            "schema": { "$ref": "#/components/schemas/UnauthorizedWithBot" }
+          }
+        }
+      },
+      "InternalError": {
+        "description": "Unexpected server error",
+        "content": {
+          "application/json": {
+            "schema": { "$ref": "#/components/schemas/ApiError" }
+          }
+        }
+      }
+    }
+  }
+}
+
