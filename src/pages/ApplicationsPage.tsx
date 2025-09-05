@@ -1,5 +1,5 @@
 import React from "react";
-import { ArrowRight, Clock, Users, FileText, CheckCircle } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import { useScrollAnimation, useStaggeredScrollAnimation } from "../hooks/useScrollAnimation";
 
 interface ApplicationsPageProps {
@@ -10,34 +10,55 @@ const ApplicationsPage: React.FC<ApplicationsPageProps> = ({ setCurrentPage }) =
   // Animations
   const headerAnimation = useScrollAnimation({ delay: 200 });
   const heroAnimation = useScrollAnimation({ delay: 400 });
-  const timelineAnimation = useStaggeredScrollAnimation(4, 300);
+  const timelineAnimation = useStaggeredScrollAnimation(9, 300);
   const qualificationsAnimation = useStaggeredScrollAnimation(2, 400);
   const ctaAnimation = useScrollAnimation({ threshold: 0.3 });
 
   const timelineSteps = [
     {
-      date: "Sep 15",
+      date: "Sep 3",
+      title: "Student Involvement Fair",
+      description: "8–10 PM · McDonough Field",
+    },
+    {
+      date: "Sep 3",
       title: "Applications Open",
       description: "Submit your application and resume through our online portal.",
-      icon: <FileText size={24} className="text-white" />
     },
     {
-      date: "Oct 1", 
-      title: "Application Deadline",
-      description: "Final day to submit applications. Late entries will not be accepted.",
-      icon: <Clock size={24} className="text-white" />
+      date: "Sep 8",
+      title: "EEVM Info Session",
+      description: "5:30–6:30 PM · GBS 334",
     },
     {
-      date: "Oct 8",
-      title: "Interview Invitations",
-      description: "Selected candidates will be contacted to schedule an interview.",
-      icon: <Users size={24} className="text-white" />
+      date: "Sep 12",
+      title: "Donuts & Directors Chat",
+      description: "2–4 PM · GBS outside Costa Coffee",
     },
     {
-      date: "Oct 15",
-      title: "Final Decisions",
-      description: "Acceptance notifications will be sent out to successful applicants.",
-      icon: <CheckCircle size={24} className="text-white" />
+      date: "Sep 14",
+      title: "Application Closes",
+      description: "Deadline: 11:59 PM EST",
+    },
+    {
+      date: "Sep 17",
+      title: "Interview Decision Notification",
+      description: "Invitations sent to selected applicants.",
+    },
+    {
+      date: "Sep 20",
+      title: "Interviews",
+      description: "Interview blocks throughout the day.",
+    },
+    {
+      date: "Sep 21",
+      title: "Interviews",
+      description: "Second day of interviews.",
+    },
+    {
+      date: "Sep 22",
+      title: "Final Decision Notification",
+      description: "Final outcomes released.",
     }
   ];
 
@@ -107,9 +128,6 @@ const ApplicationsPage: React.FC<ApplicationsPageProps> = ({ setCurrentPage }) =
                       : 'opacity-0 translate-y-12'
                   }`}
                 >
-                  <div className="w-16 h-16 bg-[#3CB5C4] rounded-full flex items-center justify-center mx-auto mb-4 border-2 border-white shadow-lg hover:scale-110 transition-transform duration-300">
-                    {step.icon}
-                  </div>
                   <div className="text-2xl font-bold text-[#3CB5C4] mb-2">{step.date}</div>
                   <h3 className="text-xl font-semibold text-gray-900 mb-3">{step.title}</h3>
                   <p className="text-gray-600 text-sm leading-relaxed">{step.description}</p>
@@ -173,9 +191,9 @@ const ApplicationsPage: React.FC<ApplicationsPageProps> = ({ setCurrentPage }) =
             ctaAnimation.isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
           }`}
         >
-          <h3 className="text-2xl font-bold text-gray-900 mb-4">Applications for Fall 2025</h3>
+          <h3 className="text-2xl font-bold text-gray-900 mb-4">Fall Recruitment Timeline</h3>
           <p className="text-lg text-gray-600 mb-6">
-            Applications will open on September 15th. Follow us on social media for updates and announcements.
+            Applications open Sep 3 and close Sep 14. Interviews run Sep 20–21.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <button
