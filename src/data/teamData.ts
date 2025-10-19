@@ -17,7 +17,7 @@ const getHeadshotPath = (name: string, _division?: string): string => {
       return `${basePath}/Corporate/Katherine Vondar Haar Director of Corporate Sponsorships.webp`;
     case "Ruchi Tipnis": return `${basePath}/Marketing & Design/Ruchi Tipnis Director of Marketing & Design.webp`;
     case "Lumina Lu": return `${basePath}/Marketing & Design/Lumina Lu Director of Marketing & Design.webp`;
-    case "Richard Liu": return `${basePath}/Finance/Richard Liu Director of Finance.webp`;
+    case "Grant Smialek": return `${basePath}/Finance/Grant Smialek Director of Finance.webp`;
     case "Stephannie Gallardo": return `${basePath}/Operations/Stephannie Gallardo Director of Operations.webp`;
     case "Kayleena Nguyen": return `${basePath}/Operations/Kayleena Nguyen Director of Operations.webp`;
 
@@ -70,7 +70,7 @@ export const allDirectors: Member[] = [
   { name: "Katie Vonder Haar", title: "Director of Corporate Partnerships", email: "katie.vonder.haar@emory.edu", imagePath: getHeadshotPath("Katie Vonder Haar", "Corporate"), isLeadership: true },
   { name: "Ruchi Tipnis", title: "Co-Director of Marketing", email: "ruchi.tipnis@emory.edu", imagePath: getHeadshotPath("Ruchi Tipnis", "Marketing & Design"), isLeadership: true },
   { name: "Lumina Lu", title: "Co-Director of Marketing", email: "lumina.lu@emory.edu", imagePath: getHeadshotPath("Lumina Lu", "Marketing & Design"), isLeadership: true },
-  { name: "Richard Liu", title: "Director of Finance", email: "richard.liu@emory.edu", imagePath: getHeadshotPath("Richard Liu", "Finance"), isLeadership: true },
+  { name: "Grant Smialek", title: "Director of Finance", email: "grant.smialek@emory.edu", imagePath: getHeadshotPath("Grant Smialek", "Finance"), isLeadership: true },
   { name: "Stephannie Gallardo", title: "Co-Director of Operations", email: "stephannie.gallardo@emory.edu", imagePath: getHeadshotPath("Stephannie Gallardo", "Operations"), isLeadership: true },
   { name: "Kayleena Nguyen", title: "Co-Director of Operations", email: "kayleena.nguyen@emory.edu", imagePath: getHeadshotPath("Kayleena Nguyen", "Operations"), isLeadership: true },
   { name: "Stephan Yazvinski", title: "Director of Tech", email: "", imagePath: getHeadshotPath("Stephan Yazvinski", "Tech"), isLeadership: true },
