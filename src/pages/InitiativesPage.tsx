@@ -14,12 +14,12 @@ const hackatlStats = [
 ];
 
 const pastEvents = [
-  { year: "2025", theme: "AI & Innovation", logo: "/hack-logos/hack_logo_2025-h192.webp", bg: "#eef3fa", description: "Exploring artificial intelligence and emerging technologies to solve real-world problems." },
-  { year: "2024", theme: "Sustainability", logo: "/hack-logos/hack_24-card.webp", bg: "#f5efdf", description: "Developing solutions for environmental challenges and sustainable business practices." },
-  { year: "2023", theme: "FinTech", logo: "/hack-logos/hack_23-card.webp", bg: "#ffffff", description: "Innovation in financial technology and digital payment solutions." },
-  { year: "2022", theme: "HealthTech", logo: "/hack-logos/hack_22-card.webp", bg: "#000000", description: "Healthcare technology solutions to improve patient outcomes and accessibility." },
-  { year: "2021", theme: "EdTech", logo: "/hack-logos/hack_21-card.webp", bg: "#121327", description: "Educational technology innovations for remote and hybrid learning environments." },
-  { year: "2020", theme: "Social Impact", logo: "/hack-logos/hack_20-card.webp", bg: "#ffffff", description: "Technology solutions addressing social issues and community challenges." },
+  { year: "2025", theme: "AI & Innovation", logo: "/hack-logos/hack_logo_2025-h192.webp", description: "Exploring artificial intelligence and emerging technologies to solve real-world problems." },
+  { year: "2024", theme: "Sustainability", logo: "/hack-logos/hack_24.webp", description: "Developing solutions for environmental challenges and sustainable business practices." },
+  { year: "2023", theme: "FinTech", logo: "/hack-logos/hack_23.webp", description: "Innovation in financial technology and digital payment solutions." },
+  { year: "2022", theme: "HealthTech", logo: "/hack-logos/hack_22.webp", description: "Healthcare technology solutions to improve patient outcomes and accessibility." },
+  { year: "2021", theme: "EdTech", logo: "/hack-logos/hack_21.webp", description: "Educational technology innovations for remote and hybrid learning environments." },
+  { year: "2020", theme: "Social Impact", logo: "/hack-logos/hack_20.webp", description: "Technology solutions addressing social issues and community challenges." },
 ];
 
 const excelleratorStats = [
@@ -95,15 +95,15 @@ const InitiativesPage: React.FC<InitiativesPageProps> = () => (
       <SectionHeading eyebrow="HackATL through the years" title={<>A history of <span className="serif">building.</span></>} />
       <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
         {pastEvents.map((e, i) => (
-          <Reveal key={e.year} delay={(i % 3) * 100} className="card p-4 pb-7 flex flex-col">
-            <div className="aspect-[16/10] rounded-2xl mb-6 flex items-center justify-center p-6 sm:p-8 border border-[var(--line)]" style={{ background: e.bg }}>
-              <img src={e.logo} alt={`HackATL ${e.year} logo`} className="max-h-full max-w-full object-contain" loading="lazy" />
+          <Reveal key={e.year} delay={(i % 3) * 100} className="card p-7 flex flex-col">
+            <div className="h-24 mb-8 flex items-center">
+              <img src={e.logo} alt={`HackATL ${e.year} logo`} className="max-h-24 max-w-[70%] w-auto object-contain" loading="lazy" />
             </div>
-            <div className="px-3 flex items-baseline justify-between gap-4 mb-3">
+            <div className="flex items-baseline justify-between gap-4 mb-3">
               <h3 className="display text-2xl font-bold">HackATL {e.year}</h3>
               <span className="text-sm font-semibold text-[var(--accent)]">{e.theme}</span>
             </div>
-            <p className="px-3 muted leading-relaxed">{e.description}</p>
+            <p className="muted leading-relaxed">{e.description}</p>
           </Reveal>
         ))}
       </div>
@@ -132,15 +132,14 @@ const InitiativesPage: React.FC<InitiativesPageProps> = () => (
       <section className="wrap pb-24 sm:pb-32">
         <Reveal className="card p-6 sm:p-14 grid lg:grid-cols-2 gap-10 lg:gap-16">
           <div>
-            <p className="eyebrow mb-5">Initiative</p>
-            <h2>
-              <img
-                src="/logos/givc-logo-h96.webp"
-                srcSet="/logos/givc-logo-h96.webp 1x, /logos/givc-logo-h192.webp 2x"
-                alt="Girls into VC"
-                className="h-16 sm:h-20 w-auto"
-              />
-            </h2>
+            <img
+              src="/logos/givc-logo-h96.webp"
+              srcSet="/logos/givc-logo-h96.webp 1x, /logos/givc-logo-h192.webp 2x"
+              alt="Girls into VC logo"
+              className="h-12 sm:h-14 w-auto mb-8"
+            />
+            <p className="eyebrow mb-3">Initiative</p>
+            <h2 className="display font-bold text-5xl sm:text-6xl leading-[0.95]">GIVC</h2>
           </div>
           <p className="muted text-lg sm:text-xl leading-relaxed">{givc.description}</p>
         </Reveal>
