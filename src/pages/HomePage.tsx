@@ -27,7 +27,7 @@ const chapters = [
     step: "Launch", tag: "Excellerator",
     title: "Take it from idea to company.",
     body: "Excellerator incubates student-led startups with hands-on support in customer discovery, MVP development, pitching, and business strategy.",
-    image: "/initiatives/accelerator_program_inititive_image.webp", page: "initiatives",
+    image: "/initiatives/excellerator_panel-w1600.webp", position: "center 80%", page: "initiatives",
   },
 ];
 
@@ -149,7 +149,7 @@ const HomePage: React.FC<HomePageProps> = ({ setCurrentPage }) => {
           </div>
           <div className="relative h-[72%] rounded-[28px] overflow-hidden">
             {chapters.map((c, i) => (
-              <img key={c.step} src={c.image} alt="" className={`chapter-img ${i === chapter ? "is-active" : ""}`} />
+              <img key={c.step} src={c.image} alt="" className={`chapter-img ${i === chapter ? "is-active" : ""}`} style={{ objectPosition: c.position }} />
             ))}
           </div>
         </div>
@@ -160,7 +160,7 @@ const HomePage: React.FC<HomePageProps> = ({ setCurrentPage }) => {
         <p className="eyebrow">What we do</p>
         {chapters.map((c, i) => (
           <div key={c.step}>
-            <img src={c.image} alt="" className="w-full aspect-[4/3] object-cover rounded-3xl mb-6" />
+            <img src={c.image} alt="" className="w-full aspect-[4/3] object-cover rounded-3xl mb-6" style={{ objectPosition: c.position }} />
             <p className="display font-semibold text-sm mb-2"><span className="text-[var(--accent)]">0{i + 1}</span> {c.step} · <span className="muted">{c.tag}</span></p>
             <h2 className="display font-bold text-4xl leading-tight mb-3">{c.title}</h2>
             <p className="muted leading-relaxed">{c.body}</p>

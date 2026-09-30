@@ -1,5 +1,5 @@
 import React from "react";
-import { ArrowRight } from "lucide-react";
+import { ArrowUpRight } from "lucide-react";
 import { PageHeader, Reveal, SectionHeading, SponsorMarquee } from "../components/ui";
 import { unitsData } from "../data/teamData";
 
@@ -42,7 +42,7 @@ const StatRow: React.FC<{ stats: { value: string; label: string }[]; inverted?: 
   </div>
 );
 
-const InitiativesPage: React.FC<InitiativesPageProps> = ({ setCurrentPage }) => (
+const InitiativesPage: React.FC<InitiativesPageProps> = () => (
   <div>
     <PageHeader
       eyebrow="Initiatives"
@@ -69,9 +69,9 @@ const InitiativesPage: React.FC<InitiativesPageProps> = ({ setCurrentPage }) => 
             innovative solutions to real-world problems. Participants form teams, build prototypes,
             and pitch their ideas to a panel of industry experts.
           </p>
-          <button className="btn btn-primary" onClick={() => setCurrentPage("applications")}>
-            Register for HackATL 2025 <ArrowRight size={18} />
-          </button>
+          <a href="https://www.hackatl.org" target="_blank" rel="noopener noreferrer" className="btn btn-primary">
+            Register for HackATL 2026 <ArrowUpRight size={18} />
+          </a>
         </Reveal>
       </div>
       <Reveal className="relative rounded-[28px] overflow-hidden h-[320px] sm:h-[480px] mb-4">
@@ -121,7 +121,7 @@ const InitiativesPage: React.FC<InitiativesPageProps> = ({ setCurrentPage }) => 
           <p className="text-lg leading-relaxed opacity-70">{excelleratorDescription}</p>
         </div>
         <div>
-          <p className="display text-xl font-semibold mb-4">Startup support</p>
+          <img src="/initiatives/excellerator_panel-w1600.webp" alt="Excellerator speaker panel" className="w-full aspect-[16/10] object-cover rounded-[24px] mb-4" style={{ objectPosition: "center 80%" }} loading="lazy" />
           <StatRow stats={excelleratorStats} inverted />
         </div>
       </Reveal>
