@@ -2,20 +2,13 @@ import React, { useEffect, useRef, useState } from "react";
 import { ArrowRight, ArrowUpRight } from "lucide-react";
 import { useScrollProgress } from "../hooks/useScrollProgress";
 import { leadershipTeam, unitsData } from "../data/teamData";
+import { sponsors } from "../data/sponsors";
+import { CtaPanel, SponsorMarquee, panelGhost, panelPrimary } from "../components/ui";
 import "./home.css";
 
 interface HomePageProps {
   setCurrentPage: (page: string) => void;
 }
-
-const sponsors = [
-  ["Accenture", "accenture_logo"], ["AWS", "aws_logo"], ["BECU", "becu_logo"], ["City of Atlanta", "city_of_atlanta_logo"],
-  ["Coca-Cola", "coca_cola_logo"], ["Emory CEI", "emory_cei_logo"], ["Georgia-Pacific", "georgia_pacific_logo"], ["GitHub", "github_logo"],
-  ["Goizueta Business School", "goizueta_business_school_logo"], ["Goizueta CEI", "goizueta_cei_logo"], ["Google", "google_logo"], ["The Home Depot", "home_depot_logo"],
-  ["IBM", "ibm_logo"], ["Insomnia Cookies", "insomnia_cookies_logo"], ["Invesco", "invesco_logo"], ["Lyft", "lyft_logo"],
-  ["Meta", "meta_logo"], ["Microsoft", "microsoft_logo"], ["Porsche", "porsche_logo"], ["ProductATL", "productatl_logo"],
-  ["Red Bull", "red_bull_logo"], ["Stripe", "stripe_logo"], ["Synovus", "synovus_logo"], ["TAG", "tag_logo"],
-].map(([name, file]) => ({ name, logo: `/sponsors/${file}.webp` }));
 
 const chapters = [
   {
@@ -47,10 +40,6 @@ const people = [
 ].filter(m => m.imagePath);
 
 const HomePage: React.FC<HomePageProps> = ({ setCurrentPage }) => {
-  // PREVIEW ONLY: lets reviewers compare light and dark. Remove before shipping.
-  const [theme, setTheme] = useState<"light" | "dark">(
-    () => (new URLSearchParams(window.location.search).get("theme") === "dark" ? "dark" : "light"),
-  );
   const [chapter, setChapter] = useState(0);
 
   const heroRef = useScrollProgress<HTMLElement>("pin");
@@ -68,7 +57,7 @@ const HomePage: React.FC<HomePageProps> = ({ setCurrentPage }) => {
   const chaptersRef = useScrollProgress<HTMLElement>("pin", p => setChapter(Math.min(chapters.length - 1, Math.floor(p * chapters.length))));
   const teamRef = useScrollProgress<HTMLDivElement>("view");
 
-  const go = (page: string) => { setCurrentPage(page); window.scrollTo({ top: 0 }); };
+  const go = setCurrentPage;
   const words = statement.split(" ");
   const stats = [
     { value: unitsData.filter(u => u.type === "Division").length, label: "Divisions" },
@@ -78,7 +67,7 @@ const HomePage: React.FC<HomePageProps> = ({ setCurrentPage }) => {
   ];
 
   return (
-    <div className="home2" data-theme={theme}>
+    <div className="home2">
       {/* Hero */}
       <section ref={heroRef} className="hero">
         <div className="hero-sticky">
@@ -184,19 +173,7 @@ const HomePage: React.FC<HomePageProps> = ({ setCurrentPage }) => {
             <h2 className="display font-bold text-4xl sm:text-5xl">Previous <span className="serif">partners.</span></h2>
           </div>
         </div>
-        <div className="space-y-4">
-          {[sponsors.slice(0, 12), sponsors.slice(12)].map((row, r) => (
-            <div key={r} className="marquee">
-              <div className={`marquee-track ${r ? "reverse" : ""}`}>
-                {[...row, ...row].map((s, i) => (
-                  <div key={i} className="logo-chip" aria-hidden={i >= row.length}>
-                    <img src={s.logo} alt={s.name} />
-                  </div>
-                ))}
-              </div>
-            </div>
-          ))}
-        </div>
+        <SponsorMarquee />
       </section>
 
       {/* Team */}
@@ -225,28 +202,13 @@ const HomePage: React.FC<HomePageProps> = ({ setCurrentPage }) => {
         </div>
       </section>
 
-      {/* Call to action */}
-      <section className="px-4 sm:px-8 pb-24">
-        <div className="max-w-7xl mx-auto rounded-[32px] bg-[var(--panel)] text-[var(--panel-ink)] px-6 sm:px-14 py-16 sm:py-24 relative overflow-hidden">
-          <div className="absolute -right-24 -top-24 w-96 h-96 rounded-full bg-[var(--accent-bright)] opacity-20 blur-3xl" />
-          <h2 className="display font-bold text-[clamp(2.25rem,6vw,5rem)] leading-[0.98] max-w-3xl relative">
-            Your idea deserves <span className="serif text-[var(--accent-bright)] whitespace-nowrap">a team.</span>
-          </h2>
-          <p className="mt-6 text-lg opacity-70 max-w-xl relative">Join EEVM and build alongside Emory's most ambitious students.</p>
-          <div className="mt-10 flex flex-wrap gap-3 relative">
-            <button className="btn bg-[var(--panel-ink)] text-[var(--panel)]" onClick={() => go("applications")}>Apply to EEVM <ArrowRight size={18} /></button>
-            <button className="btn border border-white/20" onClick={() => go("contact")}>Get in touch</button>
-          </div>
-        </div>
-      </section>
-
-      {/* PREVIEW ONLY: theme switch */}
-      <div className="fixed bottom-4 left-4 z-50 flex items-center gap-1 rounded-full bg-black/80 p-1 text-xs text-white shadow-lg backdrop-blur">
-        <span className="px-2 opacity-60">Preview</span>
-        {(["light", "dark"] as const).map(t => (
-          <button key={t} onClick={() => setTheme(t)} className={`rounded-full px-3 py-1.5 capitalize ${theme === t ? "bg-white text-black" : ""}`}>{t}</button>
-        ))}
-      </div>
+      <CtaPanel
+        title={<>Your idea deserves <span className="serif text-[var(--accent-bright)] whitespace-nowrap">a team.</span></>}
+        text="Join EEVM and build alongside Emory's most ambitious students."
+      >
+        <button className={panelPrimary} onClick={() => go("applications")}>Apply to EEVM <ArrowRight size={18} /></button>
+        <button className={panelGhost} onClick={() => go("contact")}>Get in touch</button>
+      </CtaPanel>
     </div>
   );
 };

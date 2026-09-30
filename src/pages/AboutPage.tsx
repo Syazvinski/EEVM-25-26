@@ -1,182 +1,97 @@
 import React from "react";
-import { Award, TrendingUp, Building, Users } from "lucide-react";
-import { useScrollAnimation, useStaggeredScrollAnimation } from "../hooks/useScrollAnimation";
+import { Award, TrendingUp, Building, Users, ArrowRight } from "lucide-react";
+import { CtaPanel, PageHeader, Reveal, SectionHeading, panelGhost, panelPrimary } from "../components/ui";
 
 interface AboutPageProps {
   setCurrentPage: (page: string) => void;
 }
 
+const FOUNDED = 2012;
+
+const values = [
+  { icon: TrendingUp, title: "Innovation", description: "We embrace creativity and encourage bold thinking to drive meaningful change." },
+  { icon: Users, title: "Community", description: "We build strong relationships and foster collaboration among entrepreneurs." },
+  { icon: Award, title: "Excellence", description: "We strive for the highest standards in everything we do and deliver." },
+  { icon: Building, title: "Impact", description: "We focus on creating tangible value for our members and the broader community." },
+];
+
 const AboutPage: React.FC<AboutPageProps> = ({ setCurrentPage }) => {
-  // Animations
-  const headerAnimation = useScrollAnimation({ delay: 200 });
-  const missionAnimation = useScrollAnimation({ delay: 400 });
-  const visionAnimation = useScrollAnimation({ delay: 600 });
-  const valuesAnimation = useStaggeredScrollAnimation(4, 200);
-  const excellenceAnimation = useScrollAnimation({ threshold: 0.3 });
-  const ctaAnimation = useScrollAnimation({ threshold: 0.2 });
+  const years = new Date().getFullYear() - FOUNDED;
 
   return (
-    <div className="py-20 bg-gray-100">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        
-        {/* Header */}
-        <div 
-          ref={headerAnimation.elementRef}
-          className={`text-center mb-16 transition-all duration-700 ${
-            headerAnimation.isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
-          }`}
-        >
-          <h1 className="text-5xl font-bold text-gray-900 mb-6">About EEVM</h1>
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-            Discover how we're shaping the future of entrepreneurship at Emory University
-          </p>
+    <div>
+      <PageHeader
+        eyebrow="About"
+        title={<>About <span className="serif text-[var(--accent)]">EEVM.</span></>}
+        subtitle="Discover how we're shaping the future of entrepreneurship at Emory University"
+      />
+
+      {/* Founding story */}
+      <section className="wrap pb-24 sm:pb-32">
+        <div className="grid lg:grid-cols-[auto_1fr] gap-10 lg:gap-20 items-center border-t border-[var(--line)] pt-14">
+          <Reveal>
+            <div className="display font-bold text-[clamp(7rem,18vw,14rem)] leading-[0.8] text-[var(--accent)]">{years}</div>
+            <div className="display text-2xl font-semibold mt-4">Years of excellence</div>
+          </Reveal>
+          <Reveal delay={150}>
+            <h2 className="display font-bold text-4xl sm:text-5xl mb-6">Founded in {FOUNDED}</h2>
+            <p className="muted text-lg sm:text-xl leading-relaxed max-w-2xl">
+              EEVM has been at the forefront of entrepreneurship education at Emory for over a decade,
+              continually evolving to meet the needs of aspiring entrepreneurs. We connect students with
+              the platform, resources, and network to explore the venture ecosystem.
+            </p>
+          </Reveal>
         </div>
+      </section>
 
-        {/* Founding Story Section */}
-        <section className="mb-20">
-          <div className="grid lg:grid-cols-2 gap-12 items-center">
-            <div 
-              ref={excellenceAnimation.elementRef}
-              className={`text-center lg:text-left transition-all duration-700 ${
-                excellenceAnimation.isVisible ? 'opacity-100 scale-100' : 'opacity-0 scale-90'
-              }`}
-            >
-              <div className="inline-block relative hover:scale-105 transition-transform duration-300 mx-auto lg:mx-0">
-                <div className="w-56 h-56 bg-[#3CB5C4] rounded-full flex flex-col items-center justify-center shadow-2xl border-4 border-white">
-                  <div className="text-5xl font-bold text-white mb-3">13</div>
-                  <div className="text-xl text-white text-center leading-tight font-semibold">Years of<br />Excellence</div>
-                </div>
-              </div>
-            </div>
-            <div 
-              className={`transition-all duration-700 delay-200 ${
-                excellenceAnimation.isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
-              }`}
-            >
-              <h2 className="text-3xl font-bold text-gray-900 mb-4">Founded in 2012</h2>
-              <p className="text-lg text-gray-600 leading-relaxed">
-                EEVM has been at the forefront of entrepreneurship education at Emory for over a decade, 
-                continually evolving to meet the needs of aspiring entrepreneurs. We connect students with 
-                the platform, resources, and network to explore the venture ecosystem.
-              </p>
-            </div>
-          </div>
-        </section>
-
-        {/* Mission Section */}
-        <div className="grid lg:grid-cols-2 gap-12 mb-20">
-          <div 
-            ref={missionAnimation.elementRef}
-            className={`bg-white p-10 rounded-xl shadow-lg transition-all duration-700 ${
-              missionAnimation.isVisible ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-8'
-            }`}
-          >
-            <h2 className="text-4xl font-bold text-gray-900 mb-6">Our Mission</h2>
-            <p className="text-lg text-gray-600 leading-relaxed mb-6">
+      {/* Mission */}
+      <section className="wrap pb-24 sm:pb-32">
+        <div className="grid lg:grid-cols-2 gap-6">
+          <Reveal className="card p-8 sm:p-12 flex flex-col justify-center">
+            <p className="eyebrow mb-4">Our mission</p>
+            <h2 className="display font-bold text-4xl sm:text-5xl mb-8">Bridging the classroom and <span className="serif">the real world.</span></h2>
+            <p className="muted text-lg leading-relaxed mb-5">
               We seek to provide our members with opportunities to explore
               career paths, connect with peers, and network with professionals
               in the entrepreneurship, venture capital, and business strategy areas.
             </p>
-            <p className="text-lg text-gray-600 leading-relaxed">
+            <p className="muted text-lg leading-relaxed">
               Through our comprehensive programming, we bridge the gap between
               academic learning and real-world business experience, preparing
               students for successful careers in the venture ecosystem.
             </p>
-          </div>
-          <div 
-            ref={visionAnimation.elementRef}
-            className={`bg-white rounded-xl shadow-lg overflow-hidden transition-all duration-700 ${
-              visionAnimation.isVisible ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-8'
-            }`}
-          >
-            <img 
-              src="/about/mission.webp" 
-              alt="EEVM Team Mission" 
-              className="w-full h-full object-cover hover:scale-105 transition-transform duration-300" 
-              style={{ objectPosition: 'center 70%', minHeight: '400px' }}
-            />
-          </div>
+          </Reveal>
+          <Reveal delay={150} className="rounded-[24px] overflow-hidden min-h-[360px]">
+            <img src="/about/mission.webp" alt="EEVM event" className="w-full h-full object-cover" style={{ objectPosition: "center 70%" }} />
+          </Reveal>
         </div>
+      </section>
 
-        {/* Core Values */}
-        <section className="mb-20">
-          <div className="text-center mb-12">
-            <h2 className="text-4xl font-bold text-gray-900 mb-6">Our Core Values</h2>
-            <p className="text-lg text-gray-600">The principles that guide everything we do</p>
-          </div>
-          
-          <div ref={valuesAnimation.elementRef} className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {[
-              {
-                icon: <TrendingUp size={48} className="text-[#3CB5C4]" />,
-                title: "Innovation",
-                description: "We embrace creativity and encourage bold thinking to drive meaningful change."
-              },
-              {
-                icon: <Users size={48} className="text-[#3CB5C4]" />,
-                title: "Community",
-                description: "We build strong relationships and foster collaboration among entrepreneurs."
-              },
-              {
-                icon: <Award size={48} className="text-[#3CB5C4]" />,
-                title: "Excellence", 
-                description: "We strive for the highest standards in everything we do and deliver."
-              },
-              {
-                icon: <Building size={48} className="text-[#3CB5C4]" />,
-                title: "Impact",
-                description: "We focus on creating tangible value for our members and the broader community."
-              }
-            ].map((value, index) => (
-              <div 
-                key={index}
-                className={`bg-white p-8 rounded-lg shadow-sm border border-gray-200 text-center hover:shadow-xl hover:scale-105 transition-all duration-500 ${
-                  valuesAnimation.visibleItems[index] 
-                    ? 'opacity-100 translate-y-0' 
-                    : 'opacity-0 translate-y-12'
-                }`}
-              >
-                <div className="mb-6 flex justify-center hover:scale-110 transition-transform duration-300">
-                  {value.icon}
-                </div>
-                <h3 className="text-xl font-bold text-gray-900 mb-4">{value.title}</h3>
-                <p className="text-gray-600 leading-relaxed">{value.description}</p>
+      {/* Values */}
+      <section className="wrap pb-24 sm:pb-32">
+        <SectionHeading eyebrow="Core values" title={<>What guides <span className="serif">everything we do.</span></>} />
+        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
+          {values.map(({ icon: Icon, title, description }, i) => (
+            <Reveal key={title} delay={i * 100} className="card p-8">
+              <div className="w-12 h-12 rounded-2xl bg-[var(--line)] flex items-center justify-center mb-10">
+                <Icon size={22} className="text-[var(--accent)]" />
               </div>
-            ))}
-          </div>
-        </section>
-
-        {/* Call to Action */}
-        <div 
-          ref={ctaAnimation.elementRef}
-          className={`bg-white p-12 rounded-lg shadow-sm border border-gray-200 text-center hover:shadow-lg transition-all duration-500 ${
-            ctaAnimation.isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
-          }`}
-        >
-          <h3 className="text-3xl font-bold text-gray-900 mb-6">Ready to Join Our Mission?</h3>
-          <p className="text-lg text-gray-600 mb-8 max-w-2xl mx-auto">
-            Whether you're an aspiring entrepreneur or simply curious about the startup world, 
-            EEVM offers opportunities for everyone to get involved and make a difference.
-          </p>
-          <div className="flex flex-col sm:flex-row gap-6 justify-center">
-            <button
-              onClick={() => setCurrentPage("applications")}
-              className="bg-[#3CB5C4] text-white px-8 py-4 rounded-lg font-semibold text-lg hover:bg-[#01FDC0] hover:scale-105 transition-all duration-300"
-            >
-              Apply to Join
-            </button>
-            <button
-              onClick={() => setCurrentPage("initiatives")}
-              className="border-2 border-[#3CB5C4] text-[#3CB5C4] px-8 py-4 rounded-lg font-semibold text-lg hover:bg-[#3CB5C4] hover:text-white hover:scale-105 transition-all duration-300"
-            >
-              Explore Our Work
-            </button>
-          </div>
+              <h3 className="display text-2xl font-bold mb-3">{title}</h3>
+              <p className="muted leading-relaxed">{description}</p>
+            </Reveal>
+          ))}
         </div>
+      </section>
 
-      </div>
+      <CtaPanel
+        title={<>Ready to join <span className="serif text-[var(--accent-bright)] whitespace-nowrap">our mission?</span></>}
+        text="Whether you're an aspiring entrepreneur or simply curious about the startup world, EEVM offers opportunities for everyone to get involved and make a difference."
+      >
+        <button className={panelPrimary} onClick={() => setCurrentPage("applications")}>Apply to join <ArrowRight size={18} /></button>
+        <button className={panelGhost} onClick={() => setCurrentPage("initiatives")}>Explore our work</button>
+      </CtaPanel>
     </div>
   );
 };
 
-export default AboutPage; 
+export default AboutPage;

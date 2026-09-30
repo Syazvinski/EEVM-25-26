@@ -5,92 +5,76 @@ interface FooterProps {
   setCurrentPage: (page: string) => void;
 }
 
-const Footer: React.FC<FooterProps> = ({ setCurrentPage }) => {
-  const navigation = [
-    { name: "Home", key: "home" },
-    { name: "About Us", key: "about" },
-    { name: "Initiatives", key: "initiatives" },
-    { name: "Our Team", key: "team" },
-    { name: "Applications", key: "applications" },
-    { name: "Contact", key: "contact" },
-  ];
+const navigation = [
+  { name: "Home", key: "home" },
+  { name: "About Us", key: "about" },
+  { name: "Initiatives", key: "initiatives" },
+  { name: "Our Team", key: "team" },
+  { name: "Applications", key: "applications" },
+  { name: "Contact", key: "contact" },
+];
 
-  return (
-    <footer className="bg-gray-900 text-white py-12">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid md:grid-cols-4 gap-8">
-          <div className="col-span-2">
-            <div className="flex items-center mb-4">
-              <img 
-                src="/logos/eevm_full-h40.webp"
-                srcSet="/logos/eevm_full-h40.webp 1x, /logos/eevm_full-h80.webp 2x"
-                alt="EEVM Logo" 
-                className="h-10 w-auto brightness-0 invert"
-              />
-            </div>
-            <p className="text-white mb-6 max-w-md">
-              Connecting students with the platform, resources, and network to
-              explore the venture ecosystem.
-            </p>
-            <div className="flex space-x-4">
+const socials = [
+  { label: "EEVM Instagram", href: "https://www.instagram.com/emoryevm/", icon: Instagram },
+  { label: "EEVM LinkedIn", href: "https://www.linkedin.com/company/emory-entrepreneurship-&-venture-management/posts/?feedView=all", icon: Linkedin },
+  { label: "Email EEVM", href: "mailto:contact@eevm.org", icon: Mail },
+];
+
+const Footer: React.FC<FooterProps> = ({ setCurrentPage }) => (
+  <footer className="bg-[var(--panel)] text-[var(--panel-ink)] border-t border-[var(--line)]">
+    <div className="wrap py-16">
+      <div className="grid gap-12 md:grid-cols-[2fr_1fr_1fr]">
+        <div>
+          <img
+            src="/logos/eevm_full-h40.webp"
+            srcSet="/logos/eevm_full-h40.webp 1x, /logos/eevm_full-h80.webp 2x"
+            alt="EEVM"
+            className="h-10 w-auto brightness-0 invert mb-6"
+          />
+          <p className="display text-2xl font-semibold leading-snug max-w-md">
+            Connecting students with the platform, resources, and network to explore the venture ecosystem.
+          </p>
+          <div className="flex gap-3 mt-8">
+            {socials.map(({ label, href, icon: Icon }) => (
               <a
-                href="https://www.instagram.com/emoryevm/"
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label="EEVM Instagram"
-                className="w-8 h-8 bg-gray-800 rounded-full flex items-center justify-center"
+                key={label}
+                href={href}
+                aria-label={label}
+                {...(href.startsWith("http") ? { target: "_blank", rel: "noopener noreferrer" } : {})}
+                className="w-10 h-10 rounded-full border border-white/15 flex items-center justify-center hover:bg-white/10 transition-colors"
               >
-                <Instagram size={16} className="text-white" />
+                <Icon size={17} />
               </a>
-              <a
-                href="https://www.linkedin.com/company/emory-entrepreneurship-&-venture-management/posts/?feedView=all"
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label="EEVM LinkedIn"
-                className="w-8 h-8 bg-gray-800 rounded-full flex items-center justify-center"
-              >
-                <Linkedin size={16} className="text-white" />
-              </a>
-              <div className="w-8 h-8 bg-gray-800 rounded-full flex items-center justify-center">
-                <Mail size={16} className="text-white" />
-              </div>
-            </div>
-          </div>
-
-          <div>
-            <h3 className="font-semibold text-white mb-4">Quick Links</h3>
-            <div className="space-y-2 text-sm">
-              {navigation.map((item) => (
-                <button
-                  key={item.key}
-                  onClick={() => setCurrentPage(item.key)}
-                  className="block text-gray-200 hover:text-white transition-colors"
-                >
-                  {item.name}
-                </button>
-              ))}
-            </div>
-          </div>
-
-          <div>
-            <h3 className="font-semibold text-white mb-4">Our Initiatives</h3>
-            <div className="space-y-2 text-sm text-gray-200">
-              <p>HackATL</p>
-              <p>Excellerator</p>
-              <p>Venture Studio</p>
-            </div>
+            ))}
           </div>
         </div>
 
-        <div className="border-t border-gray-800 mt-8 pt-8 text-center text-sm text-gray-400">
-          <p>
-            &copy; 2026 Emory Entrepreneurship & Venture Management. All rights
-            reserved.
-          </p>
+        <div>
+          <h3 className="text-xs font-semibold tracking-[0.14em] uppercase opacity-50 mb-5">Quick links</h3>
+          <div className="space-y-3">
+            {navigation.map(item => (
+              <button key={item.key} onClick={() => setCurrentPage(item.key)} className="block opacity-80 hover:opacity-100 transition-opacity">
+                {item.name}
+              </button>
+            ))}
+          </div>
+        </div>
+
+        <div>
+          <h3 className="text-xs font-semibold tracking-[0.14em] uppercase opacity-50 mb-5">Our initiatives</h3>
+          <div className="space-y-3 opacity-80">
+            <p>HackATL</p>
+            <p>Excellerator</p>
+            <p>Venture Studio</p>
+          </div>
         </div>
       </div>
-    </footer>
-  );
-};
 
-export default Footer; 
+      <div className="border-t border-white/10 mt-14 pt-8 text-sm opacity-50">
+        &copy; {new Date().getFullYear()} Emory Entrepreneurship &amp; Venture Management. All rights reserved.
+      </div>
+    </div>
+  </footer>
+);
+
+export default Footer;

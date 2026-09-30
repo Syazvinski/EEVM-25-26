@@ -1,163 +1,100 @@
 import React from "react";
-import { Mail, MapPin, Clock, Instagram, Globe } from "lucide-react";
-import { useScrollAnimation, useStaggeredScrollAnimation } from "../hooks/useScrollAnimation";
+import { Mail, MapPin, Clock, Instagram, Globe, ArrowUpRight } from "lucide-react";
+import { PageHeader, Reveal } from "../components/ui";
 
 interface ContactPageProps {
   setCurrentPage: (page: string) => void;
 }
 
 const ContactPage: React.FC<ContactPageProps> = ({ setCurrentPage }) => {
-  // Animations
-  const headerAnimation = useScrollAnimation({ delay: 200 });
-  const stepsAnimation = useStaggeredScrollAnimation(3, 300);
-  const detailsAnimation = useScrollAnimation({ threshold: 0.3 });
-  // Removed unused socialAnimation to satisfy strict linting
+  const steps = [
+    { title: "Reach Out", description: "Send us an email with your questions or interest in joining EEVM", icon: Mail, action: "Email us", href: "mailto:contact@eevm.org" },
+    { title: "Connect", description: "Follow our social media for updates on events and application deadlines", icon: Instagram, action: "Follow us", href: "https://www.instagram.com/emoryevm/" },
+    { title: "Apply", description: "Submit your application when applications open each semester", icon: Globe, action: "Learn more", onClick: () => setCurrentPage("applications") },
+  ];
+
+  const details = [
+    { icon: Mail, label: "Email", value: <a href="mailto:contact@eevm.org" className="text-[var(--accent)] hover:underline">contact@eevm.org</a> },
+    { icon: MapPin, label: "Location", value: <>Emory University<br />Atlanta, GA</> },
+    { icon: Clock, label: "Office hours", value: <>Monday – Friday<br />9:00 AM – 5:00 PM EST</> },
+  ];
 
   return (
-    <div className="py-20 bg-gray-100">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        
-        {/* Header */}
-        <div 
-          ref={headerAnimation.elementRef}
-          className={`text-center mb-16 transition-all duration-700 ${
-            headerAnimation.isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
-          }`}
-        >
-          <h1 className="text-5xl font-bold text-gray-900 mb-6">Get in Touch</h1>
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-            Ready to join the EEVM community? Here's how to connect with us
-          </p>
-        </div>
+    <div>
+      <PageHeader
+        eyebrow="Contact"
+        title={<>Get in <span className="serif text-[var(--accent)]">touch.</span></>}
+        subtitle="Ready to join the EEVM community? Here's how to connect with us"
+      />
 
-        {/* Contact Steps - Horizontal 1,2,3 format as requested */}
-        <section className="mb-20">
-          <div 
-            ref={stepsAnimation.elementRef}
-            className="grid md:grid-cols-3 gap-8"
-          >
-            {[
-              {
-                number: "1",
-                title: "Reach Out",
-                description: "Send us an email with your questions or interest in joining EEVM",
-                icon: <Mail size={32} className="text-white" />,
-                action: "Email Us",
-                link: "mailto:contact@eevm.org"
-              },
-              {
-                number: "2", 
-                title: "Connect",
-                description: "Follow our social media for updates on events and application deadlines",
-                icon: <Instagram size={32} className="text-white" />,
-                action: "Follow Us",
-                link: "https://www.instagram.com/emoryevm/"
-              },
-              {
-                number: "3",
-                title: "Apply",
-                description: "Submit your application when applications open each semester",
-                icon: <Globe size={32} className="text-white" />,
-                action: "Learn More",
-                onClick: () => setCurrentPage("applications")
-              }
-            ].map((step, index) => (
-              <div 
-                key={index}
-                className={`bg-white p-8 rounded-lg shadow-sm border border-gray-200 text-center hover:shadow-xl hover:scale-105 transition-all duration-500 ${
-                  stepsAnimation.visibleItems[index] 
-                    ? 'opacity-100 translate-y-0' 
-                    : 'opacity-0 translate-y-12'
-                }`}
-              >
-                <div className="relative mb-6">
-                  <div className="w-16 h-16 bg-[#3CB5C4] rounded-full flex items-center justify-center mx-auto mb-4 hover:scale-110 transition-transform duration-300">
-                    {step.icon}
-                  </div>
+      {/* Steps */}
+      <section className="wrap pb-24 sm:pb-32">
+        <div className="grid md:grid-cols-3 gap-4">
+          {steps.map((step, i) => {
+            const Icon = step.icon;
+            const actionClass = "btn btn-ghost btn-sm mt-auto self-start";
+            return (
+              <Reveal key={step.title} delay={i * 100} className="card p-8 flex flex-col min-h-[300px]">
+                <div className="flex items-center justify-between mb-10">
+                  <span className="display text-5xl font-bold text-[var(--accent)]">0{i + 1}</span>
+                  <span className="w-11 h-11 rounded-full bg-[var(--line)] flex items-center justify-center"><Icon size={20} /></span>
                 </div>
-                <h3 className="text-2xl font-bold text-gray-900 mb-4">{step.title}</h3>
-                <p className="text-gray-600 mb-6 leading-relaxed">{step.description}</p>
-                {step.link ? (
-                  <a 
-                    href={step.link}
-                    target={step.link.startsWith('mailto:') ? '_self' : '_blank'}
-                    rel={step.link.startsWith('mailto:') ? '' : 'noopener noreferrer'}
-                    className="bg-[#3CB5C4] text-white px-6 py-3 rounded-lg font-semibold hover:bg-[#01FDC0] hover:scale-105 transition-all duration-300 inline-block"
+                <h3 className="display text-3xl font-bold mb-3">{step.title}</h3>
+                <p className="muted leading-relaxed mb-8">{step.description}</p>
+                {step.href ? (
+                  <a
+                    href={step.href}
+                    className={actionClass}
+                    {...(step.href.startsWith("http") ? { target: "_blank", rel: "noopener noreferrer" } : {})}
                   >
-                    {step.action}
+                    {step.action} <ArrowUpRight size={16} />
                   </a>
                 ) : (
-                  <button
-                    onClick={step.onClick}
-                    className="bg-[#3CB5C4] text-white px-6 py-3 rounded-lg font-semibold hover:bg-[#01FDC0] hover:scale-105 transition-all duration-300"
-                  >
-                    {step.action}
-                  </button>
+                  <button onClick={step.onClick} className={actionClass}>{step.action} <ArrowUpRight size={16} /></button>
                 )}
-              </div>
-            ))}
-          </div>
-        </section>
+              </Reveal>
+            );
+          })}
+        </div>
+      </section>
 
-        {/* Contact Details */}
-        <section 
-          ref={detailsAnimation.elementRef}
-          className={`mb-16 transition-all duration-700 ${
-            detailsAnimation.isVisible ? 'opacity-100 scale-100' : 'opacity-0 scale-95'
-          }`}
-        >
-          <div className="bg-white p-12 rounded-lg shadow-sm border border-gray-200 hover:shadow-lg transition-shadow duration-300">
-            <div className="grid md:grid-cols-2 gap-8">
-              <div>
-                <h2 className="text-3xl font-bold text-gray-900 mb-6">Contact Information</h2>
-                <div className="space-y-4">
-                  <div className="flex items-start hover:scale-105 transition-transform duration-300">
-                    <Mail size={24} className="text-[#3CB5C4] mt-1 mr-4 flex-shrink-0" />
-                    <div>
-                      <h3 className="font-semibold text-gray-900">Email</h3>
-                      <a href="mailto:contact@eevm.org" className="text-[#3CB5C4] hover:text-[#01FDC0] transition-colors">
-                        contact@eevm.org
-                      </a>
-                    </div>
-                  </div>
-                  <div className="flex items-start hover:scale-105 transition-transform duration-300">
-                    <MapPin size={24} className="text-[#3CB5C4] mt-1 mr-4 flex-shrink-0" />
-                    <div>
-                      <h3 className="font-semibold text-gray-900">Location</h3>
-                      <p className="text-gray-600">Emory University<br />Atlanta, GA</p>
-                    </div>
-                  </div>
-                  <div className="flex items-start hover:scale-105 transition-transform duration-300">
-                    <Clock size={24} className="text-[#3CB5C4] mt-1 mr-4 flex-shrink-0" />
-                    <div>
-                      <h3 className="font-semibold text-gray-900">Office Hours</h3>
-                      <p className="text-gray-600">Monday - Friday<br />9:00 AM - 5:00 PM EST</p>
-                    </div>
+      {/* Details */}
+      <section className="px-4 sm:px-8 pb-24">
+        <Reveal className="max-w-7xl mx-auto grid lg:grid-cols-2 gap-4">
+          <div className="card p-8 sm:p-12">
+            <h2 className="display font-bold text-4xl mb-10">Contact information</h2>
+            <dl className="space-y-8">
+              {details.map(({ icon: Icon, label, value }) => (
+                <div key={label} className="flex gap-5">
+                  <span className="w-11 h-11 shrink-0 rounded-full bg-[var(--line)] flex items-center justify-center"><Icon size={19} className="text-[var(--accent)]" /></span>
+                  <div>
+                    <dt className="font-semibold mb-1">{label}</dt>
+                    <dd className="muted leading-relaxed">{value}</dd>
                   </div>
                 </div>
-              </div>
-              <div className="bg-[#3CB5C4] p-8 rounded-lg text-white">
-                <h3 className="text-2xl font-bold mb-4">Quick Response</h3>
-                <p className="mb-6 leading-relaxed">
-                  We typically respond to all inquiries within 24-48 hours during business days. 
-                  For urgent matters or application deadlines, please mention it in your subject line.
-                </p>
-                <div className="bg-white bg-opacity-20 p-4 rounded-lg">
-                  <h4 className="font-semibold mb-2">Best Times to Reach Us:</h4>
-                  <ul className="text-sm space-y-1">
-                    <li>• Weekdays: 10 AM - 4 PM</li>
-                    <li>• Application periods: Same day response</li>
-                    <li>• General inquiries: 1-2 business days</li>
-                  </ul>
-                </div>
-              </div>
+              ))}
+            </dl>
+          </div>
+          <div className="rounded-[24px] bg-[var(--panel)] text-[var(--panel-ink)] p-8 sm:p-12 relative overflow-hidden">
+            <div className="absolute -right-24 -bottom-24 w-80 h-80 rounded-full bg-[var(--accent-bright)] opacity-15 blur-3xl" />
+            <h2 className="display font-bold text-4xl mb-6 relative">Quick response</h2>
+            <p className="text-lg leading-relaxed opacity-70 mb-10 relative">
+              We typically respond to all inquiries within 24-48 hours during business days.
+              For urgent matters or application deadlines, please mention it in your subject line.
+            </p>
+            <div className="rounded-2xl border border-white/15 p-6 relative">
+              <h3 className="font-semibold mb-3">Best times to reach us</h3>
+              <ul className="space-y-2 opacity-70">
+                <li>Weekdays: 10 AM – 4 PM</li>
+                <li>Application periods: Same day response</li>
+                <li>General inquiries: 1-2 business days</li>
+              </ul>
             </div>
           </div>
-        </section>
-
-      </div>
+        </Reveal>
+      </section>
     </div>
   );
 };
 
-export default ContactPage; 
+export default ContactPage;

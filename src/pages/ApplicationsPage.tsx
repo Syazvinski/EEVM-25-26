@@ -1,248 +1,145 @@
 import React from "react";
-import { ArrowRight } from "lucide-react";
-import { useScrollAnimation, useStaggeredScrollAnimation } from "../hooks/useScrollAnimation";
+import { ArrowUpRight, Check } from "lucide-react";
+import { CtaPanel, PageHeader, Reveal, SectionHeading, panelGhost, panelPrimary } from "../components/ui";
 
 interface ApplicationsPageProps {
   setCurrentPage: (page: string) => void;
 }
 
-const ApplicationsPage: React.FC<ApplicationsPageProps> = ({ setCurrentPage }) => {
-  // Animations
-  const headerAnimation = useScrollAnimation({ delay: 200 });
-  const timelineAnimation = useStaggeredScrollAnimation(9, 300);
-  const qualificationsAnimation = useStaggeredScrollAnimation(2, 400);
-  const ctaAnimation = useScrollAnimation({ threshold: 0.3 });
+const APPLY_URL = "https://forms.gle/PDm3MW6sGr8YcWZKA";
 
-  // Countdown to application close (Sep 14, 11:59 PM ET)
-  const [timeLeft, setTimeLeft] = React.useState({
-    days: 0,
-    hours: 0,
-    minutes: 0,
-    seconds: 0,
-    over: false,
-  });
+const timelineSteps = [
+  { date: "Sep 3", title: "Student Involvement Fair", description: "8–10 PM · McDonough Field" },
+  { date: "Sep 3", title: "Applications Open", description: "Submit your application and resume through our online portal." },
+  { date: "Sep 8", title: "EEVM Info Session", description: "5:30–6:30 PM · GBS 334" },
+  { date: "Sep 12", title: "Donuts & Directors Chat", description: "2–4 PM · GBS outside Costa Coffee" },
+  { date: "Sep 14", title: "Application Closes", description: "Deadline: 11:59 PM EST" },
+  { date: "Sep 17", title: "Interview Decision Notification", description: "Invitations sent to selected applicants." },
+  { date: "Sep 20", title: "Interviews", description: "Interview blocks throughout the day." },
+  { date: "Sep 21", title: "Interviews", description: "Second day of interviews." },
+  { date: "Sep 22", title: "Final Decision Notification", description: "Final outcomes released." },
+];
+
+const qualifications = [
+  {
+    title: "Leadership & Initiative",
+    points: [
+      "Demonstrated leadership experience in academic, professional, or extracurricular settings",
+      "Proactive mindset with ability to take initiative and drive projects forward",
+      "Strong communication and interpersonal skills",
+    ],
+  },
+  {
+    title: "Passion & Commitment",
+    points: [
+      "Genuine interest in entrepreneurship, innovation, and venture development",
+      "Ability to commit time and energy to EEVM activities and responsibilities",
+      "Collaborative team player who thrives in a dynamic environment",
+    ],
+  },
+];
+
+// Countdown to application close (Sep 14, 11:59 PM ET)
+function useCountdown() {
+  const [timeLeft, setTimeLeft] = React.useState({ days: 0, hours: 0, minutes: 0, seconds: 0, over: false });
 
   React.useEffect(() => {
-    const now = new Date();
-    const year = now.getFullYear();
     // Sep is month index 8; 11:59 PM ET is 03:59 UTC next day during DST (UTC-4)
-    const target = new Date(Date.UTC(year, 8, 15, 3, 59, 0));
-
+    const target = new Date(Date.UTC(new Date().getFullYear(), 8, 15, 3, 59, 0));
     const tick = () => {
       const diff = target.getTime() - Date.now();
-      if (diff <= 0) {
-        setTimeLeft({ days: 0, hours: 0, minutes: 0, seconds: 0, over: true });
-        return;
-      }
-      const d = Math.floor(diff / (1000 * 60 * 60 * 24));
-      const h = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-      const m = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-      const s = Math.floor((diff % (1000 * 60)) / 1000);
-      setTimeLeft({ days: d, hours: h, minutes: m, seconds: s, over: false });
+      if (diff <= 0) { setTimeLeft({ days: 0, hours: 0, minutes: 0, seconds: 0, over: true }); return; }
+      setTimeLeft({
+        days: Math.floor(diff / 86400000),
+        hours: Math.floor((diff % 86400000) / 3600000),
+        minutes: Math.floor((diff % 3600000) / 60000),
+        seconds: Math.floor((diff % 60000) / 1000),
+        over: false,
+      });
     };
-
     tick();
     const id = setInterval(tick, 1000);
     return () => clearInterval(id);
   }, []);
 
-  const pad = (n: number) => String(n).padStart(2, "0");
+  return timeLeft;
+}
 
-  const timelineSteps = [
-    {
-      date: "Sep 3",
-      title: "Student Involvement Fair",
-      description: "8–10 PM · McDonough Field",
-    },
-    {
-      date: "Sep 3",
-      title: "Applications Open",
-      description: "Submit your application and resume through our online portal.",
-    },
-    {
-      date: "Sep 8",
-      title: "EEVM Info Session",
-      description: "5:30–6:30 PM · GBS 334",
-    },
-    {
-      date: "Sep 12",
-      title: "Donuts & Directors Chat",
-      description: "2–4 PM · GBS outside Costa Coffee",
-    },
-    {
-      date: "Sep 14",
-      title: "Application Closes",
-      description: "Deadline: 11:59 PM EST",
-    },
-    {
-      date: "Sep 17",
-      title: "Interview Decision Notification",
-      description: "Invitations sent to selected applicants.",
-    },
-    {
-      date: "Sep 20",
-      title: "Interviews",
-      description: "Interview blocks throughout the day.",
-    },
-    {
-      date: "Sep 21",
-      title: "Interviews",
-      description: "Second day of interviews.",
-    },
-    {
-      date: "Sep 22",
-      title: "Final Decision Notification",
-      description: "Final outcomes released.",
-    }
-  ];
+const pad = (n: number) => String(n).padStart(2, "0");
+
+const ApplicationsPage: React.FC<ApplicationsPageProps> = ({ setCurrentPage }) => {
+  const timeLeft = useCountdown();
 
   return (
-    <div className="py-20 bg-gray-100">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        
-        {/* Header */}
-        <div 
-          ref={headerAnimation.elementRef}
-          className={`text-center mb-16 transition-all duration-700 ${
-            headerAnimation.isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
-          }`}
-        >
-          <h1 className="text-5xl font-bold text-gray-900 mb-6">Apply to EEVM</h1>
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-            Join our Executive Board and make a meaningful impact on the entrepreneurship community at Emory
-          </p>
-        </div>
-        {/* Apply Button */}
-        <div className="mb-16 text-center">
-          <a 
-            href="https://forms.gle/PDm3MW6sGr8YcWZKA"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="bg-[#3CB5C4] text-white px-8 py-4 rounded-lg font-semibold text-lg inline-flex items-center hover:bg-[#01FDC0] hover:scale-105 transition-all duration-300"
-            title="Apply via Google Form"
-          >
-            Apply Now <ArrowRight size={20} className="ml-2" />
+    <div>
+      <PageHeader
+        eyebrow="Applications"
+        title={<>Apply to <span className="serif text-[var(--accent)]">EEVM.</span></>}
+        subtitle="Join our Executive Board and make a meaningful impact on the entrepreneurship community at Emory"
+      >
+        <div className="flex flex-wrap items-center gap-3">
+          <a href={APPLY_URL} target="_blank" rel="noopener noreferrer" className="btn btn-primary">
+            Apply now <ArrowUpRight size={18} />
           </a>
-          <div className="mt-4">
-            <div className="inline-flex items-center gap-2 bg-white border border-gray-200 rounded-lg px-4 py-2 shadow-sm">
-              {timeLeft.over ? (
-                <span className="text-gray-700 font-medium">Applications are closed</span>
-              ) : (
-                <>
-                  <span className="text-gray-700">Closes in</span>
-                  <span className="font-mono font-semibold text-gray-900">
-                    {pad(timeLeft.days)}d {pad(timeLeft.hours)}h {pad(timeLeft.minutes)}m {pad(timeLeft.seconds)}s
-                  </span>
-                </>
-              )}
-            </div>
-          </div>
+          <span className="chip">
+            {timeLeft.over ? (
+              "Applications are closed"
+            ) : (
+              <>Closes in <span className="ml-2 font-mono font-semibold text-[var(--ink)]">{pad(timeLeft.days)}d {pad(timeLeft.hours)}h {pad(timeLeft.minutes)}m {pad(timeLeft.seconds)}s</span></>
+            )}
+          </span>
         </div>
+      </PageHeader>
 
-        {/* Application Timeline */}
-        <section className="mb-20">
-          <div className="text-center mb-12">
-            <h2 className="text-4xl font-bold text-gray-900 mb-6">Application Timeline</h2>
-            <p className="text-lg text-gray-600">Key dates for the Executive Board application process</p>
-          </div>
+      {/* Timeline */}
+      <section className="wrap pb-24 sm:pb-32">
+        <SectionHeading
+          eyebrow="Application timeline"
+          title={<>Key <span className="serif">dates.</span></>}
+          subtitle="Key dates for the Executive Board application process"
+        />
+        <ol className="border-t border-[var(--line)]">
+          {timelineSteps.map((step, i) => (
+            <li key={i}>
+              <Reveal className="grid grid-cols-[5.5rem_1fr] sm:grid-cols-[10rem_1fr_1.2fr] gap-x-6 gap-y-1 py-6 border-b border-[var(--line)] items-baseline">
+                <span className="display text-xl sm:text-2xl font-bold text-[var(--accent)]">{step.date}</span>
+                <span className="display text-xl sm:text-2xl font-semibold">{step.title}</span>
+                <span className="muted col-start-2 sm:col-start-auto">{step.description}</span>
+              </Reveal>
+            </li>
+          ))}
+        </ol>
+      </section>
 
-          <div ref={timelineAnimation.elementRef} className="relative">
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 relative z-10">
-              {timelineSteps.map((step, index) => (
-                <div 
-                  key={index} 
-                  className={`bg-white p-6 rounded-lg shadow-sm border border-gray-200 text-center hover:shadow-xl hover:scale-105 transition-all duration-500 ${
-                    timelineAnimation.visibleItems[index] 
-                      ? 'opacity-100 translate-y-0' 
-                      : 'opacity-0 translate-y-12'
-                  }`}
-                >
-                  <div className="text-2xl font-bold text-[#3CB5C4] mb-2">{step.date}</div>
-                  <h3 className="text-xl font-semibold text-gray-900 mb-3">{step.title}</h3>
-                  <p className="text-gray-600 text-sm leading-relaxed">{step.description}</p>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        {/* What We're Looking For */}
-        <section className="mb-20">
-          <div className="text-center mb-12">
-            <h2 className="text-4xl font-bold text-gray-900 mb-6">What We're Looking For</h2>
-          </div>
-          
-          <div ref={qualificationsAnimation.elementRef} className="grid md:grid-cols-2 gap-8">
-            {[
-              {
-                title: "Leadership & Initiative",
-                points: [
-                  "Demonstrated leadership experience in academic, professional, or extracurricular settings",
-                  "Proactive mindset with ability to take initiative and drive projects forward",
-                  "Strong communication and interpersonal skills"
-                ]
-              },
-              {
-                title: "Passion & Commitment", 
-                points: [
-                  "Genuine interest in entrepreneurship, innovation, and venture development",
-                  "Ability to commit time and energy to EEVM activities and responsibilities",
-                  "Collaborative team player who thrives in a dynamic environment"
-                ]
-              }
-            ].map((section, index) => (
-              <div 
-                key={index}
-                className={`bg-white p-8 rounded-lg shadow-sm border border-gray-200 hover:shadow-lg hover:scale-105 transition-all duration-500 ${
-                  qualificationsAnimation.visibleItems[index] 
-                    ? 'opacity-100 translate-x-0' 
-                    : `opacity-0 ${index === 0 ? '-translate-x-8' : 'translate-x-8'}`
-                }`}
-              >
-                <h3 className="text-2xl font-bold text-gray-900 mb-4">{section.title}</h3>
-                <ul className="space-y-3 text-gray-600">
-                  {section.points.map((point, pointIndex) => (
-                    <li key={pointIndex} className="flex items-start">
-                      <div className="w-2 h-2 bg-[#3CB5C4] rounded-full mt-2 mr-3 flex-shrink-0 hover:scale-150 transition-transform duration-300"></div>
-                      <span>{point}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            ))}
-          </div>
-        </section>
-
-        {/* Application Status */}
-        <div 
-          ref={ctaAnimation.elementRef}
-          className={`bg-white p-8 rounded-lg shadow-sm border border-gray-200 text-center hover:shadow-lg transition-all duration-500 ${
-            ctaAnimation.isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
-          }`}
-        >
-          <h3 className="text-2xl font-bold text-gray-900 mb-4">Fall Recruitment Timeline</h3>
-          <p className="text-lg text-gray-600 mb-6">
-            Applications open Sep 3 and close Sep 14. Interviews run Sep 20–21.
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <button
-              onClick={() => setCurrentPage("contact")}
-              className="bg-[#3CB5C4] text-white px-6 py-3 rounded-lg font-semibold hover:bg-[#01FDC0] hover:scale-105 transition-all duration-300"
-            >
-              Get Notified
-            </button>
-            <button
-              onClick={() => setCurrentPage("team")}
-              className="border-2 border-[#3CB5C4] text-[#3CB5C4] px-6 py-3 rounded-lg font-semibold hover:bg-[#3CB5C4] hover:text-white hover:scale-105 transition-all duration-300"
-            >
-              Meet Our Team
-            </button>
-          </div>
+      {/* What we're looking for */}
+      <section className="wrap pb-24 sm:pb-32">
+        <SectionHeading eyebrow="What we're looking for" title={<>Who thrives <span className="serif">at EEVM.</span></>} />
+        <div className="grid md:grid-cols-2 gap-4">
+          {qualifications.map((q, i) => (
+            <Reveal key={q.title} delay={i * 100} className="card p-8 sm:p-10">
+              <h3 className="display text-3xl font-bold mb-6">{q.title}</h3>
+              <ul className="space-y-4">
+                {q.points.map(point => (
+                  <li key={point} className="flex gap-3">
+                    <span className="mt-1 w-5 h-5 shrink-0 rounded-full bg-[var(--accent)] text-white flex items-center justify-center"><Check size={12} strokeWidth={3} /></span>
+                    <span className="muted leading-relaxed">{point}</span>
+                  </li>
+                ))}
+              </ul>
+            </Reveal>
+          ))}
         </div>
+      </section>
 
-      </div>
+      <CtaPanel
+        title={<>Fall recruitment <span className="serif text-[var(--accent-bright)] whitespace-nowrap">timeline.</span></>}
+        text="Applications open Sep 3 and close Sep 14. Interviews run Sep 20–21."
+      >
+        <button className={panelPrimary} onClick={() => setCurrentPage("contact")}>Get notified</button>
+        <button className={panelGhost} onClick={() => setCurrentPage("team")}>Meet our team</button>
+      </CtaPanel>
     </div>
   );
 };
 
-export default ApplicationsPage; 
+export default ApplicationsPage;

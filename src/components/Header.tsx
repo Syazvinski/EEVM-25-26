@@ -1,22 +1,22 @@
 import React, { useState } from "react";
-import { Menu, X } from "lucide-react";
+import { Menu, X, ArrowRight } from "lucide-react";
 
 interface HeaderProps {
   currentPage: string;
   setCurrentPage: (page: string) => void;
 }
 
+const navigationItems = [
+  { name: "Home", key: "home" },
+  { name: "About", key: "about" },
+  { name: "Initiatives", key: "initiatives" },
+  { name: "Team", key: "team" },
+  { name: "Applications", key: "applications" },
+  { name: "Contact", key: "contact" },
+];
+
 const Header: React.FC<HeaderProps> = ({ currentPage, setCurrentPage }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-
-  const navigationItems = [
-    { name: 'Home', key: 'home' },
-    { name: 'About', key: 'about' },
-    { name: 'Initiatives', key: 'initiatives' },
-    { name: 'Team', key: 'team' },
-    { name: 'Applications', key: 'applications' },
-    { name: 'Contact', key: 'contact' }
-  ];
 
   const handleNavigation = (page: string) => {
     setCurrentPage(page);
@@ -24,78 +24,63 @@ const Header: React.FC<HeaderProps> = ({ currentPage, setCurrentPage }) => {
   };
 
   return (
-    <header className="bg-white shadow-sm border-b border-gray-200 sticky top-0 z-50">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between items-center py-4">
-          {/* Logo */}
-          <div 
-            className="flex items-center cursor-pointer group transition-transform duration-300 hover:scale-105"
-            onClick={() => handleNavigation('home')}
-          >
-            <img 
-              src="/logos/eevm_full-h48.webp"
-              srcSet="/logos/eevm_full-h48.webp 1x, /logos/eevm_full-h96.webp 2x"
-              alt="EEVM Logo" 
-              className="h-12 w-auto transition-transform duration-300 group-hover:scale-110"
-            />
-          </div>
+    <header className="sticky top-0 z-50 border-b border-[var(--line)] bg-[color-mix(in_srgb,var(--bg)_85%,transparent)] backdrop-blur-md">
+      <div className="wrap h-[var(--header-h)] flex items-center justify-between">
+        <button onClick={() => handleNavigation("home")} aria-label="EEVM home" className="shrink-0">
+          <img
+            src="/logos/eevm_full-h48.webp"
+            srcSet="/logos/eevm_full-h48.webp 1x, /logos/eevm_full-h96.webp 2x"
+            alt="EEVM"
+            className="h-8 sm:h-10 w-auto"
+          />
+        </button>
 
-          {/* Desktop Navigation */}
-          <nav className="hidden lg:flex space-x-8">
-            {navigationItems.map((item) => (
-              <button
-                key={item.key}
-                onClick={() => handleNavigation(item.key)}
-                className={`px-4 py-2 rounded-lg font-medium transition-all duration-300 transform hover:scale-105 ${
-                  currentPage === item.key
-                    ? 'text-[#3CB5C4] bg-[#3CB5C4] bg-opacity-10 shadow-sm'
-                    : 'text-gray-700 hover:text-[#3CB5C4] hover:bg-gray-50'
-                }`}
-              >
-                {item.name}
-              </button>
-            ))}
-          </nav>
-
-          {/* Mobile menu button */}
-          <div className="lg:hidden">
+        <nav className="hidden lg:flex items-center gap-1">
+          {navigationItems.map(item => (
             <button
-              onClick={() => setIsMenuOpen(!isMenuOpen)}
-              className="p-2 rounded-lg text-gray-700 hover:text-[#3CB5C4] hover:bg-gray-50 transition-all duration-300 hover:scale-110"
+              key={item.key}
+              onClick={() => handleNavigation(item.key)}
+              aria-current={currentPage === item.key ? "page" : undefined}
+              className={`relative px-4 py-2 rounded-full text-[15px] font-medium transition-colors ${
+                currentPage === item.key ? "text-[var(--ink)] bg-[var(--line)]" : "muted hover:text-[var(--ink)]"
+              }`}
             >
-              {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
+              {item.name}
             </button>
-          </div>
-        </div>
+          ))}
+        </nav>
 
-        {/* Mobile Navigation */}
-        <div className={`lg:hidden transition-all duration-300 ease-in-out ${
-          isMenuOpen 
-            ? 'max-h-80 opacity-100 transform translate-y-0' 
-            : 'max-h-0 opacity-0 transform -translate-y-4'
-        } overflow-hidden`}>
-          <nav className="py-4 space-y-2 border-t border-gray-200">
-            {navigationItems.map((item, index) => (
-              <button
-                key={item.key}
-                onClick={() => handleNavigation(item.key)}
-                className={`w-full text-left px-4 py-3 rounded-lg font-medium transition-all duration-300 transform hover:scale-102 hover:translate-x-2 ${
-                  currentPage === item.key
-                    ? 'text-[#3CB5C4] bg-[#3CB5C4] bg-opacity-10 shadow-sm'
-                    : 'text-gray-700 hover:text-[#3CB5C4] hover:bg-gray-50'
-                }`}
-                style={{
-                  transitionDelay: isMenuOpen ? `${index * 100}ms` : '0ms'
-                }}
-              >
-                {item.name}
-              </button>
-            ))}
-          </nav>
+        <div className="flex items-center gap-2">
+          <span className="hidden sm:inline-flex">
+            <button className="btn btn-primary btn-sm" onClick={() => handleNavigation("applications")}>
+              Apply <ArrowRight size={16} />
+            </button>
+          </span>
+          <button
+            onClick={() => setIsMenuOpen(!isMenuOpen)}
+            aria-label={isMenuOpen ? "Close menu" : "Open menu"}
+            className="lg:hidden p-2 rounded-full hover:bg-[var(--line)] transition-colors"
+          >
+            {isMenuOpen ? <X size={22} /> : <Menu size={22} />}
+          </button>
         </div>
+      </div>
+
+      <div className={`lg:hidden overflow-hidden transition-[max-height,opacity] duration-300 ${isMenuOpen ? "max-h-96 opacity-100" : "max-h-0 opacity-0"}`}>
+        <nav className="wrap pb-6 pt-2 flex flex-col">
+          {navigationItems.map(item => (
+            <button
+              key={item.key}
+              onClick={() => handleNavigation(item.key)}
+              className={`text-left py-3 display text-2xl font-semibold border-b border-[var(--line)] ${currentPage === item.key ? "" : "muted"}`}
+            >
+              {item.name}
+            </button>
+          ))}
+        </nav>
       </div>
     </header>
   );
 };
 
-export default Header; 
+export default Header;

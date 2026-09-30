@@ -7,9 +7,17 @@ import InitiativesPage from "./pages/InitiativesPage";
 import TeamPage from "./pages/TeamPage";
 import ApplicationsPage from "./pages/ApplicationsPage";
 import ContactPage from "./pages/ContactPage";
+import "./styles/site.css";
 
 const EEVMWebsite: React.FC = () => {
   const [currentPage, setCurrentPage] = useState<string>("home");
+  // PREVIEW ONLY: lets reviewers compare light and dark. Remove before shipping.
+  const [theme, setTheme] = useState<"light" | "dark">(
+    () => (new URLSearchParams(window.location.search).get("theme") === "dark" ? "dark" : "light"),
+  );
+
+  // Each "page" starts at the top
+  useEffect(() => { window.scrollTo({ top: 0 }); }, [currentPage]);
 
   // Track SPA "page" changes with Vercel Analytics if available (skip initial to avoid double-counting with component)
   const didMount = useRef(false);
@@ -46,15 +54,23 @@ const EEVMWebsite: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="site min-h-screen" data-theme={theme}>
       <Header 
         currentPage={currentPage} 
         setCurrentPage={setCurrentPage}
       />
-      <main className="transition-all duration-500 ease-in-out">
+      <main>
         {renderPage()}
       </main>
       <Footer setCurrentPage={setCurrentPage} />
+
+      {/* PREVIEW ONLY: theme switch */}
+      <div className="fixed bottom-4 left-4 z-50 flex items-center gap-1 rounded-full bg-black/80 p-1 text-xs text-white shadow-lg backdrop-blur">
+        <span className="px-2 opacity-60">Preview</span>
+        {(["light", "dark"] as const).map(t => (
+          <button key={t} onClick={() => setTheme(t)} className={`rounded-full px-3 py-1.5 capitalize ${theme === t ? "bg-white text-black" : ""}`}>{t}</button>
+        ))}
+      </div>
     </div>
   );
 };

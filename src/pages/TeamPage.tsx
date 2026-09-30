@@ -1,308 +1,143 @@
-import React, { useState, useRef } from "react";
-import { ChevronDown, Users } from "lucide-react";
-import { Member, Unit, leadershipTeam, unitsData } from "../data/teamData";
+import React, { useRef, useState } from "react";
+import { ArrowRight, Plus } from "lucide-react";
+import { Unit, leadershipTeam, unitsData } from "../data/teamData";
+import { Avatar, CtaPanel, PageHeader, Reveal, SectionHeading, panelPrimary } from "../components/ui";
 
 interface TeamPageProps {
   setCurrentPage: (page: string) => void;
 }
 
-// Leadership Card Component
-// NOTE: For optimal display, ensure all leadership headshots are pre-cropped to a consistent aspect ratio and head size/position.
-const LeadershipCard: React.FC<{ member: Member }> = ({ member }) => {
-  const [imageError, setImageError] = useState(false);
-  
-  return (
-    <div className="bg-white p-8 rounded-lg shadow-sm border border-gray-200 text-center hover:shadow-lg transition-shadow duration-300">
-      {member.imagePath && !imageError ? (
-        <img 
-          src={member.imagePath} 
-          alt={member.name} 
-          className="w-56 h-64 rounded-lg mx-auto mb-4 object-cover border-2 border-gray-200"
-          onError={() => setImageError(true)}
-        />
-      ) : (
-        <div className="w-56 h-64 rounded-lg mx-auto mb-4 bg-[#3CB5C4] border-2 border-gray-200 flex items-center justify-center">
-          <div className="text-4xl font-bold text-white">
-            {member.name.split(' ').map(n => n[0]).join('')}
-          </div>
-        </div>
-      )}
-      <h3 className="font-bold text-xl text-gray-900 mb-2">{member.name}</h3>
-      <p className="text-[#3CB5C4] text-lg font-semibold mb-3">{member.title}</p>
-    </div>
-  );
-};
-
-// Director Card Component
-// NOTE: For optimal display, ensure all director headshots are pre-cropped to a consistent aspect ratio and head size/position.
-const DirectorCard: React.FC<{ member: Member }> = ({ member }) => {
-  const [imageError, setImageError] = useState(false);
-  
-  return (
-    <div className="text-center">
-      {member.imagePath && !imageError ? (
-        <img 
-          src={member.imagePath} 
-          alt={member.name} 
-          className="w-40 h-44 rounded-lg mx-auto mb-3 object-cover border-2 border-gray-200"
-          onError={() => setImageError(true)}
-        />
-      ) : (
-        <div className="w-40 h-44 rounded-lg mx-auto mb-3 bg-[#3CB5C4] border-2 border-gray-200 flex items-center justify-center">
-          <div className="text-xl font-bold text-white">
-            {member.name.split(' ').map(n => n[0]).join('')}
-          </div>
-        </div>
-      )}
-      <h4 className="font-semibold text-sm text-gray-900 mb-1">{member.name}</h4>
-      <p className="text-xs text-[#3CB5C4]">{member.title.replace('Director of ', '').replace('Co-Director of ', '')}</p>
-    </div>
-  );
-};
-
-// Division Card Component
-const DivisionCard: React.FC<{ 
-  unit: Unit, 
-  isSelected: boolean, 
-  onClick: () => void 
-}> = ({ unit, isSelected, onClick }) => {
-  return (
-    <div 
-      className={`bg-white p-6 rounded-lg shadow-sm border cursor-pointer transition-all duration-300 hover:shadow-lg ${
-        isSelected ? 'border-[#3CB5C4] shadow-md' : 'border-gray-200'
-      }`}
-      onClick={onClick}
-    >
-      <div className="flex items-center justify-between mb-4">
-        <div>
-          <h3 className="text-xl font-bold text-gray-900">{unit.name}</h3>
-        </div>
-        <span className="text-xs text-gray-500">{unit.type}</span>
+const UnitCard: React.FC<{ unit: Unit; isSelected: boolean; onClick: () => void }> = ({ unit, isSelected, onClick }) => (
+  <button
+    onClick={onClick}
+    aria-expanded={isSelected}
+    className={`card p-6 text-left w-full h-full flex flex-col transition-all duration-300 hover:-translate-y-1 ${isSelected ? "ring-2 ring-[var(--accent)]" : ""}`}
+  >
+    <div className="flex items-start justify-between gap-4 mb-6">
+      <div>
+        <p className="text-xs font-semibold tracking-[0.14em] uppercase muted mb-1">{unit.type}</p>
+        <h3 className="display text-2xl font-bold">{unit.name}</h3>
       </div>
-      
-      {/* Directors Layout */}
-      <div className="mb-4">
-        {unit.directors.length === 1 ? (
-          <div className="flex justify-center">
-            <DirectorCard member={unit.directors[0]} />
-          </div>
-        ) : unit.directors.length === 2 ? (
-          <div className="grid grid-cols-2 gap-4">
-            {unit.directors.map(director => (
-              <DirectorCard key={director.name} member={director} />
-            ))}
-          </div>
-        ) : (
-          <div className="grid grid-cols-3 gap-2">
-            {unit.directors.map(director => (
-              <DirectorCard key={director.name} member={director} />
-            ))}
+      <span className={`w-9 h-9 shrink-0 rounded-full border border-[var(--line)] flex items-center justify-center transition-transform duration-300 ${isSelected ? "rotate-45" : ""}`}>
+        <Plus size={16} />
+      </span>
+    </div>
+    <div className="grid grid-cols-2 gap-3 mt-auto">
+      {unit.directors.map(d => (
+        <div key={d.name}>
+          <Avatar name={d.name} src={d.imagePath} className="w-full aspect-square rounded-2xl" />
+          <p className="font-semibold text-sm mt-2 leading-tight">{d.name}</p>
+        </div>
+      ))}
+    </div>
+    <p className="muted text-sm mt-5">{unit.associates.length} team members</p>
+  </button>
+);
+
+const UnitDetails: React.FC<{ unit: Unit }> = ({ unit }) => (
+  <div key={unit.id} className="card p-6 sm:p-12 reveal is-in">
+    <div className="grid lg:grid-cols-[1.2fr_1fr] gap-10 lg:gap-16">
+      <div>
+        <p className="eyebrow mb-3">{unit.type}</p>
+        <h3 className="display font-bold text-4xl sm:text-5xl mb-6">{unit.name}</h3>
+        <p className="muted text-lg leading-relaxed">{unit.description}</p>
+        {unit.skills && unit.skills.length > 0 && (
+          <div className="mt-8">
+            <p className="font-semibold mb-3">Key skills &amp; focus areas</p>
+            <div className="flex flex-wrap gap-2">
+              {unit.skills.map(skill => <span key={skill} className="chip">{skill}</span>)}
+            </div>
           </div>
         )}
       </div>
-      
-      <div className="flex items-center justify-between text-sm text-gray-500">
-        <span>{unit.associates.length} team members</span>
-        <ChevronDown size={16} className={`transition-transform duration-300 ${isSelected ? 'rotate-180' : ''}`} />
-      </div>
-    </div>
-  );
-};
-
-// Team Member Card for Details Panel (Directors only)
-// NOTE: For optimal display, ensure all team member headshots are pre-cropped to a consistent aspect ratio and head size/position.
-const TeamMemberCard: React.FC<{ member: Member }> = ({ member }) => {
-  const [imageError, setImageError] = useState(false);
-  
-  return (
-    <div className="bg-gray-50 p-4 rounded-lg text-center">
-      {member.imagePath && !imageError ? (
-        <img 
-          src={member.imagePath} 
-          alt={member.name} 
-          className="w-28 h-32 rounded-lg mx-auto mb-3 object-cover border-2 border-gray-200"
-          onError={() => setImageError(true)}
-        />
-      ) : (
-        <div className="w-28 h-32 rounded-lg mx-auto mb-3 bg-[#3CB5C4] border-2 border-gray-200 flex items-center justify-center">
-          <div className="text-lg font-bold text-white">
-            {member.name.split(' ').map(n => n[0]).join('')}
-          </div>
-        </div>
-      )}
-      <h5 className="font-semibold text-gray-800 mb-1 text-sm">{member.name}</h5>
-      <p className="text-[#3CB5C4] text-xs mb-1">{member.title}</p>
-    </div>
-  );
-};
-
-// Team Member Name Component (Associates - no image)
-const TeamMemberName: React.FC<{ member: Member }> = ({ member }) => {
-  return (
-    <div className="bg-gray-50 p-3 rounded-lg text-center">
-      <h5 className="font-semibold text-gray-800 mb-1 text-sm">{member.name}</h5>
-      <p className="text-gray-500 text-xs mb-1">{member.title}</p>
-    </div>
-  );
-};
-
-// Dynamic Details Panel
-const DivisionDetails: React.FC<{ unit: Unit | null }> = ({ unit }) => {
-  if (!unit) {
-    return (
-      <div className="bg-white p-12 rounded-lg shadow-sm border border-gray-200 text-center">
-        <Users size={48} className="text-[#3CB5C4] mx-auto mb-6" />
-        <h3 className="text-3xl font-bold text-gray-900 mb-4">Our Organization</h3>
-        <p className="text-lg text-gray-600 mb-8 max-w-2xl mx-auto">
-          Click on any division or initiative above to learn more about their team, responsibilities, and current members.
-        </p>
-        <div className="grid grid-cols-2 gap-8 max-w-xs mx-auto">
-          <div className="text-center">
-            <div className="text-2xl font-bold text-[#3CB5C4] mb-2">{unitsData.filter(u => u.type === "Division").length}</div>
-            <div className="text-gray-600">Divisions</div>
-          </div>
-          <div className="text-center">
-            <div className="text-2xl font-bold text-[#3CB5C4] mb-2">{unitsData.filter(u => u.type === "Initiative").length}</div>
-            <div className="text-gray-600">Initiatives</div>
-          </div>
-        </div>
-      </div>
-    );
-  }
-
-  return (
-    <div className="bg-white p-8 rounded-lg shadow-sm border border-gray-200">
-      <div className="mb-8">
-        <div className="flex items-center justify-center mb-4">
-          <h3 className="text-3xl font-bold text-[#3CB5C4] mr-3">{unit.name}</h3>
-          <span className="text-sm text-gray-500">{unit.type}</span>
-        </div>
-        <p className="text-gray-600 max-w-4xl mx-auto leading-relaxed text-center">{unit.description}</p>
-      </div>
-
-      {unit.groupImagePath && (
-        <div className="mb-8 rounded-lg overflow-hidden shadow-md">
-          <img src={unit.groupImagePath} alt={`${unit.name} group photo`} className="w-full h-64 object-cover" />
-        </div>
-      )}
-
-      {unit.skills && unit.skills.length > 0 && (
-        <div className="mb-8">
-          <h4 className="text-lg font-semibold text-gray-700 mb-4">Key Skills & Focus Areas</h4> 
-          <div className="flex flex-wrap justify-center gap-2">
-            {unit.skills.map(skill => (
-              <span key={skill} className="bg-gray-100 text-gray-700 px-3 py-1 rounded-full text-sm">
-                {skill}
-              </span>
-            ))}
-          </div>
-        </div>
-      )}
-
-      <div className="grid lg:grid-cols-2 gap-x-8 gap-y-12">
-        {/* Leadership Team */}
+      <div className="space-y-10">
         {unit.directors.length > 0 && (
           <div>
-            <h4 className="text-xl font-semibold text-gray-700 mb-6">Leadership Team</h4> 
-            <div className={`grid ${unit.directors.length === 1 ? 'grid-cols-1' : 'grid-cols-1 sm:grid-cols-2'} gap-4`}>
-              {unit.directors.map(director => (
-                <TeamMemberCard key={director.name} member={director} />
+            <p className="font-semibold mb-4">Leadership team</p>
+            <div className="grid grid-cols-2 gap-4">
+              {unit.directors.map(d => (
+                <div key={d.name}>
+                  <Avatar name={d.name} src={d.imagePath} className="w-full aspect-[4/5] rounded-2xl" />
+                  <p className="font-semibold mt-3">{d.name}</p>
+                  <p className="muted text-sm">{d.title}</p>
+                </div>
               ))}
             </div>
           </div>
         )}
-        
-        {/* Team Members */}
         {unit.associates.length > 0 && (
           <div>
-            <h4 className="text-xl font-semibold text-gray-700 mb-6">Team Members</h4>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-              {unit.associates.map(associate => (
-                <TeamMemberName key={associate.name} member={associate} />
-              ))}
+            <p className="font-semibold mb-4">Team members</p>
+            <div className="flex flex-wrap gap-2">
+              {unit.associates.map(a => <span key={a.name} className="chip text-[var(--ink)]">{a.name}</span>)}
             </div>
           </div>
         )}
       </div>
     </div>
-  );
-};
+  </div>
+);
 
 const TeamPage: React.FC<TeamPageProps> = ({ setCurrentPage }) => {
   const [selectedUnit, setSelectedUnit] = useState<Unit | null>(null);
   const detailsRef = useRef<HTMLDivElement>(null);
 
   const handleUnitClick = (unit: Unit) => {
-    setSelectedUnit(selectedUnit?.id === unit.id ? null : unit);
-    
-    // Scroll to details section after a brief delay
-    setTimeout(() => {
-      detailsRef.current?.scrollIntoView({ 
-        behavior: 'smooth',
-        block: 'start'
-      });
-    }, 100);
+    const closing = selectedUnit?.id === unit.id;
+    setSelectedUnit(closing ? null : unit);
+    if (!closing) setTimeout(() => detailsRef.current?.scrollIntoView({ behavior: "smooth", block: "start" }), 100);
   };
 
+  const divisions = unitsData.filter(u => u.type === "Division").length;
+  const initiatives = unitsData.filter(u => u.type === "Initiative").length;
+
   return (
-    <div className="py-20 bg-gray-100"> 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        
-        {/* Header */}
-        <div className="text-center mb-16">
-          <h1 className="text-5xl font-bold text-gray-900 mb-6">Our Team</h1>
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-            Meet the passionate individuals driving entrepreneurship innovation at Emory University
-          </p>
-        </div>
+    <div>
+      <PageHeader
+        eyebrow="Fall 2026"
+        title={<>Our <span className="serif text-[var(--accent)]">team.</span></>}
+        subtitle="Meet the passionate individuals driving entrepreneurship innovation at Emory University"
+      />
 
-        {/* Executive Leadership */}
-        <div className="mb-16">
-          <h2 className="text-4xl font-bold text-gray-900 mb-8 text-center">Executive Leadership</h2>
-          <div className="grid md:grid-cols-3 gap-8">
-            {leadershipTeam.map((member) => (
-              <LeadershipCard key={member.name} member={member} />
-            ))}
-          </div>
+      {/* Executive leadership */}
+      <section className="wrap pb-24 sm:pb-32">
+        <SectionHeading eyebrow="Executive leadership" title={<>Leading <span className="serif">EEVM.</span></>} />
+        <div className="grid sm:grid-cols-3 gap-4 sm:gap-6">
+          {leadershipTeam.map((m, i) => (
+            <Reveal key={m.name} delay={i * 100}>
+              <Avatar name={m.name} src={m.imagePath} className="w-full aspect-[4/5] rounded-[24px]" />
+              <h3 className="display text-2xl font-bold mt-5">{m.name}</h3>
+              <p className="text-[var(--accent)] font-medium">{m.title}</p>
+            </Reveal>
+          ))}
         </div>
+      </section>
 
-        {/* Division Grid */}
-        <div className="mb-8">
-          <h2 className="text-4xl font-bold text-gray-900 mb-8 text-center">Divisions & Initiatives</h2>
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {unitsData.map((unit) => (
-              <DivisionCard 
-                key={unit.id}
-                unit={unit} 
-                isSelected={selectedUnit?.id === unit.id}
-                onClick={() => handleUnitClick(unit)}
-              />
-            ))}
-          </div>
+      {/* Divisions & initiatives */}
+      <section className="wrap pb-24 sm:pb-32 border-t border-[var(--line)] pt-24 sm:pt-32">
+        <SectionHeading
+          eyebrow="Divisions & initiatives"
+          title={<>{divisions} divisions. <span className="serif">{initiatives} initiatives.</span></>}
+          subtitle="Select any team to see what they do and who's on it."
+        />
+        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
+          {unitsData.map((unit, i) => (
+            <Reveal key={unit.id} delay={(i % 4) * 80} className="h-full">
+              <UnitCard unit={unit} isSelected={selectedUnit?.id === unit.id} onClick={() => handleUnitClick(unit)} />
+            </Reveal>
+          ))}
         </div>
-
-        {/* Dynamic Details Section */}
-        <div ref={detailsRef}>
-          <DivisionDetails unit={selectedUnit} />
+        <div ref={detailsRef} className="scroll-mt-[calc(var(--header-h)+24px)] mt-6">
+          {selectedUnit && <UnitDetails unit={selectedUnit} />}
         </div>
+      </section>
 
-        {/* Call to Action */}
-        <div className="mt-16 text-center">
-          <div className="bg-white p-8 rounded-lg shadow-sm border border-gray-200">
-            <h3 className="text-2xl font-bold text-gray-900 mb-4">Ready to Join Our Team?</h3>
-            <p className="text-gray-600 mb-6 max-w-2xl mx-auto">
-              We're always looking for passionate students who want to make a difference in the entrepreneurship community at Emory.
-            </p>
-            <button
-              onClick={() => setCurrentPage("applications")}
-              className="bg-[#3CB5C4] text-white px-8 py-3 rounded-lg font-semibold hover:bg-[#01FDC0] transition-colors duration-300 text-lg"
-            >
-              Apply to Join EEVM
-            </button>
-          </div>
-        </div>
-
-      </div>
+      <CtaPanel
+        title={<>Ready to join <span className="serif text-[var(--accent-bright)] whitespace-nowrap">our team?</span></>}
+        text="We're always looking for passionate students who want to make a difference in the entrepreneurship community at Emory."
+      >
+        <button className={panelPrimary} onClick={() => setCurrentPage("applications")}>Apply to join EEVM <ArrowRight size={18} /></button>
+      </CtaPanel>
     </div>
   );
 };
