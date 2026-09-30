@@ -87,8 +87,8 @@ const HomePage: React.FC<HomePageProps> = ({ setCurrentPage }) => {
             <h1 className="display font-bold text-[clamp(2.4rem,min(6.5vw,10vh),6rem)] leading-[0.95]">
               Where Emory builds <span className="serif text-[var(--accent)] whitespace-nowrap">what's next.</span>
             </h1>
-            <div className="mt-6 flex flex-col sm:flex-row sm:items-center gap-4 sm:gap-8">
-              <p className="muted text-base sm:text-lg max-w-xl">
+            <div className="mt-5 flex flex-col items-start gap-6">
+              <p className="muted text-base sm:text-lg max-w-2xl">
                 Connecting students with the platform, resources, and network to explore the venture ecosystem.
               </p>
               <div className="flex gap-3 shrink-0">
