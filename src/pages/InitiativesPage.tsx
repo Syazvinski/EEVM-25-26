@@ -96,8 +96,8 @@ const InitiativesPage: React.FC<InitiativesPageProps> = () => (
       <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
         {pastEvents.map((e, i) => (
           <Reveal key={e.year} delay={(i % 3) * 100} className="card p-7 flex flex-col">
-            <div className="h-28 rounded-2xl mb-6 flex items-center justify-center px-6 py-4 border border-[var(--line)]" style={{ background: e.bg }}>
-              <img src={e.logo} alt={`HackATL ${e.year} logo`} className="max-h-full max-w-full object-contain" loading="lazy" />
+            <div className="w-36 h-24 rounded-2xl mb-8 flex items-center justify-center p-3 border border-[var(--line)]" style={{ background: e.bg }}>
+              <img src={e.logo} alt={`HackATL ${e.year} logo`} className="max-h-full max-w-full object-contain" />
             </div>
             <div className="flex items-baseline justify-between gap-4 mb-3">
               <h3 className="display text-2xl font-bold">HackATL {e.year}</h3>
