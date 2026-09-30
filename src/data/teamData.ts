@@ -71,7 +71,7 @@ export const unitsData: Unit[] = [
     associates: ["Camille Lee", "Saahir Chhabra", "Miles Golden", "Vinay Prajapathi"].map(associate),
   },
   {
-    id: "givc", name: "GIVC", type: "Division",
+    id: "givc", name: "GIVC", type: "Initiative",
     description: "Girls into VC (GIVC) is a national organization that strives to close the gender gap in venture capital. They provide education sessions with their own curriculum and work closely with fellows to learn about VC, with a portfolio fellows can have at their disposal at the end of the semester. They also hold speaker events and panels for the Emory community.",
     directors: [
       leader("Mika Dewar", "Director of GIVC"),

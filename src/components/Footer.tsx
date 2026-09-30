@@ -65,6 +65,7 @@ const Footer: React.FC<FooterProps> = ({ setCurrentPage }) => (
           <div className="space-y-3 opacity-80">
             <p>HackATL</p>
             <p>Excellerator</p>
+            <p>Girls into VC</p>
             <p>Venture Studio</p>
           </div>
         </div>

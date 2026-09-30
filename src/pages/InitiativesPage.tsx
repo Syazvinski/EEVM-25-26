@@ -29,6 +29,7 @@ const excelleratorStats = [
 ];
 
 const excelleratorDescription = unitsData.find(u => u.id === "excellerator")?.description;
+const givc = unitsData.find(u => u.id === "givc");
 
 const StatRow: React.FC<{ stats: { value: string; label: string }[]; inverted?: boolean }> = ({ stats, inverted }) => (
   <div className={`grid grid-cols-3 gap-px rounded-3xl overflow-hidden ${inverted ? "bg-white/10" : "bg-[var(--line)] border border-[var(--line)]"}`}>
@@ -125,6 +126,22 @@ const InitiativesPage: React.FC<InitiativesPageProps> = ({ setCurrentPage }) => 
         </div>
       </Reveal>
     </section>
+
+    {/* Girls into VC */}
+    {givc && (
+      <section className="wrap pb-24 sm:pb-32">
+        <Reveal className="card p-6 sm:p-14 grid lg:grid-cols-2 gap-10 lg:gap-16">
+          <div>
+            <p className="eyebrow mb-3">Initiative</p>
+            <h2 className="display font-bold text-5xl sm:text-6xl leading-[0.95]">Girls into <span className="serif text-[var(--accent)]">VC.</span></h2>
+            {givc.directors.length > 0 && (
+              <p className="muted mt-6">Led by {givc.directors.map(d => d.name).join(" & ")}</p>
+            )}
+          </div>
+          <p className="muted text-lg sm:text-xl leading-relaxed">{givc.description}</p>
+        </Reveal>
+      </section>
+    )}
   </div>
 );
 

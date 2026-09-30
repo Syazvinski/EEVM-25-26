@@ -12,9 +12,9 @@ interface HomePageProps {
 
 const chapters = [
   {
-    step: "Join", tag: "Six divisions",
+    step: "Join", tag: "Five divisions",
     title: "Find your team.",
-    body: "Members join one of six divisions: Girls into VC, Corporate Partnerships, Operations & Strategy, Marketing, Software & Systems, and Finance.",
+    body: "Members join one of five divisions: Corporate Partnerships, Operations & Strategy, Marketing, Software & Systems, and Finance.",
     image: "/about/directors-w1600.webp", page: "team",
   },
   {
@@ -32,7 +32,9 @@ const chapters = [
 ];
 
 const statement =
-  "We run HackATL, a 48-hour hackathon and pitch competition, and Excellerator, an incubator for student-led startups, alongside six divisions including Girls into VC.";
+  "We run three initiatives: HackATL, a 48-hour hackathon and pitch competition; Excellerator, an incubator for student-led startups; and Girls into VC, which works to close the gender gap in venture capital.";
+
+const countWord = (n: number) => ["Zero", "One", "Two", "Three", "Four", "Five", "Six", "Seven", "Eight", "Nine", "Ten"][n] ?? String(n);
 
 const people = [
   ...leadershipTeam.map(m => ({ ...m, role: m.title })),
@@ -61,7 +63,7 @@ const HomePage: React.FC<HomePageProps> = ({ setCurrentPage }) => {
   const words = statement.split(" ");
   const stats = [
     { value: unitsData.filter(u => u.type === "Division").length, label: "Divisions" },
-    { value: unitsData.filter(u => u.type === "Initiative").length, label: "Flagship initiatives" },
+    { value: unitsData.filter(u => u.type === "Initiative").length, label: "Initiatives" },
     { value: 48, label: "Hour hackathon" },
     { value: sponsors.length, label: "Previous partners" },
   ];
@@ -96,7 +98,7 @@ const HomePage: React.FC<HomePageProps> = ({ setCurrentPage }) => {
             />
             <div className="hero-overlay max-w-7xl mx-auto px-4 sm:px-8 lg:px-14 pb-10 sm:pb-14">
               <p className="display font-semibold text-[clamp(1.6rem,4vw,3.25rem)] leading-tight max-w-3xl">
-                Six divisions. Two flagship initiatives. <span className="serif">One community of builders.</span>
+                {countWord(stats[0].value)} divisions. {countWord(stats[1].value)} initiatives. <span className="serif">One community of builders.</span>
               </p>
             </div>
           </div>
