@@ -132,6 +132,12 @@ const InitiativesPage: React.FC<InitiativesPageProps> = () => (
       <section className="wrap pb-24 sm:pb-32">
         <Reveal className="card p-6 sm:p-14 grid lg:grid-cols-2 gap-10 lg:gap-16">
           <div>
+            <img
+              src="/logos/givc-logo-h96.webp"
+              srcSet="/logos/givc-logo-h96.webp 1x, /logos/givc-logo-h192.webp 2x"
+              alt="Girls into VC logo"
+              className="h-12 sm:h-14 w-auto mb-8"
+            />
             <p className="eyebrow mb-3">Initiative</p>
             <h2 className="display font-bold text-5xl sm:text-6xl leading-[0.95]">Girls into <span className="serif text-[var(--accent)]">VC.</span></h2>
           </div>
