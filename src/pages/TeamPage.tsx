@@ -13,7 +13,7 @@ const UnitCard: React.FC<{ unit: Unit; isSelected: boolean; onClick: () => void 
     aria-expanded={isSelected}
     className={`card p-6 text-left w-full h-full flex flex-col transition-all duration-300 hover:-translate-y-1 ${isSelected ? "ring-2 ring-[var(--accent)]" : ""}`}
   >
-    <div className="flex items-start justify-between gap-4 mb-6">
+    <div className="flex items-start justify-between gap-4 mb-5">
       <div>
         <p className="text-xs font-semibold tracking-[0.14em] uppercase muted mb-1">{unit.type}</p>
         <h3 className="display text-2xl font-bold">{unit.name}</h3>
@@ -22,15 +22,19 @@ const UnitCard: React.FC<{ unit: Unit; isSelected: boolean; onClick: () => void 
         <Plus size={16} />
       </span>
     </div>
-    <div className="grid grid-cols-2 gap-3 mt-auto">
+    <p className="text-xs font-semibold tracking-[0.14em] uppercase text-[var(--accent)] mb-3">
+      {unit.directors.length > 1 ? "Directors" : "Director"}
+    </p>
+    <div className="grid grid-cols-2 gap-3 mb-5">
       {unit.directors.map(d => (
         <div key={d.name}>
-          <Avatar name={d.name} src={d.imagePath} className="w-full aspect-square rounded-2xl" />
-          <p className="font-semibold text-sm mt-2 leading-tight">{d.name}</p>
+          <Avatar name={d.name} src={d.imagePath} className="w-full aspect-[4/5] rounded-2xl" />
+          <p className="font-semibold mt-2.5 leading-tight">{d.name}</p>
+          <p className="muted text-sm">Director</p>
         </div>
       ))}
     </div>
-    <p className="muted text-sm mt-5">{unit.associates.length} team members</p>
+    <p className="muted text-sm mt-auto pt-4 border-t border-[var(--line)]">{unit.associates.length} associates</p>
   </button>
 );
 
@@ -94,15 +98,16 @@ const TeamPage: React.FC<TeamPageProps> = ({ setCurrentPage }) => {
   return (
     <div>
       <PageHeader
+        compact
         eyebrow="Fall 2026"
         title={<>Our <span className="serif text-[var(--accent)]">team.</span></>}
         subtitle="Meet the passionate individuals driving entrepreneurship innovation at Emory University"
       />
 
       {/* Executive leadership */}
-      <section className="wrap pb-24 sm:pb-32">
+      <section className="wrap pb-16 sm:pb-20">
         <SectionHeading eyebrow="Executive leadership" title={<>Leading <span className="serif">EEVM.</span></>} />
-        <div className="grid sm:grid-cols-3 gap-4 sm:gap-6">
+        <div className="grid sm:grid-cols-3 gap-4 sm:gap-6 max-w-5xl">
           {leadershipTeam.map((m, i) => (
             <Reveal key={m.name} delay={i * 100}>
               <Avatar name={m.name} src={m.imagePath} className="w-full aspect-[4/5] rounded-[24px]" />
@@ -114,15 +119,15 @@ const TeamPage: React.FC<TeamPageProps> = ({ setCurrentPage }) => {
       </section>
 
       {/* Divisions & initiatives */}
-      <section className="wrap pb-24 sm:pb-32 border-t border-[var(--line)] pt-24 sm:pt-32">
+      <section className="wrap pb-16 sm:pb-20 border-t border-[var(--line)] pt-16 sm:pt-20">
         <SectionHeading
           eyebrow="Divisions & initiatives"
           title={<>{divisions} divisions. <span className="serif">{initiatives} initiatives.</span></>}
           subtitle="Select any team to see what they do and who's on it."
         />
-        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
+        <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-4">
           {unitsData.map((unit, i) => (
-            <Reveal key={unit.id} delay={(i % 4) * 80} className="h-full">
+            <Reveal key={unit.id} delay={(i % 3) * 80} className="h-full">
               <UnitCard unit={unit} isSelected={selectedUnit?.id === unit.id} onClick={() => handleUnitClick(unit)} />
             </Reveal>
           ))}

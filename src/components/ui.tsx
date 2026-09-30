@@ -23,8 +23,8 @@ export const Reveal: React.FC<{ children: React.ReactNode; className?: string; d
   );
 };
 
-export const PageHeader: React.FC<{ eyebrow: string; title: React.ReactNode; subtitle?: React.ReactNode; children?: React.ReactNode }> = ({ eyebrow, title, subtitle, children }) => (
-  <header className="wrap pt-16 sm:pt-24 pb-14 sm:pb-20">
+export const PageHeader: React.FC<{ eyebrow: string; title: React.ReactNode; subtitle?: React.ReactNode; children?: React.ReactNode; compact?: boolean }> = ({ eyebrow, title, subtitle, children, compact }) => (
+  <header className={`wrap ${compact ? "pt-12 sm:pt-16 pb-10 sm:pb-12" : "pt-16 sm:pt-24 pb-14 sm:pb-20"}`}>
     <Reveal>
       <p className="eyebrow mb-5">{eyebrow}</p>
       <h1 className="display font-bold text-[clamp(2.75rem,7vw,6rem)] leading-[0.95] max-w-5xl">{title}</h1>
