@@ -58,8 +58,7 @@
 :where(.site) .marquee:hover .marquee-track { animation-play-state: paused; }
 @keyframes marquee { to { transform: translateX(calc(-50% - 0.5rem)); } }
 :where(.site) .logo-chip { display: flex; align-items: center; justify-content: center; height: 76px; width: 176px; flex: none; border-radius: 18px; background: #fff; border: 1px solid var(--line); }
-:where(.site) .logo-chip img { max-height: 40px; max-width: 124px; object-fit: contain; filter: grayscale(1) contrast(1.15); opacity: 0.8; transition: filter 0.3s, opacity 0.3s; }
-:where(.site) .logo-chip:hover img { filter: none; opacity: 1; }
+:where(.site) .logo-chip img { max-height: 44px; max-width: 128px; object-fit: contain; }
 
 @media (prefers-reduced-motion: reduce) {
   :where(.site) .reveal { opacity: 1; transform: none; transition: none; }
