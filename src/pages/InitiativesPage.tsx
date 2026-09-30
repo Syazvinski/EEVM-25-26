@@ -14,12 +14,12 @@ const hackatlStats = [
 ];
 
 const pastEvents = [
-  { year: "2025", theme: "AI & Innovation", logo: "/hack-logos/hack_logo_2025-h192.webp", description: "Exploring artificial intelligence and emerging technologies to solve real-world problems." },
-  { year: "2024", theme: "Sustainability", logo: "/hack-logos/hack_24.webp", description: "Developing solutions for environmental challenges and sustainable business practices." },
-  { year: "2023", theme: "FinTech", logo: "/hack-logos/hack_23.webp", description: "Innovation in financial technology and digital payment solutions." },
-  { year: "2022", theme: "HealthTech", logo: "/hack-logos/hack_22.webp", description: "Healthcare technology solutions to improve patient outcomes and accessibility." },
-  { year: "2021", theme: "EdTech", logo: "/hack-logos/hack_21.webp", description: "Educational technology innovations for remote and hybrid learning environments." },
-  { year: "2020", theme: "Social Impact", logo: "/hack-logos/hack_20.webp", description: "Technology solutions addressing social issues and community challenges." },
+  { year: "2025", theme: "AI & Innovation", logo: "/hack-logos/hack_logo_2025-h192.webp", bg: "#eef3fa", description: "Exploring artificial intelligence and emerging technologies to solve real-world problems." },
+  { year: "2024", theme: "Sustainability", logo: "/hack-logos/hack_24-trim.webp", bg: "#f5efdf", description: "Developing solutions for environmental challenges and sustainable business practices." },
+  { year: "2023", theme: "FinTech", logo: "/hack-logos/hack_23-trim.webp", bg: "#ffffff", description: "Innovation in financial technology and digital payment solutions." },
+  { year: "2022", theme: "HealthTech", logo: "/hack-logos/hack_22-trim.webp", bg: "#000000", description: "Healthcare technology solutions to improve patient outcomes and accessibility." },
+  { year: "2021", theme: "EdTech", logo: "/hack-logos/hack_21-trim.webp", bg: "#121327", description: "Educational technology innovations for remote and hybrid learning environments." },
+  { year: "2020", theme: "Social Impact", logo: "/hack-logos/hack_20-trim.webp", bg: "#ffffff", description: "Technology solutions addressing social issues and community challenges." },
 ];
 
 const excelleratorStats = [
@@ -96,8 +96,8 @@ const InitiativesPage: React.FC<InitiativesPageProps> = () => (
       <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
         {pastEvents.map((e, i) => (
           <Reveal key={e.year} delay={(i % 3) * 100} className="card p-7 flex flex-col">
-            <div className="h-24 mb-8 flex items-center">
-              <img src={e.logo} alt={`HackATL ${e.year} logo`} className="max-h-24 max-w-[70%] w-auto object-contain" loading="lazy" />
+            <div className="h-28 rounded-2xl mb-6 flex items-center justify-center px-6 py-4 border border-[var(--line)]" style={{ background: e.bg }}>
+              <img src={e.logo} alt={`HackATL ${e.year} logo`} className="max-h-full max-w-full object-contain" loading="lazy" />
             </div>
             <div className="flex items-baseline justify-between gap-4 mb-3">
               <h3 className="display text-2xl font-bold">HackATL {e.year}</h3>
@@ -116,7 +116,7 @@ const InitiativesPage: React.FC<InitiativesPageProps> = () => (
           <div className="inline-flex rounded-2xl bg-white px-5 py-4 mb-8">
             <img src="/logos/excellerator-logo-h96.webp" srcSet="/logos/excellerator-logo-h96.webp 1x, /logos/excellerator-logo-h192.webp 2x" alt="Excellerator logo" className="h-10 w-auto" />
           </div>
-          <p className="text-xs font-semibold tracking-[0.14em] uppercase text-[var(--accent-bright)] mb-3">Flagship initiative</p>
+          <p className="text-xs font-semibold tracking-[0.14em] uppercase text-[var(--accent-bright)] mb-3">Initiative</p>
           <h2 className="display font-bold text-5xl sm:text-6xl leading-[0.95] mb-6">Excellerator</h2>
           <p className="text-lg leading-relaxed opacity-70">{excelleratorDescription}</p>
         </div>
