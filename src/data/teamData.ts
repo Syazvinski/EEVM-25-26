@@ -1,53 +1,43 @@
-// Function to get headshot path or return placeholder
-const getHeadshotPath = (name: string, _division?: string): string => {
-  const basePath = "/headshots";
-  switch (name) {
-    // Leadership
-    case "James Liang": return `${basePath}/Leadership/James Liang Co-President.webp`;
-    case "Sarah Hao": return `${basePath}/Leadership/Sarah Hao Co-President.webp`;
-    case "Fiona Tran": return `${basePath}/Leadership/Fiona Tran Executive Vice President.webp`;
-
-    // Directors
-    case "Santiago Vasquez": return `${basePath}/HackATL/Santiago Vazquez Director of HackATL.webp`;
-    case "Jamie Shen": return `${basePath}/HackATL/Jamie Shen Director of HackATL.webp`;
-    case "Mika Dewar": return `${basePath}/Ignite/Mika Dewar Director of Ignite.webp`;
-    case "Shahid Karnai": return `${basePath}/Ignite/Shahid Karnai Director of Ignite.webp`;
-    case "Larissa Lippe": return `${basePath}/Excellerator /Larissa Lippe Director of Excellerator.webp`;
-    case "Katie Vonder Haar": 
-      return `${basePath}/Corporate/Katherine Vondar Haar Director of Corporate Sponsorships.webp`;
-    case "Ruchi Tipnis": return `${basePath}/Marketing & Design/Ruchi Tipnis Director of Marketing & Design.webp`;
-    case "Lumina Lu": return `${basePath}/Marketing & Design/Lumina Lu Director of Marketing & Design.webp`;
-    case "Grant Smialek": return `${basePath}/Finance/Grant Smialek Director of Finance.webp`;
-    case "Stephannie Gallardo": return `${basePath}/Operations/Stephannie Gallardo Director of Operations.webp`;
-    case "Kayleena Nguyen": return `${basePath}/Operations/Kayleena Nguyen Director of Operations.webp`;
-
-    // Associates - Add cases for associates if they have headshots
-    // case "Gavin Poore": return `${basePath}/Operations/gavin_poore.jpeg`; // Assuming filename
-    // case "Sophia Kwon": return `${basePath}/Marketing & Design/sophia_kwon.jpeg`; // Assuming filename
-    // case "Ariel Prevor": return `${basePath}/Operations/ariel_prevor.JPG`; // Assuming filename
-
-    // Default placeholder for those not found or without specific images yet
-    case "Jonathan Li": // Fallthrough to default
-    case "Stephan Yazvinski": // Fallthrough to default
-    // Add other members who don't have specific headshots to fallthrough to default placeholder
-    default:
-      // console.warn(`Headshot not found for ${name}. Using placeholder.`);
-      return "/placeholder_headshot.png"; // Ensure this placeholder exists in public folder
-  }
+// Headshots live in public/headshots. Photos are matched by name, so keep names
+// here spelled exactly as below. Anyone without an entry falls back to initials.
+const headshots: Record<string, string> = {
+  "Katie Vonder Haar": "/headshots/Corporate/Katherine Vondar Haar Director of Corporate Sponsorships.webp",
+  "Larissa Lippe": "/headshots/Leadership/Larissa Lippe.webp",
+  "Lumina Lu": "/headshots/Leadership/Lumina Lu.webp",
+  "Jacqueline Lao": "/headshots/Operations/Jacqueline Lao.webp",
+  "Grant Smialek": "/headshots/Finance/Grant Smialek Director of Finance.webp",
+  "Handersen Lee": "/headshots/Marketing/Handersen Lee.webp",
+  "Alex Lautin": "/headshots/Software & Systems/Alex Lautin.webp",
+  "Jamie Shen": "/headshots/Corporate/Jamie Shen.webp",
+  "Mika Dewar": "/headshots/Ignite/Mika Dewar Director of Ignite.webp",
+  "Mara Visentin": "/headshots/Excellerator/Mara Visentin.webp",
+  "Justin Jang": "/headshots/Excellerator/Justin Jang.webp",
+  "Jonah Ohiri": "/headshots/HackATL/Jonah Ohiri.webp",
+  "Roza Muminova": "/headshots/HackATL/Roza Muminova.webp",
+  "Sahil Gandhi": "/headshots/Corporate/Sahil Gandhi.webp",
+  "Sophia Kwon": "/headshots/Marketing/Sophia Kwon.webp",
+  "Alexander Lee": "/headshots/Software & Systems/Alexander Lee.webp",
 };
+
+const getHeadshotPath = (name: string): string => headshots[name] ?? "";
 
 export interface Member {
   name: string;
   title: string;
-  email?: string;
-  imagePath: string; 
+  imagePath: string;
   isLeadership: boolean;
 }
 
+const leader = (name: string, title: string): Member =>
+  ({ name, title, imagePath: getHeadshotPath(name), isLeadership: true });
+
+const associate = (name: string): Member =>
+  ({ name, title: "Associate", imagePath: "", isLeadership: false });
+
 export const leadershipTeam: Member[] = [
-  { name: "James Liang", title: "Co-President", email: "jeliang@emory.edu", imagePath: getHeadshotPath("James Liang", "Leadership"), isLeadership: true },
-  { name: "Sarah Hao", title: "Co-President", email: "sarah.hao@emory.edu", imagePath: getHeadshotPath("Sarah Hao", "Leadership"), isLeadership: true },
-  { name: "Fiona Tran", title: "Executive Vice President", email: "fiona.tran@emory.edu", imagePath: getHeadshotPath("Fiona Tran", "Leadership"), isLeadership: true },
+  leader("Katie Vonder Haar", "Co-President"),
+  leader("Larissa Lippe", "Co-President"),
+  leader("Lumina Lu", "Executive Vice President"),
 ];
 
 export interface Unit {
@@ -61,107 +51,79 @@ export interface Unit {
   groupImagePath?: string; // Optional path for a group photo of the unit
 }
 
-export const allDirectors: Member[] = [
-  { name: "Santiago Vasquez", title: "Director of HackATL", email: "santiago.vazquez@emory.edu", imagePath: getHeadshotPath("Santiago Vasquez", "HackATL"), isLeadership: true },
-  { name: "Jamie Shen", title: "Director of HackATL", email: "jamie.shen@emory.edu", imagePath: getHeadshotPath("Jamie Shen", "HackATL"), isLeadership: true },
-  { name: "Mika Dewar", title: "Director of Ignite", email: "mika.dewar@emory.edu", imagePath: getHeadshotPath("Mika Dewar", "Ignite"), isLeadership: true },
-  { name: "Shahid Karnai", title: "Director of Ignite", email: "shahid.karnai@emory.edu", imagePath: getHeadshotPath("Shahid Karnai", "Ignite"), isLeadership: true },
-  { name: "Larissa Lippe", title: "Director of Excellerator", email: "larissa.lippe@emory.edu", imagePath: getHeadshotPath("Larissa Lippe", "Excellerator "), isLeadership: true }, // Note space in division name
-  { name: "Katie Vonder Haar", title: "Director of Corporate Partnerships", email: "katie.vonder.haar@emory.edu", imagePath: getHeadshotPath("Katie Vonder Haar", "Corporate"), isLeadership: true },
-  { name: "Ruchi Tipnis", title: "Co-Director of Marketing", email: "ruchi.tipnis@emory.edu", imagePath: getHeadshotPath("Ruchi Tipnis", "Marketing & Design"), isLeadership: true },
-  { name: "Lumina Lu", title: "Co-Director of Marketing", email: "lumina.lu@emory.edu", imagePath: getHeadshotPath("Lumina Lu", "Marketing & Design"), isLeadership: true },
-  { name: "Grant Smialek", title: "Director of Finance", email: "grant.smialek@emory.edu", imagePath: getHeadshotPath("Grant Smialek", "Finance"), isLeadership: true },
-  { name: "Stephannie Gallardo", title: "Co-Director of Operations", email: "stephannie.gallardo@emory.edu", imagePath: getHeadshotPath("Stephannie Gallardo", "Operations"), isLeadership: true },
-  { name: "Kayleena Nguyen", title: "Co-Director of Operations", email: "kayleena.nguyen@emory.edu", imagePath: getHeadshotPath("Kayleena Nguyen", "Operations"), isLeadership: true },
-  { name: "Stephan Yazvinski", title: "Director of Tech", email: "", imagePath: getHeadshotPath("Stephan Yazvinski", "Tech"), isLeadership: true },
-];
-
 export const unitsData: Unit[] = [
   {
     id: "hackatl", name: "HackATL", type: "Initiative",
     description: "Atlanta's premier 48-hour hackathon and pitching competition where students transform innovative ideas into running startups alongside like-minded entrepreneurs from across the nation.",
-    directors: allDirectors.filter(d => d.title.includes("HackATL")),
-    associates: [
-      { name: "Chris Treston", title: "Associate", email: "", imagePath: getHeadshotPath("Chris Treston", "HackATL"), isLeadership: false },
-      { name: "Sierra Benjamin", title: "Associate", email: "sierra.benjamin@gmail.com", imagePath: getHeadshotPath("Sierra Benjamin", "HackATL"), isLeadership: false },
-    ]
-  },
-  {
-    id: "ignite", name: "Ignite", type: "Initiative",
-    description: "An entrepreneurship educational program & community that provides Emory students the knowledge, tools, and relationships to explore the entrepreneurial world through workshops, speaker series, and networking events.",
-    directors: allDirectors.filter(d => d.title.includes("Ignite")),
-    associates: [
-      { name: "An Nguyen", title: "Associate", email: "an.nguyen3@emory.edu", imagePath: getHeadshotPath("An Nguyen", "Ignite"), isLeadership: false },
-      { name: "Domenic Castellano", title: "Associate", email: "domenic.castellano@emory.edu", imagePath: getHeadshotPath("Domenic Castellano", "Ignite"), isLeadership: false },
-      { name: "Taara Jonnalagadda", title: "Associate", email: "tljonna@emory.edu", imagePath: getHeadshotPath("Taara Jonnalagadda", "Ignite"), isLeadership: false },
-    ]
+    directors: [
+      leader("Jonah Ohiri", "Director of HackATL"),
+      leader("Roza Muminova", "Director of HackATL"),
+    ],
+    associates: ["Hunter Richmond", "Avery Yang", "Daniel Torre", "Hemani Patel"].map(associate),
   },
   {
     id: "excellerator", name: "Excellerator", type: "Initiative",
     description: "A startup incubator designed to help take student-led early stage startups off the ground with comprehensive support on Customer Discovery, MVP development, pitching, and business strategy.",
-    directors: allDirectors.filter(d => d.title.includes("Excellerator")),
-    associates: [
-      { name: "Dimi Deju", title: "Associate", email: "dimi.deju@emory.edu", imagePath: getHeadshotPath("Dimi Deju", "Excellerator"), isLeadership: false },
-    ]
+    directors: [
+      leader("Justin Jang", "Director of Excellerator"),
+      leader("Mara Visentin", "Director of Excellerator"),
+    ],
+    associates: ["Camille Lee", "Saahir Chhabra", "Miles Golden", "Vinay Prajapathi"].map(associate),
+  },
+  {
+    id: "givc", name: "GIVC", type: "Division",
+    description: "Girls into VC (GIVC) is a national organization that strives to close the gender gap in venture capital. They provide education sessions with their own curriculum and work closely with fellows to learn about VC, with a portfolio fellows can have at their disposal at the end of the semester. They also hold speaker events and panels for the Emory community.",
+    directors: [
+      leader("Mika Dewar", "Director of GIVC"),
+    ],
+    associates: ["Genevieve Masci", "Sophie Newman", "Jessica Li", "Olivia Marrale"].map(associate),
   },
   {
     id: "corporate-partnerships", name: "Corporate Partnerships", type: "Division",
     description: "Manages external relationships with companies and organizations. Focuses on securing sponsorships, partnerships, and collaboration opportunities that benefit EEVM's initiatives and provide students with networking and career opportunities.",
     skills: ["Relationship building and networking", "Communication and presentation skills", "Business development experience", "Professional email correspondence"],
-    directors: allDirectors.filter(d => d.title.includes("Corporate Partnerships")),
-    associates: [
-      { name: "Clifford Chew", title: "Associate", email: "clifford.chew@emory.edu", imagePath: getHeadshotPath("Clifford Chew", "Corporate Partnerships"), isLeadership: false },
-      { name: "George Deng", title: "Associate", email: "gdeng6@emory.edu", imagePath: getHeadshotPath("George Deng", "Corporate Partnerships"), isLeadership: false },
-      { name: "Veer Krishan Choudhari", title: "Associate", email: "veer.krishan.choudhari@emory.edu", imagePath: getHeadshotPath("Veer Krishan Choudhari", "Corporate Partnerships"), isLeadership: false },
-      { name: "Grant Smialek", title: "Associate", email: "grant.smialek@emory.edu", imagePath: getHeadshotPath("Grant Smialek", "Corporate Partnerships"), isLeadership: false },
-      { name: "Jakob Ostheimer", title: "Associate", email: "josthei@emory.edu", imagePath: getHeadshotPath("Jakob Ostheimer", "Corporate Partnerships"), isLeadership: false },
-      { name: "Joel Ng", title: "Associate", email: "jyng2@emory.edu", imagePath: getHeadshotPath("Joel Ng", "Corporate Partnerships"), isLeadership: false },
-    ]
+    directors: [
+      leader("Jamie Shen", "Director of Corporate Partnerships"),
+      leader("Sahil Gandhi", "Director of Corporate Partnerships"),
+    ],
+    associates: ["Hector Jesus Acevedo-Polo", "Miu Goda", "William Wei"].map(associate),
   },
   {
-    id: "operations", name: "Operations", type: "Division",
+    id: "operations-strategy", name: "Operations & Strategy", type: "Division",
     description: "Ensures smooth day-to-day functioning of EEVM. Handles logistics, event planning, internal processes, and operational efficiency across all divisions and initiatives.",
     skills: ["Project management and organization", "Event planning and coordination", "Process optimization", "Detail-oriented execution"],
-    directors: allDirectors.filter(d => d.title.includes("Operations")),
-    associates: [
-      { name: "Jeremy Patzelt", title: "Associate", email: "Jeremy.patzelt@emory.edu", imagePath: getHeadshotPath("Jeremy Patzelt", "Operations"), isLeadership: false },
-      { name: "Sophie Hurwitz", title: "Associate", email: "sophie.hurwitz@emory.edu", imagePath: getHeadshotPath("Sophie Hurwitz", "Operations"), isLeadership: false },
-      { name: "Gavin Poore", title: "Associate", email: "gavin.poore@emory.edu", imagePath: getHeadshotPath("Gavin Poore", "Operations"), isLeadership: false },
-      { name: "Ariel Prevor", title: "Associate", email: "", imagePath: getHeadshotPath("Ariel Prevor", "Operations"), isLeadership: false },
-    ]
+    directors: [
+      leader("Jacqueline Lao", "Director of Operations & Strategy"),
+    ],
+    associates: ["Evangeline Park", "Colin Kinsey", "Gianna White", "Maddie Ross", "Nam Nam Nai"].map(associate),
   },
   {
-    id: "marketing-design", name: "Marketing & Design", type: "Division",
+    id: "marketing", name: "Marketing", type: "Division",
     description: "Bridges the gap between EEVM and the Emory/ATL community! We make sure the student body knows about all our cool initiatives through creative content, social media, and event promotion.",
     skills: ["Content Creation (Photo/Video Editing, Copy-writing, Design)", "Proactive, takes initiative", "Creative and cross-functional thinking", "Experience in Adobe Softwares (Photoshop, Illustrator)"],
-    directors: allDirectors.filter(d => d.title.includes("Marketing")),
-    associates: [
-      { name: "Vanshika Mittal", title: "Associate", email: "vanshika.mittal@emory.edu", imagePath: getHeadshotPath("Vanshika Mittal", "Marketing & Design"), isLeadership: false },
-      { name: "Sarang Arun", title: "Associate", email: "", imagePath: getHeadshotPath("Sarang Arun", "Marketing & Design"), isLeadership: false },
-      { name: "Sophia Kwon", title: "Associate", email: "sophia.kwon@emory.edu", imagePath: getHeadshotPath("Sophia Kwon", "Marketing & Design"), isLeadership: false },
-      { name: "Lauren Won", title: "Associate", email: "lmwon@emory.edu", imagePath: getHeadshotPath("Lauren Won", "Marketing & Design"), isLeadership: false },
-    ]
+    directors: [
+      leader("Handersen Lee", "Director of Marketing"),
+      leader("Sophia Kwon", "Director of Marketing"),
+    ],
+    associates: ["Cindy Zhang", "Jennifer He", "Jolie Bernard", "Rita Feng"].map(associate),
   },
   {
-    id: "tech", name: "Tech", type: "Division",
+    id: "software-systems", name: "Software & Systems", type: "Division",
     description: "Develops and maintains EEVM's digital presence and technical infrastructure. Responsible for website development, application systems, and technical solutions that support the organization's goals.",
     skills: ["Web development (HTML, CSS, JavaScript)", "Programming languages (Python, React, etc.)", "Database management", "UI/UX design principles"],
-    directors: allDirectors.filter(d => d.title.includes("Tech")),
-    associates: [
-      { name: "Andy Blumberg", title: "Associate", email: "andy.blumberg@emory.edu", imagePath: getHeadshotPath("Andy Blumberg", "Tech"), isLeadership: false },
-      { name: "Alex Lautin", title: "Associate", email: "alexander.lautin@emory.edu", imagePath: getHeadshotPath("Alex Lautin", "Tech"), isLeadership: false },
-      { name: "Alex Lee", title: "Associate", email: "alexander.lee@emory.edu", imagePath: getHeadshotPath("Alex Lee", "Tech"), isLeadership: false },
-    ]
+    directors: [
+      leader("Alex Lautin", "Director of Software & Systems"),
+      leader("Alexander Lee", "Director of Software & Systems"),
+    ],
+    associates: ["Stephan Yazvinski", "Alexander Jiang"].map(associate),
   },
   {
     id: "finance", name: "Finance", type: "Division",
     description: "Manages EEVM's budgeting and expenditures. Works with all divisions to optimize our organization and accelerate growth through sound financial planning and oversight.",
     skills: ["Financial control and budgeting", "Detail-oriented analysis", "Experience with Microsoft Excel or Google Sheets", "Cross-functional collaboration"],
-    directors: allDirectors.filter(d => d.title.includes("Finance")),
-    associates: [
-      { name: "Ashley Scherer", title: "Associate", email: "", imagePath: getHeadshotPath("Ashley Scherer", "Finance"), isLeadership: false },
-      { name: "Sahil Gandhi", title: "Associate", email: "sahil.gandhi@emory.edu", imagePath: getHeadshotPath("Sahil Gandhi", "Finance"), isLeadership: false },
-      { name: "Andrey Kosygin", title: "Associate", email: "akosygi@emory.edu", imagePath: getHeadshotPath("Andrey Kosygin", "Finance"), isLeadership: false },
-    ]
-  }
-]; 
+    directors: [
+      leader("Grant Smialek", "Director of Finance"),
+    ],
+    associates: ["Aaryaman Jha", "Carys Peden", "Sophia Braskamp", "Akshay Maheshwari", "James Keel", "Sarah Mietus"].map(associate),
+  },
+];

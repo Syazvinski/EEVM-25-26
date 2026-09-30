@@ -76,7 +76,6 @@ const Footer: React.FC<FooterProps> = ({ setCurrentPage }) => {
             <h3 className="font-semibold text-white mb-4">Our Initiatives</h3>
             <div className="space-y-2 text-sm text-gray-200">
               <p>HackATL</p>
-              <p>IGNITE</p>
               <p>Excellerator</p>
               <p>Venture Studio</p>
             </div>
@@ -85,7 +84,7 @@ const Footer: React.FC<FooterProps> = ({ setCurrentPage }) => {
 
         <div className="border-t border-gray-800 mt-8 pt-8 text-center text-sm text-gray-400">
           <p>
-            &copy; 2025 Emory Entrepreneurship & Venture Management. All rights
+            &copy; 2026 Emory Entrepreneurship & Venture Management. All rights
             reserved.
           </p>
         </div>

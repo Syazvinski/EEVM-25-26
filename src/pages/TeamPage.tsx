@@ -13,7 +13,7 @@ const LeadershipCard: React.FC<{ member: Member }> = ({ member }) => {
   
   return (
     <div className="bg-white p-8 rounded-lg shadow-sm border border-gray-200 text-center hover:shadow-lg transition-shadow duration-300">
-      {!imageError ? (
+      {member.imagePath && !imageError ? (
         <img 
           src={member.imagePath} 
           alt={member.name} 
@@ -29,11 +29,6 @@ const LeadershipCard: React.FC<{ member: Member }> = ({ member }) => {
       )}
       <h3 className="font-bold text-xl text-gray-900 mb-2">{member.name}</h3>
       <p className="text-[#3CB5C4] text-lg font-semibold mb-3">{member.title}</p>
-      {member.email && (
-        <a href={`mailto:${member.email}`} className="text-sm text-gray-500 hover:text-[#01FDC0] transition-colors">
-          {member.email}
-        </a>
-      )}
     </div>
   );
 };
@@ -45,7 +40,7 @@ const DirectorCard: React.FC<{ member: Member }> = ({ member }) => {
   
   return (
     <div className="text-center">
-      {!imageError ? (
+      {member.imagePath && !imageError ? (
         <img 
           src={member.imagePath} 
           alt={member.name} 
@@ -121,7 +116,7 @@ const TeamMemberCard: React.FC<{ member: Member }> = ({ member }) => {
   
   return (
     <div className="bg-gray-50 p-4 rounded-lg text-center">
-      {!imageError ? (
+      {member.imagePath && !imageError ? (
         <img 
           src={member.imagePath} 
           alt={member.name} 
@@ -137,11 +132,6 @@ const TeamMemberCard: React.FC<{ member: Member }> = ({ member }) => {
       )}
       <h5 className="font-semibold text-gray-800 mb-1 text-sm">{member.name}</h5>
       <p className="text-[#3CB5C4] text-xs mb-1">{member.title}</p>
-      {member.email && (
-        <a href={`mailto:${member.email}`} className="text-xs text-gray-500 hover:text-[#01FDC0] transition-colors break-all">
-          {member.email}
-        </a>
-      )}
     </div>
   );
 };
@@ -152,11 +142,6 @@ const TeamMemberName: React.FC<{ member: Member }> = ({ member }) => {
     <div className="bg-gray-50 p-3 rounded-lg text-center">
       <h5 className="font-semibold text-gray-800 mb-1 text-sm">{member.name}</h5>
       <p className="text-gray-500 text-xs mb-1">{member.title}</p>
-      {member.email && (
-        <a href={`mailto:${member.email}`} className="text-xs text-[#3CB5C4] hover:text-[#01FDC0] transition-colors break-all">
-          {member.email}
-        </a>
-      )}
     </div>
   );
 };
@@ -173,11 +158,11 @@ const DivisionDetails: React.FC<{ unit: Unit | null }> = ({ unit }) => {
         </p>
         <div className="grid grid-cols-2 gap-8 max-w-xs mx-auto">
           <div className="text-center">
-            <div className="text-2xl font-bold text-[#3CB5C4] mb-2">5</div>
+            <div className="text-2xl font-bold text-[#3CB5C4] mb-2">{unitsData.filter(u => u.type === "Division").length}</div>
             <div className="text-gray-600">Divisions</div>
           </div>
           <div className="text-center">
-            <div className="text-2xl font-bold text-[#3CB5C4] mb-2">3</div>
+            <div className="text-2xl font-bold text-[#3CB5C4] mb-2">{unitsData.filter(u => u.type === "Initiative").length}</div>
             <div className="text-gray-600">Initiatives</div>
           </div>
         </div>

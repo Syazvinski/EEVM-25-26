@@ -15,14 +15,14 @@ const HomePage: React.FC<HomePageProps> = ({ setCurrentPage }) => {
 
   // Scroll animations
   const statsAnimation = useStaggeredScrollAnimation(4, 150);
-  const initiativesAnimation = useStaggeredScrollAnimation(3, 200);
+  const initiativesAnimation = useStaggeredScrollAnimation(2, 200);
   const heroAnimation = useScrollAnimation({ delay: 300 });
 
   // Animation for counting numbers up
   useEffect(() => {
     const targets = {
-      divisions: 5,
-      initiatives: 3,
+      divisions: 6,
+      initiatives: 2,
       hackathonHours: 48,
       studentsReached: 200,
     };
@@ -151,25 +151,19 @@ const HomePage: React.FC<HomePageProps> = ({ setCurrentPage }) => {
               Our Main Initiatives
             </h2>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              Three flagship programs that define EEVM's impact on the
+              The flagship programs that define EEVM's impact on the
               entrepreneurship ecosystem
             </p>
           </div>
 
           {/* FEEDBACK: Make them horizontal/side by side and remove background circles */}
-          <div ref={initiativesAnimation.elementRef} className="grid lg:grid-cols-3 gap-12">
+          <div ref={initiativesAnimation.elementRef} className="grid lg:grid-cols-2 gap-12 max-w-5xl mx-auto">
             {[
               {
                 key: 'hackatl',
                 alt: "HackATL Logo",
                 title: "HackATL",
                 description: "A 48h hackathon and pitching competition that allows students to develop their ideas into running startups in collaboration with like-minded students across the nation."
-              },
-              {
-                key: 'ignite',
-                alt: "IGNITE Logo", 
-                title: "IGNITE",
-                description: "An entrepreneurship educational program & community that provides Emory students the knowledge, tools, and relationships to explore the entrepreneurial world."
               },
               {
                 key: 'excellerator',
@@ -192,14 +186,6 @@ const HomePage: React.FC<HomePageProps> = ({ setCurrentPage }) => {
                     <img
                       src="/hack-logos/hack_logo_2025-h96.webp"
                       srcSet="/hack-logos/hack_logo_2025-h96.webp 1x, /hack-logos/hack_logo_2025-h192.webp 2x, /hack-logos/hack_logo_2025-h288.webp 3x"
-                      alt={initiative.alt}
-                      className="h-24 w-auto hover:scale-110 transition-transform duration-300"
-                    />
-                  )}
-                  {initiative.key === 'ignite' && (
-                    <img
-                      src="/logos/ignite_logo-h96.webp"
-                      srcSet="/logos/ignite_logo-h96.webp 1x, /logos/ignite_logo-h192.webp 2x, /logos/ignite_logo-h288.webp 3x"
                       alt={initiative.alt}
                       className="h-24 w-auto hover:scale-110 transition-transform duration-300"
                     />

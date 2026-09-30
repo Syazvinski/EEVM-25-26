@@ -12,7 +12,6 @@ const InitiativesPage: React.FC<InitiativesPageProps> = ({ setCurrentPage }) => 
   const hackatlAnimation = useScrollAnimation({ delay: 400 });
   const sponsorsAnimation = useScrollAnimation({ threshold: 0.2 });
   const eventsAnimation = useStaggeredScrollAnimation(6, 200);
-  const igniteSectionAnimation = useScrollAnimation({ threshold: 0.3 });
   const excelleratorAnimation = useScrollAnimation({ threshold: 0.3 });
 
   // Dynamic sponsors list from the sponsors folder
@@ -60,7 +59,7 @@ const InitiativesPage: React.FC<InitiativesPageProps> = ({ setCurrentPage }) => 
         >
           <h1 className="text-5xl font-bold text-gray-900 mb-6">Our Initiatives</h1>
           <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-            Three flagship programs driving innovation and entrepreneurship at Emory
+            The flagship programs driving innovation and entrepreneurship at Emory
           </p>
         </div>
 
@@ -199,46 +198,6 @@ const InitiativesPage: React.FC<InitiativesPageProps> = ({ setCurrentPage }) => 
                 <p className="text-gray-600 text-sm leading-relaxed">{event.description}</p>
               </div>
             ))}
-          </div>
-        </section>
-
-        {/* IGNITE Section */}
-        <section 
-          ref={igniteSectionAnimation.elementRef}
-          className={`mb-20 transition-all duration-700 ${
-            igniteSectionAnimation.isVisible ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-8'
-          }`}
-        >
-          <div className="bg-white p-12 rounded-lg shadow-sm border border-gray-200 hover:shadow-lg transition-shadow duration-300">
-            <div className="grid lg:grid-cols-2 gap-8 items-center">
-              <div>
-                <div className="flex items-center justify-center mb-6 h-40">
-                  <img 
-                    src="/logos/ignite_logo-h128.webp"
-                    srcSet="/logos/ignite_logo-h128.webp 1x, /logos/ignite_logo-h256.webp 2x, /logos/ignite_logo-h384.webp 3x"
-                    alt="IGNITE Logo" 
-                    className="h-32 w-auto hover:scale-110 transition-transform duration-300" 
-                  />
-                </div>
-              </div>
-              <div className="bg-[#3CB5C4] p-8 rounded-lg text-white text-center hover:scale-105 transition-transform duration-300">
-                <h3 className="text-2xl font-bold mb-4">Program Highlights</h3>
-                <div className="space-y-3">
-                  <div className="flex justify-between">
-                    <span>Monthly Workshops</span>
-                    <span className="font-bold">8+</span>
-                  </div>
-                  <div className="flex justify-between">
-                    <span>Industry Speakers</span>
-                    <span className="font-bold">15+</span>
-                  </div>
-                  <div className="flex justify-between">
-                    <span>Student Participants</span>
-                    <span className="font-bold">100+</span>
-                  </div>
-                </div>
-              </div>
-            </div>
           </div>
         </section>
 
