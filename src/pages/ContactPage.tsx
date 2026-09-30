@@ -1,5 +1,5 @@
 import React from "react";
-import { Mail, MapPin, Clock, Instagram, Globe, ArrowUpRight } from "lucide-react";
+import { Mail, MapPin, Instagram, Linkedin, Globe, ArrowUpRight } from "lucide-react";
 import { PageHeader, Reveal } from "../components/ui";
 
 interface ContactPageProps {
@@ -16,7 +16,6 @@ const ContactPage: React.FC<ContactPageProps> = ({ setCurrentPage }) => {
   const details = [
     { icon: Mail, label: "Email", value: <a href="mailto:contact@eevm.org" className="text-[var(--accent)] hover:underline">contact@eevm.org</a> },
     { icon: MapPin, label: "Location", value: <>Emory University<br />Atlanta, GA</> },
-    { icon: Clock, label: "Office hours", value: <>Monday – Friday<br />9:00 AM – 5:00 PM EST</> },
   ];
 
   return (
@@ -77,18 +76,17 @@ const ContactPage: React.FC<ContactPageProps> = ({ setCurrentPage }) => {
           </div>
           <div className="rounded-[24px] bg-[var(--panel)] text-[var(--panel-ink)] p-8 sm:p-12 relative overflow-hidden">
             <div className="absolute -right-24 -bottom-24 w-80 h-80 rounded-full bg-[var(--accent-bright)] opacity-15 blur-3xl" />
-            <h2 className="display font-bold text-4xl mb-6 relative">Quick response</h2>
+            <h2 className="display font-bold text-4xl mb-6 relative">Stay in the loop</h2>
             <p className="text-lg leading-relaxed opacity-70 mb-10 relative">
-              We typically respond to all inquiries within 24-48 hours during business days.
-              For urgent matters or application deadlines, please mention it in your subject line.
+              Email is the best way to reach us. For event updates and application dates, follow EEVM on Instagram and LinkedIn.
             </p>
-            <div className="rounded-2xl border border-white/15 p-6 relative">
-              <h3 className="font-semibold mb-3">Best times to reach us</h3>
-              <ul className="space-y-2 opacity-70">
-                <li>Weekdays: 10 AM – 4 PM</li>
-                <li>Application periods: Same day response</li>
-                <li>General inquiries: 1-2 business days</li>
-              </ul>
+            <div className="flex flex-wrap gap-3 relative">
+              <a href="https://www.instagram.com/emoryevm/" target="_blank" rel="noopener noreferrer" className="btn border border-white/20 hover:bg-white/10">
+                <Instagram size={18} /> Instagram
+              </a>
+              <a href="https://www.linkedin.com/company/emory-entrepreneurship-&-venture-management/posts/?feedView=all" target="_blank" rel="noopener noreferrer" className="btn border border-white/20 hover:bg-white/10">
+                <Linkedin size={18} /> LinkedIn
+              </a>
             </div>
           </div>
         </Reveal>

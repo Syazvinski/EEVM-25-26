@@ -134,9 +134,6 @@ const InitiativesPage: React.FC<InitiativesPageProps> = ({ setCurrentPage }) => 
           <div>
             <p className="eyebrow mb-3">Initiative</p>
             <h2 className="display font-bold text-5xl sm:text-6xl leading-[0.95]">Girls into <span className="serif text-[var(--accent)]">VC.</span></h2>
-            {givc.directors.length > 0 && (
-              <p className="muted mt-6">Led by {givc.directors.map(d => d.name).join(" & ")}</p>
-            )}
           </div>
           <p className="muted text-lg sm:text-xl leading-relaxed">{givc.description}</p>
         </Reveal>
