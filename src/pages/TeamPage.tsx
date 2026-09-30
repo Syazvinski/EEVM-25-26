@@ -102,7 +102,7 @@ const TeamPage: React.FC<TeamPageProps> = ({ setCurrentPage }) => {
         <Reveal>
           <p className="eyebrow mb-5">Fall 2026</p>
           <h1 className="display font-bold text-[clamp(2.75rem,7vw,6rem)] leading-[0.95]">Our <span className="serif text-[var(--accent)]">team.</span></h1>
-          <p className="muted text-lg sm:text-xl leading-relaxed max-w-md mt-6">
+          <p className="muted text-lg sm:text-xl leading-relaxed max-w-xl text-balance mt-6">
             Meet the passionate individuals driving entrepreneurship innovation at Emory University
           </p>
         </Reveal>

@@ -28,7 +28,7 @@ export const PageHeader: React.FC<{ eyebrow: string; title: React.ReactNode; sub
     <Reveal>
       <p className="eyebrow mb-5">{eyebrow}</p>
       <h1 className="display font-bold text-[clamp(2.75rem,7vw,6rem)] leading-[0.95] max-w-5xl">{title}</h1>
-      {subtitle && <p className="muted text-lg sm:text-xl leading-relaxed max-w-2xl mt-6">{subtitle}</p>}
+      {subtitle && <p className="muted text-lg sm:text-xl leading-relaxed max-w-2xl md:max-w-none text-balance mt-6">{subtitle}</p>}
       {children && <div className="mt-8">{children}</div>}
     </Reveal>
   </header>
