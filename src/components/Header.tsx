@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Menu, X, ArrowRight } from "lucide-react";
+import { linkClick, pagePaths } from "../router";
 
 interface HeaderProps {
   currentPage: string;
@@ -26,27 +27,28 @@ const Header: React.FC<HeaderProps> = ({ currentPage, setCurrentPage }) => {
   return (
     <header className="sticky top-0 z-50 border-b border-[var(--line)] bg-[color-mix(in_srgb,var(--bg)_85%,transparent)] backdrop-blur-md">
       <div className="wrap h-[var(--header-h)] flex items-center justify-between">
-        <button onClick={() => handleNavigation("home")} aria-label="EEVM home" className="shrink-0">
+        <a href="/" onClick={linkClick(handleNavigation, "home")} aria-label="EEVM home" className="shrink-0">
           <img
             src="/logos/eevm_full-h48.webp"
             srcSet="/logos/eevm_full-h48.webp 1x, /logos/eevm_full-h96.webp 2x"
             alt="EEVM"
             className="h-8 sm:h-10 w-auto"
           />
-        </button>
+        </a>
 
         <nav className="hidden lg:flex items-center gap-1">
           {navigationItems.map(item => (
-            <button
+            <a
               key={item.key}
-              onClick={() => handleNavigation(item.key)}
+              href={pagePaths[item.key]}
+              onClick={linkClick(handleNavigation, item.key)}
               aria-current={currentPage === item.key ? "page" : undefined}
               className={`relative px-4 py-2 rounded-full text-[15px] font-medium transition-colors ${
                 currentPage === item.key ? "text-[var(--ink)] bg-[var(--line)]" : "muted hover:text-[var(--ink)]"
               }`}
             >
               {item.name}
-            </button>
+            </a>
           ))}
         </nav>
 
@@ -69,13 +71,15 @@ const Header: React.FC<HeaderProps> = ({ currentPage, setCurrentPage }) => {
       <div className={`lg:hidden overflow-hidden transition-[max-height,opacity] duration-300 ${isMenuOpen ? "max-h-96 opacity-100" : "max-h-0 opacity-0"}`}>
         <nav className="wrap pb-6 pt-2 flex flex-col">
           {navigationItems.map(item => (
-            <button
+            <a
               key={item.key}
-              onClick={() => handleNavigation(item.key)}
-              className={`text-left py-3 display text-2xl font-semibold border-b border-[var(--line)] ${currentPage === item.key ? "" : "muted"}`}
+              href={pagePaths[item.key]}
+              onClick={linkClick(handleNavigation, item.key)}
+              aria-current={currentPage === item.key ? "page" : undefined}
+              className={`py-3 display text-2xl font-semibold border-b border-[var(--line)] ${currentPage === item.key ? "" : "muted"}`}
             >
               {item.name}
-            </button>
+            </a>
           ))}
         </nav>
       </div>

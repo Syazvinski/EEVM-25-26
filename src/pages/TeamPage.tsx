@@ -1,7 +1,7 @@
 import React, { useRef, useState } from "react";
 import { ArrowRight, Plus } from "lucide-react";
 import { Unit, leadershipTeam, unitsData } from "../data/teamData";
-import { Avatar, CtaPanel, PageHeader, Reveal, SectionHeading, panelPrimary } from "../components/ui";
+import { Avatar, CtaPanel, Reveal, SectionHeading, panelPrimary } from "../components/ui";
 
 interface TeamPageProps {
   setCurrentPage: (page: string) => void;
@@ -97,29 +97,31 @@ const TeamPage: React.FC<TeamPageProps> = ({ setCurrentPage }) => {
 
   return (
     <div>
-      <PageHeader
-        compact
-        eyebrow="Fall 2026"
-        title={<>Our <span className="serif text-[var(--accent)]">team.</span></>}
-        subtitle="Meet the passionate individuals driving entrepreneurship innovation at Emory University"
-      />
-
-      {/* Executive leadership */}
-      <section className="wrap pb-16 sm:pb-20">
-        <SectionHeading eyebrow="Executive leadership" title={<>Leading <span className="serif">EEVM.</span></>} />
-        <div className="grid sm:grid-cols-3 gap-4 sm:gap-6 max-w-5xl">
-          {leadershipTeam.map((m, i) => (
-            <Reveal key={m.name} delay={i * 100}>
-              <Avatar name={m.name} src={m.imagePath} className="w-full aspect-[4/5] rounded-[24px]" />
-              <h3 className="display text-2xl font-bold mt-5">{m.name}</h3>
-              <p className="text-[var(--accent)] font-medium">{m.title}</p>
-            </Reveal>
-          ))}
-        </div>
-      </section>
+      {/* Header with executive leadership beside it */}
+      <header className="wrap pt-12 sm:pt-16 pb-12 sm:pb-14 grid md:grid-cols-[1fr_1.1fr] gap-10 md:gap-12 items-end">
+        <Reveal>
+          <p className="eyebrow mb-5">Fall 2026</p>
+          <h1 className="display font-bold text-[clamp(2.75rem,7vw,6rem)] leading-[0.95]">Our <span className="serif text-[var(--accent)]">team.</span></h1>
+          <p className="muted text-lg sm:text-xl leading-relaxed max-w-md mt-6">
+            Meet the passionate individuals driving entrepreneurship innovation at Emory University
+          </p>
+        </Reveal>
+        <Reveal delay={150}>
+          <p className="text-xs font-semibold tracking-[0.14em] uppercase text-[var(--accent)] mb-3">Executive leadership</p>
+          <div className="grid grid-cols-3 gap-3 sm:gap-4">
+            {leadershipTeam.map(m => (
+              <div key={m.name}>
+                <Avatar name={m.name} src={m.imagePath} className="w-full aspect-[4/5] rounded-2xl" />
+                <h3 className="font-semibold mt-2.5 leading-tight">{m.name}</h3>
+                <p className="text-[var(--accent)] text-sm font-medium">{m.title}</p>
+              </div>
+            ))}
+          </div>
+        </Reveal>
+      </header>
 
       {/* Divisions & initiatives */}
-      <section className="wrap pb-16 sm:pb-20 border-t border-[var(--line)] pt-16 sm:pt-20">
+      <section className="wrap pb-16 sm:pb-20 border-t border-[var(--line)] pt-12 sm:pt-16">
         <SectionHeading
           eyebrow="Divisions & initiatives"
           title={<>{divisions} divisions. <span className="serif">{initiatives} initiatives.</span></>}

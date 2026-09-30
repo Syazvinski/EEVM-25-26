@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useState } from "react";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import HomePage from "./pages/HomePage";
@@ -7,32 +7,16 @@ import InitiativesPage from "./pages/InitiativesPage";
 import TeamPage from "./pages/TeamPage";
 import ApplicationsPage from "./pages/ApplicationsPage";
 import ContactPage from "./pages/ContactPage";
+import { usePageRouter } from "./router";
 import "./styles/site.css";
 
 const EEVMWebsite: React.FC = () => {
-  const [currentPage, setCurrentPage] = useState<string>("home");
+  // Each page has its own URL (/about, /team, ...). Vercel Analytics picks up the URL changes on its own.
+  const [currentPage, setCurrentPage] = usePageRouter();
   // PREVIEW ONLY: lets reviewers compare light and dark. Remove before shipping.
   const [theme, setTheme] = useState<"light" | "dark">(
     () => (new URLSearchParams(window.location.search).get("theme") === "dark" ? "dark" : "light"),
   );
-
-  // Each "page" starts at the top
-  useEffect(() => { window.scrollTo({ top: 0 }); }, [currentPage]);
-
-  // Track SPA "page" changes with Vercel Analytics if available (skip initial to avoid double-counting with component)
-  const didMount = useRef(false);
-  useEffect(() => {
-    if (!didMount.current) { didMount.current = true; return; }
-    try {
-      const w = window as any;
-      const va = w && (w.va?.track ? (args: any, data?: any) => w.va.track(args, data) : w.va);
-      if (typeof va === 'function') {
-        va('page', { page: currentPage });
-      }
-    } catch {
-      // ignore if analytics script is blocked or not loaded
-    }
-  }, [currentPage]);
 
   const renderPage = () => {
     switch (currentPage) {

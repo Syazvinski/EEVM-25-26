@@ -1,5 +1,6 @@
 import React from "react";
 import { Instagram, Linkedin, Mail } from "lucide-react";
+import { linkClick, pagePaths } from "../router";
 
 interface FooterProps {
   setCurrentPage: (page: string) => void;
@@ -53,9 +54,9 @@ const Footer: React.FC<FooterProps> = ({ setCurrentPage }) => (
           <h3 className="text-xs font-semibold tracking-[0.14em] uppercase opacity-50 mb-5">Quick links</h3>
           <div className="space-y-3">
             {navigation.map(item => (
-              <button key={item.key} onClick={() => setCurrentPage(item.key)} className="block opacity-80 hover:opacity-100 transition-opacity">
+              <a key={item.key} href={pagePaths[item.key]} onClick={linkClick(setCurrentPage, item.key)} className="block opacity-80 hover:opacity-100 transition-opacity">
                 {item.name}
-              </button>
+              </a>
             ))}
           </div>
         </div>
