@@ -48,7 +48,7 @@ export const SectionHeading: React.FC<{ eyebrow?: string; title: React.ReactNode
 export const CtaPanel: React.FC<{ title: React.ReactNode; text: React.ReactNode; children: React.ReactNode }> = ({ title, text, children }) => (
   <section className="px-4 sm:px-8 pb-24">
     <Reveal className="max-w-7xl mx-auto rounded-[32px] bg-[var(--panel)] text-[var(--panel-ink)] px-6 sm:px-14 py-16 sm:py-24 relative overflow-hidden">
-      <div className="absolute -right-24 -top-24 w-96 h-96 rounded-full bg-[var(--accent-bright)] opacity-20 blur-3xl" />
+      <div className="absolute -right-40 -top-40 w-[36rem] h-[36rem] pointer-events-none bg-[radial-gradient(circle,rgba(1,253,192,0.2),transparent_60%)]" />
       <h2 className="display font-bold text-[clamp(2.25rem,6vw,5rem)] leading-[0.98] max-w-3xl relative">{title}</h2>
       <p className="mt-6 text-lg opacity-70 max-w-xl relative">{text}</p>
       <div className="mt-10 flex flex-wrap gap-3 relative">{children}</div>

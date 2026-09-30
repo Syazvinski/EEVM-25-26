@@ -25,7 +25,7 @@ const Header: React.FC<HeaderProps> = ({ currentPage, setCurrentPage }) => {
   };
 
   return (
-    <header className="sticky top-0 z-50 border-b border-[var(--line)] bg-[color-mix(in_srgb,var(--bg)_85%,transparent)] backdrop-blur-md">
+    <header className="sticky top-0 z-50 border-b border-[var(--line)] bg-[var(--bg)] md:bg-[color-mix(in_srgb,var(--bg)_85%,transparent)] md:backdrop-blur-md">
       <div className="wrap h-[var(--header-h)] flex items-center justify-between">
         <a href="/" onClick={linkClick(handleNavigation, "home")} aria-label="EEVM home" className="shrink-0">
           <img

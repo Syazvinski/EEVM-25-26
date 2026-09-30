@@ -49,7 +49,7 @@ const EEVMWebsite: React.FC = () => {
       <Footer setCurrentPage={setCurrentPage} />
 
       {/* PREVIEW ONLY: theme switch */}
-      <div className="fixed bottom-4 left-4 z-50 flex items-center gap-1 rounded-full bg-black/80 p-1 text-xs text-white shadow-lg backdrop-blur">
+      <div className="fixed bottom-4 left-4 z-50 flex items-center gap-1 rounded-full bg-black/85 p-1 text-xs text-white shadow-lg">
         <span className="px-2 opacity-60">Preview</span>
         {(["light", "dark"] as const).map(t => (
           <button key={t} onClick={() => setTheme(t)} className={`rounded-full px-3 py-1.5 capitalize ${theme === t ? "bg-white text-black" : ""}`}>{t}</button>

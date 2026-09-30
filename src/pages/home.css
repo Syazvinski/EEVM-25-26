@@ -20,12 +20,11 @@
   );
 }
 .hero-media img {
-  position: absolute; left: 0; width: 100%;
-  /* Fill only the visible card, so the framing stays on faces while it grows */
-  top: calc((1 - var(--p, 0)) * var(--copy-px, 45%));
-  height: calc(100% - (1 - var(--p, 0)) * var(--copy-px, 45%));
+  position: absolute; inset: 0; width: 100%; height: 100%;
   object-fit: cover; object-position: center 60%;
-  transform: scale(calc(1.08 - var(--p, 0) * 0.08));
+  /* Transform only (no layout work per frame): shift the photo down into the visible card so faces stay framed */
+  transform: translateY(calc((1 - var(--p, 0)) * var(--copy-px, 45%) * 0.5)) scale(calc(1.08 - var(--p, 0) * 0.08));
+  will-change: transform;
 }
 .hero-media::after { content: ""; position: absolute; inset: 0; background: linear-gradient(to top, rgba(4, 12, 16, 0.75), rgba(4, 12, 16, 0) 60%); opacity: calc(var(--p, 0) * 1.4); }
 .hero-overlay { position: absolute; z-index: 2; left: 0; right: 0; bottom: 0; color: #fff; opacity: calc((var(--p, 0) - 0.55) * 3); transform: translateY(calc((1 - var(--p, 0)) * 40px)); }
@@ -43,15 +42,37 @@
 @keyframes chapter-in { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: none; } }
 
 /* ---------- Team strip slides sideways with scroll ---------- */
-.team-strip { overflow: hidden; }
+.team-strip { overflow: clip; } /* clip, not hidden: hidden would make the strip its own scroll container and freeze the scroll animation */
 .team-track { display: flex; gap: 1.25rem; width: max-content; padding: 0 clamp(16px, 4vw, 56px); transform: translateX(calc(var(--p, 0) * (100vw - 100%))); }
 .team-track.reverse { transform: translateX(calc((1 - var(--p, 0)) * (100vw - 100%))); }
 .team-card img { width: 220px; height: 264px; object-fit: cover; border-radius: 20px; }
+
+/* Where supported, let the browser drive the team rows natively (smoother than JS) */
+@supports (animation-timeline: view()) {
+  .team-track { animation: team-slide linear both; animation-timeline: view(); }
+  .team-track.reverse { animation-direction: reverse; }
+  @keyframes team-slide { from { transform: translateX(0); } to { transform: translateX(calc(100vw - 100%)); } }
+}
+
+/* Phones: no pinned/zooming hero and no scroll-linked rows; simpler and smoother */
+@media (max-width: 767px) {
+  .hero { height: auto; }
+  .hero-sticky { position: relative; top: auto; height: auto; overflow: visible; }
+  .hero-copy { opacity: 1; transform: none; }
+  .hero-media { position: relative; inset: auto; clip-path: none; margin: 0 1rem; aspect-ratio: 4 / 3; border-radius: 24px; overflow: hidden; }
+  .hero-media img { transform: none; will-change: auto; object-position: center 55%; }
+  .hero-media::after, .hero-overlay { display: none; }
+  .team-strip { overflow-x: auto; scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch; scrollbar-width: none; }
+  .team-strip::-webkit-scrollbar { display: none; }
+  .team-track, .team-track.reverse { transform: none; animation: none; }
+  .team-card { scroll-snap-align: start; scroll-margin-left: 1rem; }
+  .team-card img { width: 160px; height: 200px; }
+}
 
 @media (prefers-reduced-motion: reduce) {
   .hero { height: auto; }
   .hero-sticky { position: relative; }
   .team-strip { overflow-x: auto; }
-  .team-track, .team-track.reverse { transform: none; }
+  .team-track, .team-track.reverse { transform: none; animation: none; }
   .chapter-img, .chapter-text { transition: none; animation: none; }
 }

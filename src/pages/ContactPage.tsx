@@ -75,7 +75,7 @@ const ContactPage: React.FC<ContactPageProps> = ({ setCurrentPage }) => {
             </dl>
           </div>
           <div className="rounded-[24px] bg-[var(--panel)] text-[var(--panel-ink)] p-8 sm:p-12 relative overflow-hidden">
-            <div className="absolute -right-24 -bottom-24 w-80 h-80 rounded-full bg-[var(--accent-bright)] opacity-15 blur-3xl" />
+            <div className="absolute -right-32 -bottom-32 w-[30rem] h-[30rem] pointer-events-none bg-[radial-gradient(circle,rgba(1,253,192,0.16),transparent_60%)]" />
             <h2 className="display font-bold text-4xl mb-6 relative">Stay in the loop</h2>
             <p className="text-lg leading-relaxed opacity-70 mb-10 relative">
               Email is the best way to reach us. For event updates and application dates, follow EEVM on Instagram and LinkedIn.
