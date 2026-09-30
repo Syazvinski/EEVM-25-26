@@ -19,11 +19,19 @@
     round calc((1 - var(--p, 0)) * 28px)
   );
 }
+/* The photo is drawn at a fixed size and only moved with transforms (no layout work while scrolling).
+   The vertical offset reproduces "cover the visible card, positioned at 60%" at every scroll step. */
+.hero-media {
+  --stage-h: calc(100svh - var(--header-h));
+  --photo-h: max(calc(100vw / 1.5), var(--stage-h)); /* photo is 3:2 */
+}
 .hero-media img {
-  position: absolute; inset: 0; width: 100%; height: 100%;
-  object-fit: cover; object-position: center 60%;
-  /* Transform only (no layout work per frame): shift the photo down into the visible card so faces stay framed */
-  transform: translateY(calc((1 - var(--p, 0)) * var(--copy-px, 45%) * 0.5)) scale(calc(1.08 - var(--p, 0) * 0.08));
+  position: absolute; top: 0; left: 50%;
+  height: var(--photo-h); width: calc(var(--photo-h) * 1.5); max-width: none;
+  transform:
+    translateX(-50%)
+    translateY(calc(0.4 * (1 - var(--p, 0)) * var(--copy-px, 0px) - 0.6 * (var(--photo-h) - var(--stage-h))))
+    scale(calc(1.08 - var(--p, 0) * 0.08));
   will-change: transform;
 }
 .hero-media::after { content: ""; position: absolute; inset: 0; background: linear-gradient(to top, rgba(4, 12, 16, 0.75), rgba(4, 12, 16, 0) 60%); opacity: calc(var(--p, 0) * 1.4); }
@@ -54,19 +62,22 @@
   @keyframes team-slide { from { transform: translateX(0); } to { transform: translateX(calc(100vw - 100%)); } }
 }
 
-/* Phones: no pinned/zooming hero and no scroll-linked rows; simpler and smoother */
+/* Phones: a wide photo can't fill a tall screen without heavy cropping, so here the card
+   grows to full width instead of full screen. Driven natively by the browser's scroll timeline. */
 @media (max-width: 767px) {
   .hero { height: auto; }
   .hero-sticky { position: relative; top: auto; height: auto; overflow: visible; }
   .hero-copy { opacity: 1; transform: none; }
-  .hero-media { position: relative; inset: auto; clip-path: none; margin: 0 1rem; aspect-ratio: 4 / 3; border-radius: 24px; overflow: hidden; }
-  .hero-media img { transform: none; will-change: auto; object-position: center 55%; }
+  .hero-media { position: relative; inset: auto; aspect-ratio: 4 / 3; overflow: hidden; clip-path: inset(0 1rem round 24px); }
+  .hero-media img { position: absolute; inset: 0; left: 0; width: 100%; height: 100%; object-fit: cover; object-position: center 55%; transform: scale(1.08); }
   .hero-media::after, .hero-overlay { display: none; }
-  .team-strip { overflow-x: auto; scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch; scrollbar-width: none; }
-  .team-strip::-webkit-scrollbar { display: none; }
-  .team-track, .team-track.reverse { transform: none; animation: none; }
-  .team-card { scroll-snap-align: start; scroll-margin-left: 1rem; }
   .team-card img { width: 160px; height: 200px; }
+  @supports (animation-timeline: view()) {
+    .hero-media { animation: hero-bleed linear both; animation-timeline: view(); animation-range: contain 0% exit 50%; }
+    .hero-media img { animation: hero-settle linear both; animation-timeline: view(); animation-range: contain 0% exit 50%; }
+    @keyframes hero-bleed { to { clip-path: inset(0 0 round 0); } }
+    @keyframes hero-settle { to { transform: scale(1); } }
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
