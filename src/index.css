@@ -6,7 +6,8 @@
 html, body, #root {
   width: 100%;
   max-width: 100%;
-  overflow-x: hidden;
+  /* clip (not hidden) so position: sticky keeps working */
+  overflow-x: clip;
 }
 
 /* Ensure media never overflow their containers */
