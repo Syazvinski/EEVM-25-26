@@ -192,7 +192,7 @@ const HomePage: React.FC<HomePageProps> = ({ setCurrentPage }) => {
             <div key={r} className={`team-track ${r ? "reverse" : ""}`}>
               {row.map(p => (
                 <figure key={p.name} className="team-card">
-                  <img src={p.imagePath} alt={p.name} />
+                  <img src={p.imagePath} alt={p.name} loading="lazy" decoding="async" />
                   <figcaption className="mt-3">
                     <div className="font-semibold">{p.name}</div>
                     <div className="muted text-sm">{p.role}</div>

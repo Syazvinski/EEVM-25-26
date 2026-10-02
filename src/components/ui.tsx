@@ -67,7 +67,7 @@ export const SponsorMarquee: React.FC = () => (
         <div className={`marquee-track ${r ? "reverse" : ""}`}>
           {[...row, ...row].map((s, i) => (
             <div key={i} className="logo-chip" aria-hidden={i >= row.length}>
-              <img src={s.logo} alt={s.name} />
+              <img src={s.logo} alt={s.name} loading="lazy" decoding="async" />
             </div>
           ))}
         </div>
@@ -79,7 +79,7 @@ export const SponsorMarquee: React.FC = () => (
 // Headshot, or the person's initials when there's no photo
 export const Avatar: React.FC<{ name: string; src: string; className: string }> = ({ name, src, className }) => {
   const [failed, setFailed] = useState(false);
-  if (src && !failed) return <img src={src} alt={name} className={`${className} object-cover`} onError={() => setFailed(true)} />;
+  if (src && !failed) return <img src={src} alt={name} width={600} height={600} loading="lazy" decoding="async" className={`${className} object-cover`} onError={() => setFailed(true)} />;
   return (
     <div className={`${className} bg-[var(--accent)] text-white flex items-center justify-center display font-bold text-2xl`}>
       {name.split(" ").map(n => n[0]).join("")}

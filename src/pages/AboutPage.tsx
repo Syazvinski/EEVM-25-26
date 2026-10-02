@@ -62,7 +62,7 @@ const AboutPage: React.FC<AboutPageProps> = ({ setCurrentPage }) => {
             </p>
           </Reveal>
           <Reveal delay={150} className="rounded-[24px] overflow-hidden min-h-[360px]">
-            <img src="/about/mission.webp" alt="EEVM event" className="w-full h-full object-cover" style={{ objectPosition: "center 70%" }} />
+            <img src="/about/mission-w1600.webp" srcSet="/about/mission-w960.webp 960w, /about/mission-w1600.webp 1600w" sizes="(min-width: 1024px) 50vw, 100vw" loading="lazy" decoding="async" alt="EEVM event" className="w-full h-full object-cover" style={{ objectPosition: "center 70%" }} />
           </Reveal>
         </div>
       </section>
