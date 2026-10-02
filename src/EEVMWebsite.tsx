@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import HomePage from "./pages/HomePage";
@@ -13,10 +13,6 @@ import "./styles/site.css";
 const EEVMWebsite: React.FC = () => {
   // Each page has its own URL (/about, /team, ...). Vercel Analytics picks up the URL changes on its own.
   const [currentPage, setCurrentPage] = usePageRouter();
-  // PREVIEW ONLY: lets reviewers compare light and dark. Remove before shipping.
-  const [theme, setTheme] = useState<"light" | "dark">(
-    () => (new URLSearchParams(window.location.search).get("theme") === "dark" ? "dark" : "light"),
-  );
 
   const renderPage = () => {
     switch (currentPage) {
@@ -38,7 +34,7 @@ const EEVMWebsite: React.FC = () => {
   };
 
   return (
-    <div className="site min-h-screen" data-theme={theme}>
+    <div className="site min-h-screen">
       <Header 
         currentPage={currentPage} 
         setCurrentPage={setCurrentPage}
@@ -47,14 +43,6 @@ const EEVMWebsite: React.FC = () => {
         {renderPage()}
       </main>
       <Footer setCurrentPage={setCurrentPage} />
-
-      {/* PREVIEW ONLY: theme switch */}
-      <div className="fixed bottom-4 left-4 z-50 flex items-center gap-1 rounded-full bg-black/85 p-1 text-xs text-white shadow-lg">
-        <span className="px-2 opacity-60">Preview</span>
-        {(["light", "dark"] as const).map(t => (
-          <button key={t} onClick={() => setTheme(t)} className={`rounded-full px-3 py-1.5 capitalize ${theme === t ? "bg-white text-black" : ""}`}>{t}</button>
-        ))}
-      </div>
     </div>
   );
 };

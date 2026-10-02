@@ -1,4 +1,4 @@
-/* Site-wide design tokens and shared styles. Shared classes use :where() so Tailwind utilities can override them. Colors are tokens so the whole site can switch themes. */
+/* Site-wide design tokens and shared styles. Shared classes use :where() so Tailwind utilities can override them. Colors are tokens. */
 .site {
   --bg: #f6f5f1;
   --surface: #ffffff;
@@ -15,16 +15,6 @@
   color: var(--ink);
   font-family: "Inter", ui-sans-serif, system-ui, sans-serif;
   transition: background-color 0.4s, color 0.4s;
-}
-.site[data-theme="dark"] {
-  --bg: #081419;
-  --surface: #0f2029;
-  --ink: #eef3f2;
-  --muted: #93a3a8;
-  --line: rgba(255, 255, 255, 0.1);
-  --accent: #3cb5c4;
-  --panel: #0f2029;
-  --panel-ink: #eef3f2;
 }
 
 :where(.site) .wrap { max-width: 80rem; margin-left: auto; margin-right: auto; padding-left: 1rem; padding-right: 1rem; }
